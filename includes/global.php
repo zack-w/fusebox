@@ -3,8 +3,8 @@
 	error_reporting(E_ALL | E_STRICT);
 	ini_set('display_errors', 'On');
 	ini_set('html_errors', 'On');
-	$BASEPATH = "/Applications/MAMP/htdocs/fusebox/www/";
-	$BASEURL = "http://localhost:8888/fusebox/www/";
+	$BASEPATH = "/Applications/MAMP/htdocs/fusebox/";
+	$BASEURL = "http://localhost:8888/fusebox/";
 	
 	//Setup MySQL
 	include($BASEPATH."includes/sfql.class.php");
