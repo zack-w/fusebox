@@ -1,0 +1,238 @@
+/* CSS Document */
+
+body {
+	margin-bottom: 40px;
+}
+
+.def_word {
+	font-size: 18px;
+	font-weight: bold;
+}
+.def_key {
+	font-size: 13px;
+}
+
+.def_body {
+	font-size: 12pt;
+	padding-left: 8%;
+	padding-top: 5px;
+	padding-bottom: 15px;
+}
+
+.def_speech {
+	font-weight: bold;
+	font-style: italic;
+}
+
+.def_block {
+	width: 80%;
+	margin-left: 15%;
+}
+
+.def_def {
+	padding-left: 25px;
+}
+
+body {
+	background-image: url(../img/background.png);
+	background-repeat: repeat-x;
+	background-color: #fff;
+	margin-top: 65px;
+}
+
+.infoheader {
+	font-family: 'Istok Web', sans-serif;
+	font-size: 32px;
+	color: #16ad27;
+
+}
+
+.infoblock {
+	margin-top: 25px;
+	line-height: 175%;
+	font-size: 12pt;
+	color: #777;
+	width: 50%;
+	padding-left: 50px;
+	font-family: 'Dosis', sans-serif;
+}
+
+.footer {
+	background-image: url(../img/footer.png);
+	margin-top: 25px;
+	height: 20px;
+	width: 100%;
+	background-color: #161616;
+	
+	color: #555;
+	font-size: 8pt;
+	
+	position: fixed;
+	bottom: 0px;
+}
+
+.footer a {
+	color: #555;
+	text-decoration: underline;
+}
+
+.sideBar {
+	height: 100%;
+	background: #1f1f1f; 
+	position: fixed;
+	margin-top: 40px;
+	top: 0;
+	left: 0;
+	z-index:1;
+	width: 30px;
+	color: #FFF;
+	padding-right:3px;
+	 -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  
+  
+background-image: -moz-linear-gradient(left, #333, #222);
+background-image: -ms-linear-gradient(left, #333, #222);
+background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#333), to(#222));
+background-image: -webkit-linear-gradient(left, #333, #222);
+background-image: -o-linear-gradient(left, #333, #222);
+background-image: linear-gradient(left, #333, #222);
+background-repeat: repeat-x;
+
+	-moz-box-shadow:     0 0 10px #000000;
+	-webkit-box-shadow:  0 0 10px #000000;
+	box-shadow:          0 0 10px #000000;
+
+}
+
+.sideBar:hover {
+	height: 100%;
+	background: #1f1f1f;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100px;
+	color: #FFF;
+	padding-right:3px;
+
+	
+	background-image: -moz-linear-gradient(left, #333, #222);
+background-image: -ms-linear-gradient(left, #333, #222);
+background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#333), to(#222));
+background-image: -webkit-linear-gradient(left, #333, #222);
+background-image: -o-linear-gradient(left, #333, #222);
+background-image: linear-gradient(left, #333, #222);
+background-repeat: repeat-x;
+
+}
+.adbar {
+height: 35px;
+	padding-top:10px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	z-index:1;
+	overflow:hidden;
+	float:right;
+	background:#0CC;
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 55px;
+	color: #FFF;
+	-moz-box-shadow:     0 0 10px #000000;
+	-webkit-box-shadow:  0 0 10px #000000;
+	box-shadow:          0 0 10px #000000;
+	
+	-webkit-border-radius: 0px 0px 0px 5px;
+	-moz-border-radius: 0px 0px 0px 5px;
+	border-radius: 0px 0px 0px 5px;
+	
+ -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+
+
+.logobox {margin-left: 7px; float:left; width: 100px; }
+
+.adbar:hover {
+	height:360px;
+	padding-top:10px;
+	float:right;
+	
+	background: #1f1f1f;
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 310px;
+	color: #FFF;
+	-moz-box-shadow:     0 0 10px #000000;
+	-webkit-box-shadow:  0 0 10px #000000;
+	box-shadow:          0 0 10px #000000;
+	
+		-webkit-border-radius: 0px 0px 0px 5px;
+	-moz-border-radius: 0px 0px 0px 5px;
+	border-radius: 0px 0px 0px 5px;
+}
+
+.sideButton {
+	overflow:hidden;
+	margin-top: 5px;
+	font-size: 12pt;
+	width: 96%;
+	text-align: center;
+	margin-bottom: 8px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	background: #474747;
+	margin-left: 5px;
+	height: 26px;
+	margin-right:10px;
+}
+
+.sideButton_image {
+	
+float:right;
+padding-top: 3px;
+padding-right: 5px;
+padding-left: 5px;
+width:21px;
+}
+
+.sideButton_text {
+	float:right;
+	
+padding-top: 5px;
+
+	}
+
+.sideButton:hover {
+	background: #565656;
+	cursor: pointer;
+}
+
+.nullButton:hover {
+	color: #FFF;
+	background: #474747;
+	cursor: default;
+}
+
+.uiSide {
+	position: absolute;
+	left: 105px;
+	display: none;
+	top: 0px;
+	padding: 5px;
+	background: #1d1d1d;
+	border: 1px solid #ccc;
+	border-radius: 1px;
+	font-size: 11pt;
+	width: 350px;
+	-moz-box-shadow:     0 0 15px #000000;
+	-webkit-box-shadow:  0 0 15px #000000;
+	box-shadow:          0 0 15px #000000;	
+}
