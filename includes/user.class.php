@@ -27,6 +27,7 @@
 				$this->username = $user['username'];
 				$this->email = $user['email'];
 				$this->joindate = $user['timestamp'];
+				$this->flags = explode(",", $user['flags']);
 			} else {
 				exit("Invalid UID Specified");
 			}
@@ -88,7 +89,17 @@
 		}
 		
 		public function isAdmin() {
-			if($this->getEmail() == "spencer@sf-n.com" || $this->getEmail() == "patrickhampson@gmail.com")
+
+			if(array_search("a", $this->flags) === false)
+				return false;
+			else
+				return true;
+		}
+
+		public function hasFlag($flag = null) {
+			if(array_search($flag, $this->flags) === false)
+				return false;
+			else
 				return true;
 		}
 		
@@ -183,7 +194,7 @@
 			$user = $DB->escape($user);
 			$password = $this->hashPassword($password, $time);
 			$email = $DB->escape($email);
-			if ($DB->query("INSERT INTO users (username, password, email, timestamp) VALUES ('".$user."', '".$password."', '".$email."', ".$time.")")) {
+			if ($DB->query("INSERT INTO users (username, password, email, timestamp, flags) VALUES ('".$user."', '".$password."', '".$email."', '".$time."', '')")) {
 				$this->uid = mysql_insert_id();
 				$this->username = $user;
 				$this->email = $email;
