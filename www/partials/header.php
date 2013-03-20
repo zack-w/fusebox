@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Login - Base Admin</title>
+    <title><!--TITLE--></title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes"> 
@@ -32,26 +32,16 @@
 				<span class="icon-bar"></span>
 			</a>
 			
-			<a class="brand" href="./">
-				Base Admin				
+			<a class="brand" href="<?php echo $BASEURL; ?>">
+				<?php echo $SETTINGS->get("general_display_name"); ?>			
 			</a>		
 			
 			<div class="nav-collapse">
 				<ul class="nav pull-right">
 					
 					<li class="">						
-						<a href="./signup.html" class="">
-							Create an Account
-						</a>
-						
+							<?php echo $PRODUCTTITLE." : ".$PRODUCTVERSION; ?>
 					</li>
-					
-					<li class="">						
-						<a href="./" class="">
-							<i class="icon-chevron-left"></i>
-							Back to Homepage
-						</a>
-						
 					</li>
 				</ul>
 				

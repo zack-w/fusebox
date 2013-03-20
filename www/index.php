@@ -1,4 +1,6 @@
 <?php
+	ob_start(); //Buffer output
+
 	//Standard Includes
 	include("includes/global.php");
 
@@ -24,4 +26,8 @@
 
 		include($BASEPATH."partials/footer.php");
 	}
+
+	$pageContents = ob_get_contents();
+	ob_end_clean();
+	echo str_replace ('<!--TITLE-->', $SETTINGS->get("general_display_name")." - ".$page_title, $pageContents);
 ?>

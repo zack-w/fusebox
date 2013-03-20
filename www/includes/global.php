@@ -24,6 +24,10 @@
 	$USER->getSession();
 
 	//Ssetup System Vars
-	
+	include($BASEPATH."includes/settings.class.php");
+	$SETTINGS = new Settings();
+
+	//Setup Language System
+	//TODO: add class and language files
 
 ?>

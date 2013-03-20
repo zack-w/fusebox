@@ -1,3 +1,7 @@
+<?php
+	$page_title = "Login";
+?>
+
 <div class="account-container">
 	
 	<div class="content clearfix">
@@ -32,18 +36,6 @@
 				<button class="button btn btn-warning btn-large">Sign In</button>
 				
 			</div> <!-- .actions -->
-			
-			<div class="login-social">
-				<p>Sign in using social network:</p>
-				
-				<div class="twitter">
-					<a href="#" class="btn_1">Login with Twitter</a>				
-				</div>
-				
-				<div class="fb">
-					<a href="#" class="btn_2">Login with Facebook</a>				
-				</div>
-			</div>
 			
 		</form>
 		

@@ -93,14 +93,22 @@ class SFQL {
   }
   
   //A function to take a query, and get all the results.
-  public function queryArray($sQuery, $returnNumber = false) {
+  public function queryArray($sQuery, $returnNumber = false, $assoc = false) {
     $mysqlQuery = $this->query($sQuery);
     if ($mysqlQuery) {
       $oList = array();
       $i = 0;
-      while ($rowData = mysql_fetch_array($mysqlQuery)) {
-        $oList[$i] = $rowData;
-        $i++;
+      if(!$assoc)
+      {
+        while ($rowData = mysql_fetch_array($mysqlQuery)) {
+          $oList[$i] = $rowData;
+          $i++;
+        }
+      } else {
+        while ($rowData = mysql_fetch_assoc($mysqlQuery)) {
+          $oList[$i] = $rowData;
+          $i++;
+        }
       }
       
       if (!$returnNumber) {
