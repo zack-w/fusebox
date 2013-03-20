@@ -7,8 +7,8 @@
 	//Global Variables
 	$PRODUCTTITLE = "FuseBox";
 	$PRODUCTVERSION = "1.0";
-	$BASEPATH = "/Applications/MAMP/htdocs/fusebox/";
-	$BASEURL = "http://localhost:8888/fusebox/";
+	$BASEPATH = "/Applications/MAMP/htdocs/fusebox/www/";
+	$BASEURL = "http://localhost:8888/fusebox/www/";
 	
 	//Setup MySQL
 	include($BASEPATH."includes/sfql.class.php");
@@ -22,5 +22,8 @@
 	include($BASEPATH."includes/user.class.php");
 	$USER = new User();
 	$USER->getSession();
+
+	//Ssetup System Vars
+	
 
 ?>

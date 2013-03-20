@@ -3,8 +3,7 @@
 	include("includes/global.php");
 
 	$request = $ROUTER->routeInfo();
-
-	if(empty($request['args'][1])) {
+	if(empty($request['args'][2])) {
 		//Nothing to show load appropriate main page.
 		if (!$USER->loaded()) { 
 			header("location: ".$BASEURL."login");
@@ -18,8 +17,8 @@
 		//Process argument
 		include($BASEPATH."partials/header.php");
 
-		if(file_exists($BASEPATH."partials/".$request['args'][0].".php")) {
-			require($BASEPATH."partials/".$request['args'][0].".php");
+		if(file_exists($BASEPATH."partials/".$request['args'][2].".php")) {
+			require($BASEPATH."partials/".$request['args'][2].".php");
 		} else
 			die("Could not process your request.");	
 
