@@ -15,14 +15,14 @@
 				$this->load($uid);
 			}
 
-			if($cookieTitle) {
+			if($cooktitle) {
 				$this->cookieTitle = $cooktitle;
 			}
 		}
 		
 		public function load($uid) {
 			global $DB;
-			if ($user = $DB->queryRow("SELECT * FROM users WHERE uid='".$DB->escape($uid))."'") {
+			if ($user = $DB->queryRow("SELECT * FROM users WHERE uid=".$DB->escape($uid))) {
 				$this->uid = $user['uid'];
 				$this->username = $user['username'];
 				$this->email = $user['email'];
@@ -117,12 +117,12 @@
 		}
 		
 		public function setCookie($data) {
-			setcookie($cookieTitle, $data, time() + 3600*24*30*12, "/");
+			setcookie($this->cookieTitle, $data, time() + 3600*24*30*12, "/");
 		}
 		
 		public function getCookie() {
-			if (!empty($_COOKIE[$cookieTitle])) {
-				return $_COOKIE[$cookieTitle];	
+			if (!empty($_COOKIE[$this->cookieTitle])) {
+				return $_COOKIE[$this->cookieTitle];	
 			} else {
 				return "";
 			}

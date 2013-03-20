@@ -12,6 +12,7 @@
 		} else {
 			//User is logged in, show dashboard.
 			include($BASEPATH."partials/header.php");
+			include($BASEPATH."partials/navbar.php");
 			include($BASEPATH."partials/dashboard.php");
 			include($BASEPATH."partials/footer.php");
 		}

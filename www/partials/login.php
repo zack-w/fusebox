@@ -6,7 +6,7 @@
 	
 	<div class="content clearfix">
 		
-		<form action="./" method="post">
+		<form id="login" method="post" action="#">
 		
 			<h1>Sign In</h1>		
 			
@@ -15,8 +15,8 @@
 				<p>Sign in using your registered account:</p>
 				
 				<div class="field">
-					<label for="username">Username:</label>
-					<input type="text" id="username" name="username" value="" placeholder="Username" class="login username-field" />
+					<label for="email">Username:</label>
+					<input type="text" id="email" name="email" value="" placeholder="Email" class="login username-field" />
 				</div> <!-- /field -->
 				
 				<div class="field">
@@ -42,3 +42,27 @@
 	</div> <!-- /content -->
 	
 </div> <!-- /account-container -->
+
+<script type="text/javascript">
+	$(function () {	
+		$("#login").validator().submit(function(e) {
+			var form = $(this);
+			console.log("Logging in...");
+			if (!e.isDefaultPrevented()) {
+				console.log("Not prevented!");
+				console.log("<?php echo $BASEURL; ?>api/ajax.php?a=login&" + form.serialize());
+				$.getJSON("<?php echo $BASEURL; ?>api/ajax.php?a=login&" + form.serialize(), function(json) {
+					console.log("Got Data!");
+					console.log(json);
+					if (json === true)  {
+						location.href = "<?php echo $BASEURL; ?>";
+					} else {
+						console.log("Invalid, gutting out.");
+						form.data("validator").invalidate(json);
+					}
+				});
+				e.preventDefault();
+			}
+		});
+	});
+</script>
