@@ -19,11 +19,15 @@
 	} else {
 		//Process argument
 		include($BASEPATH."partials/header.php");
+		if($USER->loaded())
+		{
+			include($BASEPATH."partials/navbar.php");
+		}
 
 		if(file_exists($BASEPATH."partials/".$request['args'][2].".php")) {
 			require($BASEPATH."partials/".$request['args'][2].".php");
 		} else
-			die("Could not process your request.");	
+			require($BASEPATH."partials/error.php");
 
 		include($BASEPATH."partials/footer.php");
 	}

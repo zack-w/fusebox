@@ -77,6 +77,7 @@
 						<? } ?>
 						
 					</li>
+					<li><a href-"http://slidefuse.com/<?php echo $PRODUCTTITLE; ?>"><?php echo $PRODUCTTITLE." : ".$PRODUCTVERSION; ?></a></li>
 				</ul>
 			</div>	
 	
