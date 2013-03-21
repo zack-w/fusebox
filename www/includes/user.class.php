@@ -47,10 +47,10 @@
 		
 		/* Authentication */
 		
-		public function authenticate($email, $pass) {
+		public function authenticate($name, $pass) {
 			global $DB;
-			$email = $DB->escape($email);
-			if ($userData = $this->getByEmail($email)) {
+			$name = $DB->escape($name);
+			if ($userData = $this->getByName($name)) {
 				$pass = $this->hashPassword($pass, $userData['timestamp']);
 				if ($userData['password'] == $pass) {
 					$this->load($userData['uid']);
@@ -69,9 +69,11 @@
 			if (!empty($cookie)) {
 				$sessid = $DB->escape($this->getCookie());
 				$sessData = $DB->queryRow("SELECT * FROM sessions WHERE sessionid='".$sessid."'");
-				$this->sessionData = $sessData;
-				$this->load($sessData['uid']);
+				if($sessData) {
+					$this->sessionData = $sessData;
+					$this->load($sessData['uid']);
 				return true;
+				}
 			} else {
 				return false;
 			}

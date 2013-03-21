@@ -15,8 +15,8 @@
 				<p>Sign in using your registered account:</p>
 				
 				<div class="field">
-					<label for="email">Username:</label>
-					<input type="text" id="email" name="email" value="" placeholder="Email" class="login username-field" />
+					<label for="username">Username:</label>
+					<input type="text" id="username" name="username" value="" placeholder="Username" class="login username-field" />
 				</div> <!-- /field -->
 				
 				<div class="field">

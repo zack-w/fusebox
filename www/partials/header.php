@@ -71,7 +71,7 @@
 							</a>
 							
 							<ul class="dropdown-menu">
-								<li><a href="<? echo $BASEURL."account"; ?>">User CP</a></li>
+								<li><a href="<? echo $BASEURL."account"; ?>">My Account</a></li>
 								<li><a href="<? echo $BASEURL."logout"; ?>">Logout</a></li>
 							</ul>
 						<? } ?>
