@@ -135,7 +135,7 @@
 		public function getOption($key, $default = false) {
 			global $DB;
 			$key = $DB->escape($key);
-			if ($data = $DB->queryRow("SELECT * FROM users_settings WHERE uid='".$this->uid."'' AND okey='".$key."'")) {
+			if ($data = $DB->queryRow("SELECT * FROM users_settings WHERE uid='".$this->uid."' AND okey='".$key."'")) {
 				return $data['ovalue'];
 			} else {
 				if ($default) {
@@ -149,8 +149,8 @@
 			global $DB;
 			$key = $DB->escape($key);
 			$value = $DB->escape($value);
-			if ($DB->queryRow("SELECT * FROM users_settings WHERE uid='".$this->uid."'' AND okey='".$key."'")) {
-				$DB->query("UPDATE users_settings SET ovalue='".$value."' WHERE uid='".$this->uid."'' AND okey='".$key."'");
+			if ($DB->queryRow("SELECT * FROM users_settings WHERE uid='".$this->uid."' AND okey='".$key."'")) {
+				$DB->query("UPDATE users_settings SET ovalue='".$value."' WHERE uid='".$this->uid."' AND okey='".$key."'");
 			} else {
 				$DB->query("INSERT INTO users_settings (uid, okey, ovalue) VALUES ('".$this->uid."', '".$key."', '".$value."')");
 			}
@@ -208,6 +208,11 @@
 		
 		public function validateEmail($email) {
 			return filter_var($email, FILTER_VALIDATE_EMAIL);
+		}
+
+		public function changePassword($pass) {
+			global $DB;
+			$DB->query("UPDATE users SET password='".$this->hashPassword($pass,time())."' WHERE uid=".$this->uid);
 		}
 	}
 ?>

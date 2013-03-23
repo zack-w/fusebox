@@ -42,7 +42,7 @@
 										<div class="control-group">											
 											<label class="control-label" for="firstname">First Name</label>
 											<div class="controls">
-												<input type="text" class="input-medium" id="firstname" value="Rod">
+												<input type="text" class="input-medium" id="firstname" value="<?php echo $USER->getOption("firstname"); ?>">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
 										
@@ -50,7 +50,7 @@
 										<div class="control-group">											
 											<label class="control-label" for="lastname">Last Name</label>
 											<div class="controls">
-												<input type="text" class="input-medium" id="lastname" value="Howard">
+												<input type="text" class="input-medium" id="lastname" value="<?php echo $USER->getOption("lastname"); ?>">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
 										
@@ -58,7 +58,7 @@
 										<div class="control-group">											
 											<label class="control-label" for="email">Email Address</label>
 											<div class="controls">
-												<input type="text" class="input-large" id="email" value="rod.howard@example.com">
+												<input type="text" class="input-large" id="email" value="<?php echo $USER->getEmail(); ?>">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
 										
