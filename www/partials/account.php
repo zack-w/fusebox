@@ -37,20 +37,19 @@
 												<p class="help-block">Your username is for logging in and cannot be changed.</p>
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
-										
-										
+									
 										<div class="control-group">											
 											<label class="control-label" for="firstname">First Name</label>
+
 											<div class="controls">
-												<input type="text" class="input-medium" id="firstname" value="<?php echo $USER->getOption("firstname"); ?>">
+												<input type="text" class="input-medium" id="firstname" value="<?php echo $USER->getOption("firstname"); ?>" <?php if(!$SETTINGS->get("general_allow_nameChanges")) echo "disabled"; ?>>
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
-										
 										
 										<div class="control-group">											
 											<label class="control-label" for="lastname">Last Name</label>
 											<div class="controls">
-												<input type="text" class="input-medium" id="lastname" value="<?php echo $USER->getOption("lastname"); ?>">
+												<input type="text" class="input-medium" id="lastname" value="<?php echo $USER->getOption("lastname"); ?>" <?php if(!$SETTINGS->get("general_allow_nameChanges")) echo "disabled"; ?>>
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
 										

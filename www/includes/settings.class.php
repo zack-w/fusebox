@@ -13,7 +13,21 @@
 				if($getArr)
 					return $data[0]['value'];
 				else
-					return $data[0]['value'];
+				{
+					if(strpos($data[0]['value'],"true") === false)
+					{
+						//Not Found, try false
+						if(strpos($data[0]['value'],"false") === false)
+							return $data[0]['value'];
+						else
+							return false;
+					}
+					else
+					{
+						return true;
+					}
+					
+				}
 			} else {
 				return "error: setting not found";
 			}

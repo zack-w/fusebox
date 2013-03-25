@@ -212,7 +212,10 @@
 
 		public function changePassword($pass) {
 			global $DB;
-			$DB->query("UPDATE users SET password='".$this->hashPassword($pass,time())."' WHERE uid=".$this->uid);
+			if($DB->query("UPDATE users SET password='".$this->hashPassword($pass,time())."' WHERE uid=".$this->uid))
+				return true;
+			else
+				return false;
 		}
 	}
 ?>

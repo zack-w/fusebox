@@ -55,13 +55,13 @@
 						<? if (!$USER->loaded()) { ?>
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								<i class="icon-cog"></i>
-								Login/Register
+									<?php echo $LANGUAGE['page_login']."/".$LANGUAGE['page_register']; ?>
 								<b class="caret"></b>
 							</a>
 							
 							<ul class="dropdown-menu">
-								<li><a href="<? echo $BASEURL."login"; ?>">Login</a></li>
-								<li><a href="<? echo $BASEURL."register"; ?>">Register</a></li>
+								<li><a href="<? echo $BASEURL."login"; ?>"><?php echo $LANGUAGE['page_login']; ?></a></li>
+								<li><a href="<? echo $BASEURL."register"; ?>"><?php echo $LANGUAGE['page_register']; ?></a></li>
 							</ul>
 						<? } else { ?>
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -71,8 +71,8 @@
 							</a>
 							
 							<ul class="dropdown-menu">
-								<li><a href="<? echo $BASEURL."account"; ?>">My Account</a></li>
-								<li><a href="<? echo $BASEURL."logout"; ?>">Logout</a></li>
+								<li><a href="<? echo $BASEURL."account"; ?>"><?php echo $LANGUAGE['page_myAccount']; ?></a></li>
+								<li><a href="<? echo $BASEURL."logout"; ?>"><?php echo $LANGUAGE['page_logout']; ?></a></li>
 							</ul>
 						<? } ?>
 						

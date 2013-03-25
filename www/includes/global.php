@@ -28,6 +28,6 @@
 	$SETTINGS = new Settings();
 
 	//Setup Language System
-	//TODO: add class and language files
+	include($BASEPATH."includes/language/english.php");
 
 ?>

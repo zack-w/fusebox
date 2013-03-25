@@ -9,14 +9,14 @@
 				<li <?php if(empty($request['args'][2]) || $request['args'][2] == "dashboard") echo "class='active'"; ?>>
 					<a href="<?php echo $BASEURL; ?>">
 						<i class="icon-home"></i>
-						<span>Dashboard</span>
+						<span><?php echo $LANGUAGE['page_dashboard']; ?></span>
 					</a>	    				
 				</li>
 
-				<li <?php if($request['args'][2] == "ticketing") echo "class='active'"; ?>>					
-					<a href="<?php echo $BASEURL; ?>ticketing/" class="dropdown-toggle">
+				<li <?php if($request['args'][2] == "support") echo "class='active'"; ?>>					
+					<a href="<?php echo $BASEURL; ?>support/" class="dropdown-toggle">
 						<i class="icon-comment"></i>
-						<span>Ticketing</span>
+						<span><?php echo $LANGUAGE['page_support']; ?></span>
 					</a>	  				
 				</li>
 			
