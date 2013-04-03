@@ -1,3 +1,6 @@
+<?php
+	include($BASEPATH."includes/support/ticket.class.php");
+?>
 <div class="container">
 	
 	      <div class="row">
@@ -28,19 +31,20 @@
 				            </thead>
 				            <tbody>
 				            	<?php
-									$tickets = $DB->queryArray("SELECT * FROM tickets");
+									$tickets = $DB->queryArray("SELECT * FROM support_tickets WHERE uid = '".$USER->getUid()."'");
 									foreach ($tickets as $i => $ticket) {
+										$ticket = new Ticket($ticket['id']);
 				            	?>
 
 				                <tr>
-				                  	<td><input type="checkbox" name="selected" value="<?php echo $ticket['id']; ?>" /></td>
+				                  	<td><input type="checkbox" name="selected" value="<?php echo $ticket->id; ?>" /></td>
 				                  	<a href="#">
-				                  		<td>1234</td>
-					                  	<td>Server needs reboot</td>
+				                  		<td><?php echo $ticket->id; ?></td>
+					                  	<td><?php echo $ticket->subject; ?></td>
 					                  	<td>(Staff) Patrick Hampson</td>
 					                  	<td>2 days ago</td>
 					                  	<td>1 day ago</td>
-					                  	<td>Normal</td>
+					                  	<td><?php echo $ticket->priority; ?></td>
 				                 	</a>
 				                </tr>
 

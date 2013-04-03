@@ -26,4 +26,13 @@ $LANGUAGE = array(
     "support_ticketOpened" => "Opened",
     "support_ticketUpdated" => "Updated",
     "support_ticketPriority" => "Priority",
+    "support_ticketPriority_low" => "Low",
+    "support_ticketPriority_normal" => "Normal",
+    "support_ticketPriority_high" => "High",
+    "support_ticketPriority_unknown" => "Unknown",
+    "support_ticketTime_periods" => array("second", "minute", "hour", "day", "week", "month", "year", "decade"),
+    "support_ticketTime_periodsPlural" => array("seconds", "minutes", "hours", "days", "weeks", "months", "years", "decades"),
+    "support_ticketTime_tense" => "ago",
+    "support_ticketTime_aFewSeconds" => "a few seconds",
+
 );
