@@ -18,33 +18,35 @@
 							<thead>
 				                <tr>
 				                  	<th></th>
-				                 	<th>Ticket #</th>
-				                 	<th>Subject</th>
-				                  	<th>Last Response</th>
-				                  	<th>Opened</th>
-				                  	<th>Updated</th>
-				                  	<th>Priority</th>
+				                 	<th><?php echo $LANGUAGE['support_ticketNumber']; ?></th>
+				                 	<th><?php echo $LANGUAGE['support_ticketSubject']; ?></th>
+				                  	<th><?php echo $LANGUAGE['support_ticketLastResponse']; ?></th>
+				                  	<th><?php echo $LANGUAGE['support_ticketOpened']; ?></th>
+				                  	<th><?php echo $LANGUAGE['support_ticketUpdated']; ?></th>
+				                  	<th><?php echo $LANGUAGE['support_ticketPriority']; ?></th>
 				                </tr>
 				            </thead>
 				            <tbody>
+				            	<?php
+									$tickets = $DB->queryArray("SELECT * FROM tickets");
+									foreach ($tickets as $i => $ticket) {
+				            	?>
+
 				                <tr>
-				                  	<td>1</td>
-				                  	<td>Mark</td>
-				                  	<td>Otto</td>
-				                  	<td>@mdo</td>
+				                  	<td><input type="checkbox" name="selected" value="<?php echo $ticket['id']; ?>" /></td>
+				                  	<a href="#">
+				                  		<td>1234</td>
+					                  	<td>Server needs reboot</td>
+					                  	<td>(Staff) Patrick Hampson</td>
+					                  	<td>2 days ago</td>
+					                  	<td>1 day ago</td>
+					                  	<td>Normal</td>
+				                 	</a>
 				                </tr>
-				                <tr>
-				                  	<td>2</td>
-				                  	<td>Jacob</td>
-				                  	<td>Thornton</td>
-				                  	<td>@fat</td>
-				                </tr>
-				                <tr>
-				                  	<td>3</td>
-				                  	<td>Larry</td>
-				                  	<td>the Bird</td>
-				                  	<td>@twitter</td>
-				                </tr>
+
+				                <?php
+				                	} // ./foreach
+				                ?>
 				            </tbody>
 						</table>
 					</div> <!-- /widget-content -->	
@@ -53,7 +55,7 @@
 		    <div class="span4">			
 				<div class="widget widget-plain">
 					<div class="widget-content">
-						<a href="javascript:;" class="btn btn-large btn-warning btn-support-ask">Ask A Question</a>	
+						<a href="javascript:;" class="btn btn-large btn-warning btn-support-ask">New Ticket</a>	
 						<a href="javascript:;" class="btn btn-large btn-support-contact">Contact Support</a>
 					</div> <!-- /widget-content -->
 				</div> <!-- /widget -->

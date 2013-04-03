@@ -7,6 +7,9 @@ $LANGUAGE = array(
     "setting_allow_nameChanges_title" => "Allow Name Changes",
     "setting_allow_nameChanges_description" => "Allow users to change their first or last name.",
 
+    "setting_supportReplyAsc_title" => "Show Replys Ascending",
+    "setting_supportReplyAsc_description" => "Show ticket replys in ascending order, newest at the bottom.  Unchecked will show descending.",
+
     //Pages
     "page_dashboard" => "Dashbaord",
     "page_support" => "Support",
