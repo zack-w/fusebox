@@ -1,4 +1,5 @@
 <?php
+	$page_title = "Support";
 	include($BASEPATH."includes/support/ticket.class.php");
 ?>
 <div class="container">
@@ -15,7 +16,7 @@
 					</div> <!-- /widget-header -->
 					
 					<div class="widget-content">
-						<h3>Search</h3>
+						<h3><?php echo $LANGUAGE['support_ticketStatus_open']; ?> <a href="#"><?php echo $LANGUAGE['support_ticketStatus_closed']; ?></a> <a href="#"><?php echo $LANGUAGE['support_ticketStatus_onHold']; ?></a></h3>
 						<br />
 						<table class="table table-striped">
 							<thead>

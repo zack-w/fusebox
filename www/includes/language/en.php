@@ -34,5 +34,8 @@ $LANGUAGE = array(
     "support_ticketTime_periodsPlural" => array("seconds", "minutes", "hours", "days", "weeks", "months", "years", "decades"),
     "support_ticketTime_tense" => "ago",
     "support_ticketTime_aFewSeconds" => "a few seconds",
+    "support_ticketStatus_open" => "Open",
+    "support_ticketStatus_closed" => "Closed",
+    "support_ticketStatus_onHold" => "On Hold",
 
 );

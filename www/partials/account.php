@@ -1,3 +1,6 @@
+<?php
+	$page_title = "Account";
+?>
 	    <div class="container">
 	
 	      <div class="row">
