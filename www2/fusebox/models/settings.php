@@ -20,13 +20,16 @@ class Settings extends CI_Model {
     	{
     		return $this->processReturn($data, $getArr);
     	}
-		
-		if ($data = $this->db->query("SELECT * FROM system_settings WHERE `key`=".$key))
+		else
 		{
-			$data = $data->result_array();
-			return $this->processReturn($data, $getArr);
-		} else {
-			return "error: setting not found";
+			if ($data = $this->db->query("SELECT * FROM system_settings WHERE `key`=".$key))
+			{
+				$data = $data->result_array();
+				$cache[$key] = $data;
+				return $this->processReturn($data, $getArr);
+			} else {
+				return "error: setting not found";
+			}
 		}
 	}
 
