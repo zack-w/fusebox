@@ -19,7 +19,17 @@ class Main extends SF_Controller {
 	 */
 	public function index()
 	{
-		$this->header("Page");
+		$this->header("Main");
+		if($this->ion_auth->logged_in())
+		{
+			//$this->load->view("includes/navbar");
+			redirect("dashboard","refresh");
+		}
+		else
+		{
+			redirect("user/login", "refresh");
+		}
+		
 	}
 }
 

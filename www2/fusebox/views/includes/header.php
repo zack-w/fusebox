@@ -32,6 +32,20 @@
 
 <body>
 
+<? if (isset($message)) { ?>
+	<div class="alert alert-info" style="margin: 0">
+		<? echo $message; ?>
+	</div>
+<? } if (isset($messageError)) { ?>
+	<div class="alert alert-error" style="margin: 0">
+		<? echo $messageError; ?>
+	</div>
+<? } if (isset($messageSuccess)) { ?>
+	<div class="alert alert-success" style="margin: 0">
+		<? echo $messageSuccess; ?>
+	</div>
+<? } ?>
+
 <div class="navbar navbar-fixed-top">
 	
 	<div class="navbar-inner">
@@ -52,7 +66,7 @@
 				<ul class="nav pull-right">
 					<li class="dropdown">
 						
-						<? if (true) { ?>
+						<? if (!$login) { ?>
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								<i class="icon-cog"></i>
 									<?php echo lang('base_page_login')."/".lang('base_page_register'); ?>
@@ -66,13 +80,13 @@
 						<? } else { ?>
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								<i class="icon-cog"></i>
-								<? echo "TODO"; ?>
+								<? echo $user->username; ?>
 								<b class="caret"></b>
 							</a>
 							
 							<ul class="dropdown-menu">
-								<li><a href="<? echo base_url("user/account"); ?>"><?php echo lang('base_page_myAccount'); ?></a></li>
-								<li><a href="<? echo base_url("user/logout"); ?>"><?php echo lang('base_page_logout'); ?></a></li>
+								<li><a href="<? echo base_url("user"); ?>">User CP</a></li>
+								<li><a href="<? echo base_url("user/logout"); ?>">Logout</a></li>
 							</ul>
 						<? } ?>
 						
