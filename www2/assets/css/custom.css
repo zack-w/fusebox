@@ -1,0 +1,22 @@
+/**
+ * All your custom CSS should go into this file
+ */
+
+body {
+}
+
+input {
+	width: 100%:
+}
+
+.success {
+	background-color: #dff0d8;
+}
+
+.error {
+	background-color: #f2dede;
+}
+
+.warning {
+	background-color: #fcf8e3;
+}

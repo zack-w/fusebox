@@ -1,3 +1,4 @@
+<?php
     //Settings
     $lang['setting_display_name_title'] = "Display Name";
     $lang['setting_display_name_description'] = "Set the name that is shown on the panel.";
