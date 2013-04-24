@@ -48,9 +48,9 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = 'root';
+$db['default']['hostname'] = '173.208.206.106';
+$db['default']['username'] = 'fusebox';
+$db['default']['password'] = 'mjasf_AWN';
 $db['default']['database'] = 'fusebox';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
