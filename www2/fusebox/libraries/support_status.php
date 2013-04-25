@@ -22,18 +22,14 @@
 		
 		public function GetStatus( $StatusID )
 		{
-			return $this->Items[ $StatusID ] or "Unknown";
+			$Item = $this->Items[ $StatusID ];
+			return $Item;
 		}
 		
-		public function IsClosed( $StatusID ) // TODO :: GET FROM DB
-		{
-			if( $this->GetStatus( $StatusID ) == "Closed" )
-			{
-				return true;
-			}else{
-				return false;
-			}
-		}
+		public function IsNewlyOpened( $StatusID ) { return $StatusID == 1; }
+		public function IsClientReply( $StatusID ) { return $StatusID == 2; }
+		public function IsStaffReply( $StatusID ) { return $StatusID == 3; }
+		public function IsClosed( $StatusID ) { return $StatusID == 4; }
 		
 		/*
 			TODO - If a status is deleted, make it so that it calculates the new status
@@ -41,6 +37,8 @@
 		
 		public function DeleteStatus( $ID )
 		{
+			if( $ID > 0 && 5 > $ID ) return; // You cannot delete statuses 1 - 4.. they are used by the core
+		
 			$ID = get_instance()->db->escape( $ID );
 			get_instance()->db->query( "DELETE FROM `support_tickets_status` WHERE `ID` = {$ID};" );
 		}
