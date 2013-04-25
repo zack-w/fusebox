@@ -4,22 +4,22 @@ class Settings extends CI_Model {
 	private $cache = Array();
 
 	function __construct()
-    {
-        // Call the Model constructor
-        parent::__construct();
-    }
+	{
+		// Call the Model constructor
+		parent::__construct();
+	}
 
-    public function get($key, $getArr = false)
-    {
-    	$this->load->helper('array');
+	public function get($key, $getArr = false)
+	{
+		$this->load->helper('array');
 
 		$key = $this->db->escape($key);
 
-    	//Check cache first to save queries
-    	if($data = element($key,$this->cache))
-    	{
-    		return $this->processReturn($data, $getArr);
-    	}
+		//Check cache first to save queries
+		if($data = element($key,$this->cache))
+		{
+			return $this->processReturn($data, $getArr);
+		}
 		else
 		{
 			if ($data = $this->db->query("SELECT * FROM system_settings WHERE `key`=".$key))

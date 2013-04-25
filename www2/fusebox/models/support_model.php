@@ -1,12 +1,12 @@
 <?php
 class Support_model extends CI_Model {
 
-    function __construct() {
-        parent::__construct();
+	function __construct() {
+		parent::__construct();
 		
 		$this->load->library("ion_auth");
 		$this->user = $this->ion_auth->user()->row();
-    }
+	}
 	
 	function getTickets($admin) {
 		$query;

@@ -881,37 +881,37 @@ class Ion_auth_mongodb_model extends CI_Model {
 			if ($password === TRUE)
 			{
 				// Not yet activated?
-                if ($user->active == 0)
-                {
-                    $this->trigger_events('post_login_unsuccessful');
-                    $this->set_error('login_unsuccessful_not_active');
-                    return FALSE;
-                }
+				if ($user->active == 0)
+				{
+					$this->trigger_events('post_login_unsuccessful');
+					$this->set_error('login_unsuccessful_not_active');
+					return FALSE;
+				}
 
-                // Set user session data
-                $session_data = array(
+				// Set user session data
+				$session_data = array(
 					'identity'       => $user->{$this->identity_column},
 					'username'       => $user->username,
 					'email'          => $user->email,
 					'user_id'        => $user->_id,
 					'old_last_login' => $user->last_login
-                );
-                $this->session->set_userdata($session_data);
+				);
+				$this->session->set_userdata($session_data);
 
-                // Clean login attempts, also update last login time
-                $this->update_last_login($user->_id);
+				// Clean login attempts, also update last login time
+				$this->update_last_login($user->_id);
 				$this->clear_login_attempts($identity);
 
 				// Check whether we should remember the user
-                if ($remember && $this->config->item('remember_users', 'ion_auth'))
-                {
-                    $this->remember_user($user->_id);
-                }
+				if ($remember && $this->config->item('remember_users', 'ion_auth'))
+				{
+					$this->remember_user($user->_id);
+				}
 
-                $this->trigger_events(array('post_login', 'post_login_successful'));
-                $this->set_message('login_successful');
+				$this->trigger_events(array('post_login', 'post_login_successful'));
+				$this->set_message('login_successful');
 
-                return TRUE;
+				return TRUE;
 			}
 		}
 
@@ -1234,30 +1234,30 @@ class Ion_auth_mongodb_model extends CI_Model {
 	{
 		$this->trigger_events('users');
 
-        // If there are specific select fields, apply them and flush SELECT buffer
-        if (isset($this->_ion_select))
-        {
-        	foreach ($this->_ion_select as $select)
+		// If there are specific select fields, apply them and flush SELECT buffer
+		if (isset($this->_ion_select))
+		{
+			foreach ($this->_ion_select as $select)
 			{
 				$this->mongo_db->select($select);
 			}
-            $this->_ion_select = array();
-        }
+			$this->_ion_select = array();
+		}
 
-        // Filter by group if any passed
-        if (isset($groups))
-        {
-        	// Build an array if only one group was passed
-        	if (is_numeric($groups))
-        	{
-        		$groups = array($groups);
-        	}
+		// Filter by group if any passed
+		if (isset($groups))
+		{
+			// Build an array if only one group was passed
+			if (is_numeric($groups))
+			{
+				$groups = array($groups);
+			}
 
-        	if ( ! empty($groups))
-        	{
-        		$this->mongo_db->where_in('groups', $groups);
-	        }
-        }
+			if ( ! empty($groups))
+			{
+				$this->mongo_db->where_in('groups', $groups);
+			}
+		}
 
 		$this->trigger_events('extra_where');
 
@@ -1694,15 +1694,15 @@ class Ion_auth_mongodb_model extends CI_Model {
 			}
 
 			set_cookie(array(
-			    'name'   => 'identity',
-			    'value'  => $user->{$this->identity_column},
-			    'expire' => $expire
+				'name'   => 'identity',
+				'value'  => $user->{$this->identity_column},
+				'expire' => $expire
 			));
 
 			set_cookie(array(
-			    'name'   => 'remember_code',
-			    'value'  => $salt,
-			    'expire' => $expire
+				'name'   => 'remember_code',
+				'value'  => $salt,
+				'expire' => $expire
 			));
 
 			$this->trigger_events(array('post_remember_user', 'remember_user_successful'));
@@ -1736,10 +1736,10 @@ class Ion_auth_mongodb_model extends CI_Model {
 		$this->trigger_events('extra_where');
 		$document = $this->mongo_db
 			->select(array('_id', $this->identity_column))
-		    ->where($this->identity_column, get_cookie('identity'))
-		    ->where('remember_code', get_cookie('remember_code'))
-		    ->limit(1)
-		    ->get($this->collections['users']);
+			->where($this->identity_column, get_cookie('identity'))
+			->where('remember_code', get_cookie('remember_code'))
+			->limit(1)
+			->get($this->collections['users']);
 
 		// If the user was found, sign them in
 		if (count($document))
@@ -2028,8 +2028,8 @@ class Ion_auth_mongodb_model extends CI_Model {
 		$_output = '';
 		foreach ($this->messages as $message)
 		{
-            $message_lang = $this->lang->line($message) ? $this->lang->line($message) : '##' . $message . '##';
-            $_output .= $this->message_start_delimiter . $message_lang . $this->message_end_delimiter;
+			$message_lang = $this->lang->line($message) ? $this->lang->line($message) : '##' . $message . '##';
+			$_output .= $this->message_start_delimiter . $message_lang . $this->message_end_delimiter;
 		}
 
 		return $_output;
@@ -2079,8 +2079,8 @@ class Ion_auth_mongodb_model extends CI_Model {
 		$_output = '';
 		foreach ($this->errors as $error)
 		{
-            $error_lang = $this->lang->line($error) ? $this->lang->line($error) : '##' . $error . '##';
-            $_output .= $this->error_start_delimiter . $error_lang . $this->error_end_delimiter;
+			$error_lang = $this->lang->line($error) ? $this->lang->line($error) : '##' . $error . '##';
+			$_output .= $this->error_start_delimiter . $error_lang . $this->error_end_delimiter;
 		}
 
 		return $_output;
