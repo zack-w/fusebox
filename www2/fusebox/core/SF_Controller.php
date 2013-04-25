@@ -51,8 +51,8 @@ class SF_Controller extends CI_Controller
 		$this->data["admin"] = $this->ion_auth->is_admin();
 	}
 	
-	public function view($name, $data = true) {
-		if ($data) {
+	public function view($name, $pass = true) {
+		if ($pass) {
 			$this->load->view($name, $this->data);
 		} else {
 			$this->load->view($name);

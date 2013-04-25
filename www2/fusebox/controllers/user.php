@@ -11,6 +11,10 @@
 		
 			$this->header(" UserCP" );
 			$this->load->view( "includes/navbar" );
+
+			$this->data['general_allow_nameChanges'] = $this->Settings->get("general_allow_nameChanges");
+
+			$this->load->view( "usercp" , $this->data);
 			$this->footer();
 		}
 		
@@ -55,6 +59,11 @@
 			$logout = $this->ion_auth->logout();
 			$this->session->set_flashdata('messageSuccess', $this->ion_auth->messages());
 			redirect('user/login', 'refresh');
+		}
+
+		public function update()
+		{
+			
 		}
 	   
 	}
