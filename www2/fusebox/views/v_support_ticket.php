@@ -19,8 +19,8 @@
 			<? foreach ( $Replies as $ID => $Reply ) { ?>
 			
 			<div class="row">
-				<div class="span8">
-					<div class="widget">
+				<div class="span12">
+					<div class="widget" style="margin-bottom: 0px;">
 						<div class="widget-header widget-table">
 							<i class="icon-user"></i>
 							<h3><? echo $Reply[ "Username" ]; ?> - <u><? echo date( "m/d/y g:i A", $Reply[ "Date" ] ); ?></u></h3>
@@ -41,7 +41,7 @@
 			<a name="reply"></a>
 			<div class="row">
 				<div class="span12">
-					<div class="widget">
+					<div class="widget" style="margin-top: 2em;">
 						<div class="widget-header">
 							<i class="icon-comment"></i>
 							<h3>Post Reply</h3>
