@@ -12,6 +12,7 @@
     //Pages
     $lang['base_page_dashboard'] = "Dashboard";
     $lang['base_page_support'] = "Support";
+	$lang['base_page_user'] = "User CP";
     $lang['base_page_myAccount'] = "My Account";
     $lang['base_page_logout'] = "Logout";
     $lang['base_page_login'] = "Login";
@@ -36,3 +37,4 @@
     $lang['base_support_ticketStatus_open'] = "Open";
     $lang['base_support_ticketStatus_closed'] = "Closed";
     $lang['base_support_ticketStatus_onHold'] = "On Hold";
+	

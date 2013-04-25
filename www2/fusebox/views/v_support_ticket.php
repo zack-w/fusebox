@@ -6,7 +6,7 @@
 					width: 75%;
 				}
 			</style>
-	
+			
 			<div class="row">
 				<div class="span12">
 					<h1><? echo $Ticket[ "Subject" ]; ?></h1>
@@ -16,7 +16,7 @@
 			</div>
 			
 			<? foreach ( $Replies as $ID => $Reply ) { ?>
-	
+			
 			<div class="row">
 				<div class="span12">
 					<div class="widget">

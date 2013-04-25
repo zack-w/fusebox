@@ -6,11 +6,8 @@
 
 		public function index()
 		{
-			$this->header("FuseBox - Username");
-			$this->navbar();
-			
-			$this->view("user");
-			
+			$this->header(" UserCP" );
+			$this->load->view( "includes/navbar" );
 			$this->footer();
 		}
 		

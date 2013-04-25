@@ -36,6 +36,7 @@ class SF_Controller extends CI_Controller
 	{
 		$this->nav->AddToNav( "dashboard", "icon-home" );
 		$this->nav->AddToNav( "support", "icon-comment" );
+		$this->nav->AddToNav( "user", "icon-user" );
 	}
 	
 	private function loginUser()
