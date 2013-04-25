@@ -13,6 +13,7 @@ class SF_Controller extends CI_Controller
 		$this->load->library('ion_auth');
 		$this->load->library('form_validation');
 		$this->load->library('nav');
+		$this->load->library('support_priorities');
 		
 		//Load helpers
 		$this->load->helper('url');
