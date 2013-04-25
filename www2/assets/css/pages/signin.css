@@ -10,12 +10,17 @@
 
 -------------------------------------------------------------------*/
 
-
-
-
 /** Base Body Styles **/
 body{ background: url(../../img/body-bg.png); color:#838383; font: 13px/1.7em 'Open Sans';}
 
+.account-login-failed {
+	margin-top: -15px;
+	width: 100%;
+	text-align: center;
+	color: darkred;
+	background-color: #EAEAEA;
+	font-weight: bold;
+}
 
 .account-container {
 	width: 380px; 
