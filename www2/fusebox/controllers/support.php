@@ -61,20 +61,27 @@ class Support extends SF_Controller {
 	}
 	
 	public function ticket_create() {
-		$this->form_validation->set_rules('title', 'Title', 'required|xss_clean|strip_tags|trim');
+		$this->form_validation->set_rules('title', 'Title', 'xss_clean|strip_tags|trim|max_length[30]');
 		$this->form_validation->set_rules('message', 'Message', 'required|xss_clean|strip_tags|trim');
 		$this->form_validation->set_rules('priority', 'Priority', 'required|numeric');
+		$this->form_validation->set_rules('category', 'Category', 'required|numeric');
 		
 		if ( $this->form_validation->run() == false || intval( $this->input->post( "priority" ) == null ) ) {
 			$this->index(); // There were errors, so load the index
 			return;
 		}
 		
+		$Title = $this->input->post("title");
+		
+		if( empty( $Title ) )
+			$Title = "No title entered";
+		
 		$TicketID = $this->support_model->PostTicket( 
 			$this->user->id,
-			$this->input->post("title"),
+			$Title,
 			$this->input->post("message"),
-			$this->input->post("priority")
+			$this->input->post("priority"),
+			$this->input->post("category")
 		);
 		
 		$this->ticket( $TicketID );

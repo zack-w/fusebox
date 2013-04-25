@@ -11,6 +11,7 @@
 				<div class="span8">
 					<h1><? echo $Ticket[ "Subject" ]; ?></h1>
 					<h3>Status: <? echo ($this->support_status->IsClosed($Ticket[ "Status" ])) ? "Closed" : "Open"; ?></h3>
+					<h3>Category: <? echo ($this->support_categories->GetCategory($Ticket[ "Category" ])); ?></h3>
 					<h3><a href="#reply" onclick="document.getElementById('message').focus();">Reply</a></h3>
 					<hr>
 				</div>

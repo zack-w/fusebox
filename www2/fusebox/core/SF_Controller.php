@@ -15,9 +15,11 @@ class SF_Controller extends CI_Controller
 		$this->load->library('nav');
 		$this->load->library('support_priorities');
 		$this->load->library('support_status');
+		$this->load->library('support_categories');
 		
 		//Load helpers
 		$this->load->helper('url');
+		$this->load->helper('date');
 		$this->load->helper('language');
 		$this->load->helper('bootstrap_helper');
 		

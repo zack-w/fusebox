@@ -20,7 +20,7 @@
 								<div class="control-group">
 									<label class="control-label">Title</label>
 									<div class="controls">
-										<input type="text" name="title" placeholder="Title" class="bigInput" />
+										<input type="text" name="title" placeholder="No Title Entered" class="bigInput" maxlength=30 />
 									</div>
 								</div>
 								
@@ -29,6 +29,20 @@
 									
 									<div class="controls">
 										<textarea name="message" rows="5" class="bigInput" style="resize: vertical;width: 97%;"></textarea>
+									</div>
+								</div>
+								
+								<div class="control-group">
+									<label class="control-label">Category</label>
+									<div class="controls">
+										<select name='category'>
+											<?php
+												foreach( $this->support_categories->Items as $ID => $Text )
+												{
+													echo "<option value='{$ID}'>{$Text}</option>";
+												}
+											?>
+										</select>
 									</div>
 								</div>
 								
@@ -63,16 +77,17 @@
 							<i class="icon-list"></i>
 							<h3>Your Tickets</h3>
 						</div>
+						
 						<div class="widget-content">
-							<table class="table table-bordered">
+							<table class="table table-bordered" style='font-size: 12px;'>
 								<tr>
 									<th>Title</th>
-									<th>Replies</th>
-									<th>Created</th>
+									<!--<th>Created</th>-->
 									<th>Last Updated</th>
-									<th>Last User</th>
+									<!--<th>Last User</th>-->
 									<th>Status</th>
-									<th>Control</th>
+									<th>Category</th>
+									<th></th>
 								</tr>
 								
 								<?php
@@ -80,31 +95,21 @@
 									{
 										$URL = base_url( "support/ticket/" . $Ticket[ "ID" ] );
 										$Title = $Ticket[ "Subject" ];
-										$NumReplies = ( $Ticket[ "NumReplies" ] - 1 == 0 )?( "None" ):( $Ticket[ "NumReplies" ] - 1 );
-										$Date = date( "m/d/y g:i A", $Ticket[ "Date" ] );
-										$LastReply = date( "m/d/y g:i A", $Ticket[ "LastReply" ]  );
-										$LastReplyUser = $Ticket[ "LastReplyUser" ]->username;
+										//$Date = timespan( $Ticket[ "Date" ] );
+										$LastReply = timespan( $Ticket[ "LastReply" ]  );
+										//$LastReplyUser = $Ticket[ "LastReplyUser" ]->username;
 										$Status = $this->support_status->GetStatus( $Ticket[ "Status" ] );
+										$Category = $this->support_categories->GetCategory( $Ticket[ "Category" ] );
 										$IsClosed = $this->support_status->IsClosed( $Ticket[ "Status" ] );
 										
 										echo "
 										<tr>
 											<td><a href='{$URL}'>{$Title}</a></td>
-											<td>{$NumReplies}</td>
-											<td>{$Date}</td>
-											<td>{$LastReply}</td>
-											<td>{$LastReplyUser}</td>
+											<td>{$LastReply} ago</td>
 											<td>" . $Status[ "Text" ] . "</td>
-											<td>
+											<td>{$Category}</td>
+											<td style='text-align: center;'><input type='checkbox' /></td>
 										";
-										
-										if( $IsClosed ) {
-											$Goto = base_url( "support/ticket_open/" . $Ticket[ "ID" ] );
-											echo "<a href='{$Goto}' class='btn btn-success'>Open</a>";
-										} else {
-											$Goto = base_url( "support/ticket_close/" . $Ticket[ "ID" ] );
-											echo "<a href='{$Goto}' class='btn btn-danger'>Close</a>";
-										}
 										
 										echo "</td></tr>";
 									}

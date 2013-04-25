@@ -69,12 +69,13 @@ class Support_model extends CI_Model {
 		return $this->db->query( "SELECT * FROM `support_tickets_replies` WHERE `TID` = {$TID};" )->result_array();
 	}
 	
-	function PostTicket( $User, $Subject, $Body, $Priority ) {
+	function PostTicket( $User, $Subject, $Body, $Priority, $Category ) {
 		$Insert = array(
 			"UID" => intval( $User ),
 			"Subject" => $Subject,
 			"Date" => time(),
 			"Priority" => $Priority,
+			"Category" => $Category,
 			"Status" => 1,
 		);
 		
