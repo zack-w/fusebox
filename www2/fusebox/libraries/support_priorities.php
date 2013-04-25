@@ -1,6 +1,6 @@
 <?php
 
-	class Support_Priorities
+	class Support_priorities
 	{
 		public static $Items;
 		
@@ -20,9 +20,15 @@
 			}
 		}
 		
-		public function DeletePriority( $ID )
+		public function GetPriority( $PriorityID )
+		{
+			return $this->Items[ $PriorityID ] or "Unknown";
+		}
+		
+		public function DeletePriority( $ID, $NewPriority )
 		{
 			$ID = get_instance()->db->escape( $ID );
+			get_instance()->db->query( "UPDATE `support_tickets` SET `Status` = {$NewPriority} WHERE `Status` = {$ID};" );
 			get_instance()->db->query( "DELETE FROM `support_priorities` WHERE `ID` = {$ID};" );
 		}
 		
