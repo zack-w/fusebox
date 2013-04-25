@@ -3,16 +3,15 @@
 if (!defined('BASEPATH')) die();
 
 class Support extends SF_Controller {
-
+	
 	public function __construct() {
 		parent::__construct();
 		//$this->requireLogin();
 		$this->load->model("support_model");
 	}
-
+	
 	public function index(){
 		$this->header("Support");
-		//$this->navbar();
 		
 		$tickets = $this->support_model->getTickets();
 		foreach ($tickets as $i => &$ticket) {
