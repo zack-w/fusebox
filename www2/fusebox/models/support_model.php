@@ -8,54 +8,66 @@ class Support_model extends CI_Model {
 		$this->user = $this->ion_auth->user()->row();
 	}
 	
-	function getTickets($admin) {
-		$query;
-		if ($admin) {
-			$query = $this->db->get("support_tickets");
-		} else {
-			$query = $this->db->where("owner", $this->user->id)->get("support_tickets");
+	function GetRecentTickets( $UserID, $Start, $Limit ) {
+		$UserID = intval( $UserID ); $Start = intval( $Start ); $Limit = intval( $Limit );
+		
+		$Query = "SELECT * FROM `support_tickets` ";
+		
+		if( $UserID != null )
+		{
+			$Query .= "WHERE `UID` = {$UserID} ";
 		}
 		
-		return $query->result_array();
+		$Query .= "ORDER BY `Date` DESC ";
+		$Query .= "LIMIT " . $Start . ", " . $Limit;
+		
+		return $this->db->query( $Query )->result_array();
 	}
 	
-	function findTicket($id) {
-		return $this->db->where("id", $id)->get("support_tickets")->row_array();
+	function GetTicketByID( $ID ) {
+		$ID = intval( $ID );
+		return $this->db->query( "SELECT * FROM `support_tickets` WHERE `ID` = {$ID};" )->row_array();
 	}
 	
-	function findReply($id) {
-		return $this->db->where("id", $id)->get("support_replies")->row_array();
+	function GetReplyByID( $ID ) {
+		$ID = intval( $ID );
+		return $this->db->query( "SELECT * FROM `support_ticket_replies` WHERE `ID` = {$ID};" )->row_array();
 	}
 	
-	function findRepliesByTicket($id) {
-		return $this->db->where("ticket", $id)->get("support_replies")->result_array();
+	function GetTicketReplies( $TID ) {
+		$TID = intval( $TID );
+		return $this->db->query( "SELECT * FROM `support_tickets_replies` WHERE `TID` = {$TID};" )->result_array();
 	}
 	
-	function postTicket($title, $message) {
-		$insert = array(
-			"owner" => $this->user->id,
-			"title" => $title,
-			"closed" => 0,
-			"message" => $message,
-			"timestamp" => time()
+	function PostTicket( $User, $Subject, $Body, $Priority ) {
+		$Insert = array(
+			"UID" => int_val( $User ),
+			"Subject" => $this->db->escape( $Subject ),
+			"Date" => time(),
+			"Priority" => $Priority,
+			"Status" => 1,
 		);
 		
-		$this->db->insert("support_tickets", $insert);
+		$this->db->insert( "support_tickets", $Insert );
+		$this->PostTicketReply( $this->db->insert_id(), $Body );
 	}
 	
-	function postReply($ticketid, $message) {
-		$insert = array(
-			"user" => $this->user->id,
-			"ticket" => $ticketid,
-			"message" => $message,
-			"timestamp" => time()
+	function PostTicketReply( $TID, $User, $Body ) {
+		$Insert = array(
+			"TID" => intval( $TID ),
+			"UID" => intval( $User ),
+			"Content" => $Body,
+			"Date" => time(),
 		);
 		
-		$this->db->insert("support_tickets", $insert);
+		$this->db->insert( "support_ticket_replies", $insert );
 	}
 	
-	function updateStatus($ticketid, $status) {
-		return $this->db->where("id", $ticketid)->update("support_tickets", array('closed' => $status));
+	function UpdateTicketStatus( $TID, $StatusID ) {
+		$TID = intval( $TID );
+		$StatusID = intval( $TID );
+	
+		$this->db->query( "UPDATE `support_tickets` SET `Status` = {$StatusID} WHERE `ID` = {$TID};" );
 	}
 	
 }
