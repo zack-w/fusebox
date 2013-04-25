@@ -4,7 +4,7 @@
 *
 * Author: Ben Edmunds
 *		  ben.edmunds@gmail.com
-*         @benedmunds
+*			@benedmunds
 *
 * Added Awesomeness: Phil Sturgeon
 *
@@ -135,9 +135,9 @@ class Ion_auth
 	 * @return mixed  boolian / array
 	 * @author Mathew
 	 **/
-	public function forgotten_password($identity)    //changed $email to $identity
+	public function forgotten_password($identity)	 //changed $email to $identity
 	{
-		if ( $this->ion_auth_model->forgotten_password($identity) )   //changed
+		if ( $this->ion_auth_model->forgotten_password($identity) )	//changed
 		{
 			// Get user information
 			$user = $this->where($this->config->item('identity', 'ion_auth'), $identity)->users()->row();  //changed to get_user_by_identity from email
@@ -213,7 +213,7 @@ class Ion_auth
 		if ($new_password)
 		{
 			$data = array(
-				'identity'     => $profile->{$identity},
+				'identity'	  => $profile->{$identity},
 				'new_password' => $new_password
 			);
 			if(!$this->config->item('use_ci_email', 'ion_auth'))
@@ -331,13 +331,13 @@ class Ion_auth
 			}
 
 			$activation_code = $this->ion_auth_model->activation_code;
-			$identity        = $this->config->item('identity', 'ion_auth');
-			$user            = $this->ion_auth_model->user($id)->row();
+			$identity		  = $this->config->item('identity', 'ion_auth');
+			$user				= $this->ion_auth_model->user($id)->row();
 
 			$data = array(
-				'identity'   => $user->{$identity},
-				'id'         => $user->id,
-				'email'      => $email,
+				'identity'	=> $user->{$identity},
+				'id'			=> $user->id,
+				'email'		=> $email,
 				'activation' => $activation_code,
 			);
 			if(!$this->config->item('use_ci_email', 'ion_auth'))

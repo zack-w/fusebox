@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost:8888/fusebox/www2/';
+$config['base_url']	= 'http://localhost/fusebox/fusebox/www2/';
 
 /*
 |--------------------------------------------------------------------------

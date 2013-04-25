@@ -11,7 +11,7 @@ class Support extends SF_Controller {
 	}
 
 	public function index(){
-		$this->header("PacketCat - Support");
+		$this->header("Support");
 		//$this->navbar();
 		
 		$tickets = $this->support_model->getTickets();
