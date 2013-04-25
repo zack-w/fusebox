@@ -34,7 +34,7 @@
 								<div class="control-group">
 									<label class="control-label">Priority</label>
 									<div class="controls">
-										<select>
+										<select name='priority'>
 											<?php
 												foreach( $this->support_priorities->Items as $ID=>$Text )
 												{
@@ -82,8 +82,8 @@
 										$URL = base_url( "support/ticket/" . $Ticket[ "ID" ] );
 										$Title = $Ticket[ "Subject" ];
 										$NumReplies = $Ticket[ "NumReplies" ];
-										$Date = $Ticket[ "Date" ];
-										$LastReply = ( $Ticket[ "LastReply" ] == 0 )? ( "Never" ) : ( "Tommorow" );
+										$Date = date( "m/d/y g:i A", $Ticket[ "Date" ] );
+										$LastReply = ( $Ticket[ "LastReply" ] == 0 )? ( "Never" ) : ( date( "m/d/y g:i A", $Ticket[ "LastReply" ]  ) );
 										$LastReplyUser = $Ticket[ "LastReplyUser" ]->username;
 										$Status = $this->support_status->GetStatus( $Ticket[ "Status" ] );
 										$IsClosed = $this->support_status->IsClosed( $Ticket[ "Status" ] );
@@ -95,11 +95,11 @@
 											<td>{$Date}</td>
 											<td>{$LastReply}</td>
 											<td>{$LastReplyUser}</td>
-											<td>{$Status}</td>
+											<td>" . $Status[ "Text" ] . "</td>
 											<td>
 										";
 										
-										if( $IsClosed == false) {
+										if( $IsClosed ) {
 											$Goto = base_url( "support/ticket_open/" . $Ticket[ "ID" ] );
 											echo "<a href='{$Goto}' class='btn btn-success'>Open</a>";
 										} else {

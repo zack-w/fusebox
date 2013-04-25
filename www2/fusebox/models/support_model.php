@@ -41,7 +41,7 @@ class Support_model extends CI_Model {
 	
 	function PostTicket( $User, $Subject, $Body, $Priority ) {
 		$Insert = array(
-			"UID" => int_val( $User ),
+			"UID" => intval( $User ),
 			"Subject" => $this->db->escape( $Subject ),
 			"Date" => time(),
 			"Priority" => $Priority,
@@ -49,23 +49,27 @@ class Support_model extends CI_Model {
 		);
 		
 		$this->db->insert( "support_tickets", $Insert );
-		$this->PostTicketReply( $this->db->insert_id(), $Body );
+		
+		$InsertID = $this->db->insert_id();
+		$this->PostTicketReply( $InsertID, $User, $Body );
+		
+		return $InsertID;
 	}
 	
 	function PostTicketReply( $TID, $User, $Body ) {
 		$Insert = array(
 			"TID" => intval( $TID ),
 			"UID" => intval( $User ),
-			"Content" => $Body,
+			"Content" => $this->db->escape( $Body ),
 			"Date" => time(),
 		);
 		
-		$this->db->insert( "support_ticket_replies", $insert );
+		$this->db->insert( "support_tickets_replies", $Insert );
 	}
 	
 	function UpdateTicketStatus( $TID, $StatusID ) {
 		$TID = intval( $TID );
-		$StatusID = intval( $TID );
+		$StatusID = intval( $StatusID );
 	
 		$this->db->query( "UPDATE `support_tickets` SET `Status` = {$StatusID} WHERE `ID` = {$TID};" );
 	}
