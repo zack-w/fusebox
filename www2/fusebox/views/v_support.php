@@ -26,8 +26,9 @@
 								
 								<div class="control-group">
 									<label class="control-label">Message</label>
+									
 									<div class="controls">
-										<textarea name="message" rows="5" class="bigInput"></textarea>
+										<textarea name="message" rows="5" class="bigInput" style="resize: vertical;width: 97%;"></textarea>
 									</div>
 								</div>
 								
