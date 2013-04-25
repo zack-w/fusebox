@@ -16,6 +16,9 @@
 	<link href="<? echo base_url("assets/css/base-admin.css"); ?>" rel="stylesheet" type="text/css">
 	<link href="<? echo base_url("assets/css/pages/signin.css"); ?>" rel="stylesheet" type="text/css">
 
+	<link href="<? echo base_url("assets/css/alerts.css"); ?>" rel="stylesheet" type="text/css">
+	<link href="<? echo base_url("assets/css/growl.css"); ?>" rel="stylesheet" type="text/css">
+
 	<script src="<? echo base_url("assets/js/jquery-1.7.2.min.js"); ?>"></script>
 	<script src="<? echo base_url("assets/js/forms.js"); ?>"></script>
 	<script src="<? echo base_url("assets/js/excanvas.min.js"); ?>"></script>
@@ -28,6 +31,9 @@
 	<script src="<? echo base_url("assets/js/charts/area.js"); ?>"></script>
 	<script src="<? echo base_url("assets/js/charts/donut.js"); ?>"></script>
 	<script src="<? echo base_url("assets/js/jquery.tools.js"); ?>"></script>
+	
+	<script src="<? echo base_url("assets/js/alerts.js"); ?>"></script>
+	<script src="<? echo base_url("assets/js/growl.js"); ?>"></script>
 </head>
 
 <body>

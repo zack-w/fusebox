@@ -23,7 +23,6 @@
 						<div class="tab-pane active" id="profile">
 						<form id="edit-profile" class="form-horizontal" method="post" action="user/update/">
 							<fieldset>
-								
 								<div class="control-group">											
 									<label class="control-label" for="username">Username</label>
 									<div class="controls">
@@ -55,7 +54,6 @@
 									</div> <!-- /controls -->				
 								</div> <!-- /control-group -->
 								
-								
 								<br /><br />
 								
 								<div class="control-group">											
@@ -64,7 +62,6 @@
 										<input type="password" class="input-medium" id="password1" value="password">
 									</div> <!-- /controls -->				
 								</div> <!-- /control-group -->
-								
 								
 								<div class="control-group">											
 									<label class="control-label" for="password2">Confirm</label>

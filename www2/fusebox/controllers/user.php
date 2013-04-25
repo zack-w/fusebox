@@ -63,7 +63,18 @@
 
 		public function update()
 		{
+			$this->form_validation->set_rules('identity', 'Identity', 'required');
+			$this->form_validation->set_rules('password', 'Password', 'required');
 			
+			if ($this->form_validation->run()) {
+				$remember = (bool) $this->input->post('remember');
+				
+				if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember)) {
+					redirect('/', 'refresh');
+				} else {
+					$this->data[ "AccountLoginError" ] = true;
+				}
+			}
 		}
 	   
 	}
