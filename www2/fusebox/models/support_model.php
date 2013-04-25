@@ -59,7 +59,7 @@ class Support_model extends CI_Model {
 	function PostTicket( $User, $Subject, $Body, $Priority ) {
 		$Insert = array(
 			"UID" => intval( $User ),
-			"Subject" => $this->db->escape( $Subject ),
+			"Subject" => $Subject,
 			"Date" => time(),
 			"Priority" => $Priority,
 			"Status" => 1,
@@ -77,7 +77,7 @@ class Support_model extends CI_Model {
 		$Insert = array(
 			"TID" => intval( $TID ),
 			"UID" => intval( $User ),
-			"Content" => $this->db->escape( $Body ),
+			"Content" => $Body,
 			"Date" => time(),
 		);
 		
