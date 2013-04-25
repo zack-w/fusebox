@@ -33,7 +33,7 @@
 				</div>
 			</div>
 			
-	
+			
 			<? foreach ($replies as $k => $reply) { ?>
 	
 			<div class="row">

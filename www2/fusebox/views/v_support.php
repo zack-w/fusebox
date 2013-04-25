@@ -6,6 +6,7 @@
 					width: 75%;
 				}
 			</style>
+			
 			<div class="row">
 				<div class="span12">
 					<div class="widget">
@@ -15,23 +16,41 @@
 						</div>
 						<div class="widget-content">
 							<form  class="form-horizontal" action="<? echo base_url("support/ticket_create"); ?>" method="post">
+							
 								<div class="control-group">
 									<label class="control-label">Title</label>
 									<div class="controls">
 										<input type="text" name="title" placeholder="Title" class="bigInput" />
 									</div>
 								</div>
+								
 								<div class="control-group">
 									<label class="control-label">Message</label>
 									<div class="controls">
 										<textarea name="message" rows="5" class="bigInput"></textarea>
 									</div>
 								</div>
+								
+								<div class="control-group">
+									<label class="control-label">Priority</label>
+									<div class="controls">
+										<select>
+											<?php
+												foreach( $this->support_priorities->Items as $ID=>$Text )
+												{
+													echo "<option value='{$ID}'>{$Text}</option>";
+												}
+											?>
+										</select>
+									</div>
+								</div>
+								
 								<div class="control-group">
 									<div class="controls">
 										<input type="submit" value="Submit Ticket"  />
 									</div>
 								</div>
+								
 							</form>
 						</div>
 					</div>
@@ -56,23 +75,41 @@
 									<th>Status</th>
 									<th>Control</th>
 								</tr>
-								<? foreach ($tickets as $i => $ticket) { ?>
-								<tr>
-									<td><a href="<? echo base_url("support/ticket/".$ticket["id"]); ?>"><? echo $ticket["title"]; ?></a></td>
-									<td><? echo $ticket["replies"]; ?></td>
-									<td><? echo ago($ticket["timestamp"]); ?></td>
-									<td><? echo ($ticket["lastupdated"] == 0) ? 'Never' : ago($ticket["lastupdated"]); ?></td>
-									<td><? echo $ticket["lastuser"]; ?></td>
-									<td><? echo $ticket["status"]; ?></td>
-									<td>
-										<? if ($ticket["status"] == "Closed") { ?>
-											<a href="<? echo base_url("support/ticket_open/".$ticket["id"]); ?>" class="btn btn-success">Open</a>
-										<? } else { ?>
-											<a href="<? echo base_url("support/ticket_close/".$ticket["id"]); ?>" class="btn btn-danger">Close</a>
-										<? } ?>
-									</td>
-								</tr>
-								<? } ?>
+								
+								<?php
+									foreach ( $Tickets as $Ticket )
+									{
+										$URL = base_url( "support/ticket/" . $Ticket[ "ID" ] );
+										$Title = $Ticket[ "Subject" ];
+										$NumReplies = $Ticket[ "NumReplies" ];
+										$Date = $Ticket[ "Date" ];
+										$LastReply = ( $Ticket[ "LastReply" ] == 0 )? ( "Never" ) : ( "Tommorow" );
+										$LastReplyUser = $Ticket[ "LastReplyUser" ]->username;
+										$Status = $this->support_status->GetStatus( $Ticket[ "Status" ] );
+										$IsClosed = $this->support_status->IsClosed( $Ticket[ "Status" ] );
+										
+										echo "
+										<tr>
+											<td><a href='{$URL}'>{$Title}</a></td>
+											<td>{$NumReplies}</td>
+											<td>{$Date}</td>
+											<td>{$LastReply}</td>
+											<td>{$LastReplyUser}</td>
+											<td>{$Status}</td>
+											<td>
+										";
+										
+										if( $IsClosed == false) {
+											$Goto = base_url( "support/ticket_open/" . $Ticket[ "ID" ] );
+											echo "<a href='{$Goto}' class='btn btn-success'>Open</a>";
+										} else {
+											$Goto = base_url( "support/ticket_close/" . $Ticket[ "ID" ] );
+											echo "<a href='{$Goto}' class='btn btn-danger'>Close</a>";
+										}
+										
+										echo "</td></tr>";
+									}
+								?>
 							</table>
 						</div>
 					</div>
