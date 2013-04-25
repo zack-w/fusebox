@@ -4,20 +4,32 @@
 	<div class="content clearfix">
 		<form action="<? echo base_url("user/login"); ?>" method="post">
 			<h1><?php echo lang("login_heading"); ?></h1>		
+			
 			<div class="login-fields">
-				
-				<p><? echo lang("login_subheading"); ?></p>
-				
-				<div class="field">
-					<label for="username"><? echo lang("index_email_th"); ?>:</label>
-					<input type="text" id="identity" name="identity" value="<? echo $this->data[ "email_fill" ]; ?>" placeholder="<? echo lang("index_email_th"); ?>" class="login username-field" />
+				<div class="control-group">
+					<p><? echo lang("login_subheading"); ?></p>
+					<br />
+					
+					<div class="field">
+						<label for="username"><? echo lang("index_email_th"); ?>:</label>
+						<input type="text" id="identity" name="identity" value="<? echo $this->data[ "email_fill" ]; ?>" placeholder="<? echo lang("index_email_th"); ?>" class="login username-field" />
+						
+						<?php
+							if( !empty( $AccountEmailError ) )
+								echo "<span class='error' style='display: inline;'>That email isn't in our system.</span>";
+						?>
+					</div>
+					
+					<div class="field">
+						<label for="password"><? echo lang("login_password_label"); ?>:</label>
+						<input type="password" id="password" name="password" value="" placeholder="<? echo lang("login_password_label"); ?>" class="login password-field"/>
+						
+						<?php
+							if( !empty( $AccountPasswordError ) )
+								echo "<span class='error' style='display: inline;'>That password is incorrect. <a href="#" style="color: #CCC;">Reset it?</a></span>";
+						?>
+					</div>
 				</div>
-				
-				<div class="field">
-					<label for="password"><? echo lang("login_password_label"); ?>:</label>
-					<input type="password" id="password" name="password" value="" placeholder="<? echo lang("login_password_label"); ?>" class="login password-field"/>
-				</div>
-				
 			</div>
 			
 			<div class="login-actions">
@@ -30,15 +42,4 @@
 			</div>
 		</form>
 	</div>
-	
-	<?php
-		if( !empty( $AccountLoginError ) )
-		{
-			echo "
-				<div class='account-login-failed'>
-					Username or password is incorrect. <a href='forgot/'>Forgot password?</a>
-				</div>
-			";
-		}
-	?>
 </div>

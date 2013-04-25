@@ -70,7 +70,7 @@
 						</div>
 					</div>
 				</div>
-
+				
 				<div class="span8">
 					<div class="widget widget-table">
 						<div class="widget-header">
@@ -81,18 +81,19 @@
 						<div class="widget-content">
 							<table class="table table-bordered" style='font-size: 12px;'>
 								<tr>
+									<th style='background-color: #F5F5F5;'></th>
 									<th>Title</th>
 									<!--<th>Created</th>-->
 									<th>Last Updated</th>
 									<!--<th>Last User</th>-->
 									<th>Status</th>
 									<th>Category</th>
-									<th></th>
 								</tr>
 								
 								<?php
 									foreach ( $Tickets as $Ticket )
 									{
+										$TicketID = $Ticket[ "ID" ];
 										$URL = base_url( "support/ticket/" . $Ticket[ "ID" ] );
 										$Title = $Ticket[ "Subject" ];
 										//$Date = timespan( $Ticket[ "Date" ] );
@@ -103,15 +104,14 @@
 										$IsClosed = $this->support_status->IsClosed( $Ticket[ "Status" ] );
 										
 										echo "
-										<tr>
+										<tr id='ticket_{$TicketID}'>
+											<td style='text-align: center;'><input type='checkbox' /></td>
 											<td><a href='{$URL}'>{$Title}</a></td>
 											<td>{$LastReply} ago</td>
 											<td>" . $Status[ "Text" ] . "</td>
 											<td>{$Category}</td>
-											<td style='text-align: center;'><input type='checkbox' /></td>
+										</tr>
 										";
-										
-										echo "</td></tr>";
 									}
 								?>
 							</table>
