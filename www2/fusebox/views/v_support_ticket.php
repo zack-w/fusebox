@@ -8,9 +8,10 @@
 			</style>
 			
 			<div class="row">
-				<div class="span12">
+				<div class="span8">
 					<h1><? echo $Ticket[ "Subject" ]; ?></h1>
 					<h3>Status: <? echo ($this->support_status->IsClosed($Ticket[ "Status" ])) ? "Closed" : "Open"; ?></h3>
+					<h3><a href="#reply" onclick="document.getElementById('message').focus();">Reply</a></h3>
 					<hr>
 				</div>
 			</div>
@@ -18,7 +19,7 @@
 			<? foreach ( $Replies as $ID => $Reply ) { ?>
 			
 			<div class="row">
-				<div class="span12">
+				<div class="span8">
 					<div class="widget">
 						<div class="widget-header widget-table">
 							<i class="icon-user"></i>
@@ -37,6 +38,7 @@
 			
 			<? } ?>
 			
+			<a name="reply"></a>
 			<div class="row">
 				<div class="span12">
 					<div class="widget">
@@ -50,12 +52,12 @@
 								<div class="control-group">
 									<label class="control-label">Message</label>
 									<div class="controls">
-										<textarea name="message" rows="5" class="bigInput"></textarea>
+										<textarea name="message" id="message" rows="5" class="bigInput"></textarea>
 									</div>
 								</div>
 								<div class="control-group">
 									<div class="controls">
-										<input type="submit" value="Submit Response"  />
+										<input class="btn" type="submit" value="Submit Response"  />
 									</div>
 								</div>
 							</form>

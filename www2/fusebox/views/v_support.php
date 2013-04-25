@@ -8,14 +8,14 @@
 			</style>
 			
 			<div class="row">
-				<div class="span12">
+				<div class="span4">
 					<div class="widget">
 						<div class="widget-header">
 							<i class="icon-comment"></i>
 							<h3>Post Ticket</h3>
 						</div>
 						<div class="widget-content">
-							<form  class="form-horizontal" action="<? echo base_url("support/ticket_create"); ?>" method="post">
+							<form action="<? echo base_url("support/ticket_create"); ?>" method="post">
 							
 								<div class="control-group">
 									<label class="control-label">Title</label>
@@ -47,7 +47,7 @@
 								
 								<div class="control-group">
 									<div class="controls">
-										<input type="submit" value="Submit Ticket"  />
+										<input class="btn" type="submit" value="Submit Ticket"  />
 									</div>
 								</div>
 								
@@ -55,10 +55,8 @@
 						</div>
 					</div>
 				</div>
-			</div>
-	
-			<div class="row">
-				<div class="span12">
+
+				<div class="span8">
 					<div class="widget widget-table">
 						<div class="widget-header">
 							<i class="icon-list"></i>
