@@ -7,6 +7,9 @@ class Support extends SF_Controller {
 	public function __construct() {
 		parent::__construct();
 		
+		if( !$this->ion_auth->logged_in() )
+			redirect( "/" );
+		
 		$this->load->model("support_model");
 	}
 	
@@ -34,7 +37,8 @@ class Support extends SF_Controller {
 		$this->header("FuseBox - View Ticket");
 		$this->load->view( "includes/navbar" );
 		
-		if( empty( $ID ) ) redirect( "support" );;
+		if( $this->support_model->TicketExists( $ID ) == false )
+			redirect( "support" );
 		
 		$Ticket = $this->support_model->GetTicketByID( $ID );
 		
@@ -46,7 +50,7 @@ class Support extends SF_Controller {
 		$Replies = $this->support_model->GetTicketReplies( $ID );
 		
 		foreach ( $Replies as $ID => $Reply ) {
-			$Replies[ $ID ][ "Username" ] = $this->ion_auth->user($Reply[ "UID" ])->row()->username;
+			$Replies[ $ID ][ "Username" ] = $this->ion_auth->user( $Reply[ "UID" ] )->row()->username;
 		}
 		
 		$this->data[ "Ticket" ] = $Ticket;
@@ -59,6 +63,7 @@ class Support extends SF_Controller {
 	public function ticket_create() {
 		$this->form_validation->set_rules('title', 'Title', 'required|xss_clean|strip_tags|trim');
 		$this->form_validation->set_rules('message', 'Message', 'required|xss_clean|strip_tags|trim');
+		$this->form_validation->set_rules('priority', 'Priority', 'required|numeric');
 		
 		if ( $this->form_validation->run() == false || intval( $this->input->post( "priority" ) == null ) ) {
 			$this->index(); // There were errors, so load the index
@@ -83,7 +88,19 @@ class Support extends SF_Controller {
 			return;
 		}
 		
+		if( $this->support_model->TicketExists( $this->input->post( "ticket" ) ) == false )
+		{
+			$this->ticket( $this->input->post( "ticket" ) ); // There were errors, so load the ticket again
+			return;
+		}
+		
 		$this->support_model->PostTicketReply( $this->input->post( "ticket" ), $this->user->id, $this->input->post( "message" ) );
+		
+		if( $this->input->post( "close" ) == "closed" )
+		{
+				$this->support_model->UpdateTicketStatus( $this->input->post( "ticket" ), 4 );
+		}
+		
 		$this->ticket( $this->input->post( "ticket" ) );
 	}
 	

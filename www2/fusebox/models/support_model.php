@@ -8,6 +8,19 @@ class Support_model extends CI_Model {
 		$this->user = $this->ion_auth->user()->row();
 	}
 	
+	function TicketExists( $TicketID )
+	{
+		$TicketID = intval( $TicketID );
+	
+		if(empty( $TicketID ) )
+			return false;
+	
+		$Query = $this->db->query( "SELECT COUNT(*) FROM `support_tickets` WHERE `ID` = " . $TicketID . ";" );
+		$Row = $Query->row_array();
+		
+		return (intval( $Row[ "COUNT(*)" ] > 0))?(true):(false);
+	}
+	
 	function UserCanAccessTicket( $TicketID )
 	{
 		if( $this->ion_auth->is_admin() ) return true; // TODO :: Add permissions here
@@ -82,6 +95,7 @@ class Support_model extends CI_Model {
 		);
 		
 		$this->db->insert( "support_tickets_replies", $Insert );
+		// TODO :: UPDATE TICKET STATUS
 	}
 	
 	function UpdateTicketStatus( $TID, $StatusID ) {

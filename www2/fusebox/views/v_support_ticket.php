@@ -49,17 +49,37 @@
 						<div class="widget-content">
 							<form  class="form-horizontal" action="<? echo base_url( "support/ticket_respond" ); ?>" method="post">
 								<input type="hidden" name="ticket" value="<? echo $Ticket[ "ID" ]; ?>" />
+								
 								<div class="control-group">
 									<label class="control-label">Message</label>
+									
 									<div class="controls">
 										<textarea name="message" id="message" rows="5" class="bigInput"></textarea>
 									</div>
 								</div>
+								
+								<?php
+									if( $Ticket[ "Status" ] != 4 ) {
+								?>
+								
+								<div class="control-group">
+									<label class="control-label">Close Ticket</label>
+									
+									<div class="controls">
+										<input type="checkbox" name="close" value="closed" />
+									</div>
+								</div>
+								
+								<?php
+									}
+								?>
+								
 								<div class="control-group">
 									<div class="controls">
 										<input class="btn" type="submit" value="Submit Response"  />
 									</div>
 								</div>
+								
 							</form>
 						</div>
 					</div>

@@ -24,7 +24,8 @@
 				<span class="login-checkbox">
 					<input id="Field" name="remember" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
 					<label class="choice" for="Field"><? echo lang("login_remember_label"); ?></label>
-				</span>		
+				</span>
+				
 				<button class="button btn btn-warning btn-large"><? echo lang("login_submit_btn"); ?></button>
 			</div>
 		</form>
@@ -35,7 +36,7 @@
 		{
 			echo "
 				<div class='account-login-failed'>
-					Username or password is incorrect.
+					Username or password is incorrect. <a href='forgot/'>Forgot password?</a>
 				</div>
 			";
 		}

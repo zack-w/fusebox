@@ -2,7 +2,12 @@
 
 	class Support_status
 	{
-		public static $Items;
+		public $Items;
+		
+		public $STATUS_OPENED = 1;
+		public $STATUS_CLIENT_REPLY = 2;
+		public $STATUS_STAFF_REPLY = 1;
+		public $STATUS_CLOSED = 4;
 		
 		public function __construct()
 		{

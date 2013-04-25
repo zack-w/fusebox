@@ -4,9 +4,8 @@ class Dashboard extends SF_Controller {
 
 	public function index()
 	{
-		if($this->ion_auth->logged_in() != true) {
-			redirect("user/login", "refresh");
-		}
+		if( !$this->ion_auth->logged_in() )
+			redirect( "/" );
 		
 		$this->header( "Dashboard" );
 		$this->load->view( "includes/navbar" );

@@ -6,9 +6,28 @@
 
 		public function index()
 		{
+			if( !$this->ion_auth->logged_in() )
+				redirect( "/" );
+		
 			$this->header(" UserCP" );
 			$this->load->view( "includes/navbar" );
 			$this->footer();
+		}
+		
+		public function forgot()
+		{
+			$this->form_validation->set_rules('email', 'Email', 'required');
+			
+			if ($this->form_validation->run()) {
+				if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember)) {
+					redirect('/', 'refresh');
+				} else {
+					$this->data[ "AccountLoginError" ] = true;
+				}
+			}
+			
+			$this->header(lang("base_page_login"));
+			$this->view("auth/forgot_password");
 		}
 		
 		public function login() 
