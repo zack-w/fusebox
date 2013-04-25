@@ -81,9 +81,9 @@
 									{
 										$URL = base_url( "support/ticket/" . $Ticket[ "ID" ] );
 										$Title = $Ticket[ "Subject" ];
-										$NumReplies = $Ticket[ "NumReplies" ];
+										$NumReplies = ( $Ticket[ "NumReplies" ] - 1 == 0 )?( "None" ):( $Ticket[ "NumReplies" ] - 1 );
 										$Date = date( "m/d/y g:i A", $Ticket[ "Date" ] );
-										$LastReply = ( $Ticket[ "LastReply" ] == 0 )? ( "Never" ) : ( date( "m/d/y g:i A", $Ticket[ "LastReply" ]  ) );
+										$LastReply = date( "m/d/y g:i A", $Ticket[ "LastReply" ]  );
 										$LastReplyUser = $Ticket[ "LastReplyUser" ]->username;
 										$Status = $this->support_status->GetStatus( $Ticket[ "Status" ] );
 										$IsClosed = $this->support_status->IsClosed( $Ticket[ "Status" ] );

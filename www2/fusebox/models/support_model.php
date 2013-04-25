@@ -8,6 +8,23 @@ class Support_model extends CI_Model {
 		$this->user = $this->ion_auth->user()->row();
 	}
 	
+	function UserCanAccessTicket( $TicketID )
+	{
+		if( $this->ion_auth->is_admin() ) return true; // TODO :: Add permissions here
+		
+		$Ticket = $this->GetTicketByID( $TicketID );
+		
+		if( !empty( $Ticket ) )
+		{
+			if( intval( $Ticket[ "UID" ] ) == intval( $this->user->id ) )
+				return true;
+			else
+				return false;
+		}
+		
+		return false;
+	}
+	
 	function GetRecentTickets( $UserID, $Start, $Limit ) {
 		$UserID = intval( $UserID ); $Start = intval( $Start ); $Limit = intval( $Limit );
 		
