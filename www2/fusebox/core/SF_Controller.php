@@ -12,7 +12,6 @@ class SF_Controller extends CI_Controller
       //Load Libraries
       $this->load->library('ion_auth');
       $this->load->library('form_validation');
-      $this->load->library('message');
 
       //Load helpers
       $this->load->helper('url');
@@ -34,7 +33,7 @@ class SF_Controller extends CI_Controller
       $this->data["admin"] = $this->ion_auth->is_admin();
       
       //Set our flashdata via the message library.
-      $this->message->setData($this->data);
+      //$this->message->setData($this->data);
       
    }
 
