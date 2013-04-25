@@ -14,6 +14,7 @@ class SF_Controller extends CI_Controller
 		$this->load->library('form_validation');
 		$this->load->library('nav');
 		$this->load->library('support_priorities');
+		$this->load->library('support_status');
 		
 		//Load helpers
 		$this->load->helper('url');
@@ -62,5 +63,9 @@ class SF_Controller extends CI_Controller
 		$this->data["general_display_name"] = $this->Settings->get("general_display_name");
 
 		$this->load->view("includes/header", $this->data);
+	}
+	
+	public function footer() {
+		
 	}
 }
