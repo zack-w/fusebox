@@ -52,7 +52,7 @@ class Support extends SF_Controller {
 		foreach ( $Replies as $ID => $Reply ) {
 			$Replies[ $ID ][ "Username" ] = $this->ion_auth->user( $Reply[ "UID" ] )->row()->username;
 		}
-		
+
 		$this->data[ "Ticket" ] = $Ticket;
 		$this->data[ "Replies" ] = $Replies;
 		
@@ -138,13 +138,13 @@ class Support extends SF_Controller {
 		$this->ticket( $this->input->post( "ticket" ) );
 	}
 	
-	public function ticket_close( $ID ) {
+	public function ticket_close( $ID , $redirect = "support" ) {
 		$this->support_model->UpdateTicketStatus( $ID, 4 ); // TODO :: Calculate the correct ticket status
-		redirect( "support" );
+		redirect( $redirect);
 	}
-	public function ticket_open( $ID ) {
+	public function ticket_open( $ID , $redirect = "support") {
 		$this->support_model->UpdateTicketStatus( $ID, 1 ); // TODO :: Calculate the correct ticket status
-		redirect( "support" );
+		redirect( $redirect );
 	}
 	
 }
