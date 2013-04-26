@@ -11,6 +11,7 @@ class SF_Controller extends CI_Controller
 
 		//Load Libraries
 		$this->load->library('ion_auth');
+		$this->load->library('pagination');
 		$this->load->library('form_validation');
 		$this->load->library('nav');
 		$this->load->library('support_priorities');

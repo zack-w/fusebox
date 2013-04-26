@@ -39,5 +39,5 @@ function EditSupportTickets()
 		Items = Items + "," + Ticket;
 	}
 	
-	window.location.replace( window.location + "/toggletickets?tickets=" + Items );
+	window.location.replace( location.protocol + '//' + location.host + location.pathname + "/toggletickets?tickets=" + Items );
 }

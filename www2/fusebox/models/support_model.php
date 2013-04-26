@@ -38,20 +38,26 @@ class Support_model extends CI_Model {
 		return false;
 	}
 	
-	function GetRecentTickets( $UserID, $Start, $Limit ) {
+	function GetRecentTickets( $UserID, $Start, $Limit, $ViewAll = false ) {
 		$UserID = intval( $UserID ); $Start = intval( $Start ); $Limit = intval( $Limit );
 		
-		$Query = "SELECT * FROM `support_tickets` ";
+		$Base = "SELECT * FROM `support_tickets` ";
+		$Query = "";
 		
-		if( $UserID != null )
-		{
-			$Query .= "WHERE `UID` = {$UserID} ";
+		if( $UserID != null ) $Query .= "WHERE `UID` = {$UserID} ";
+		
+		if( $ViewAll != true ) {
+			$Query .= ( $UserID == null ) ? ( "WHERE `Status` != 4 " ) : ( " AND `Status` != 4 " );
 		}
 		
 		$Query .= "ORDER BY `Date` DESC ";
 		$Query .= "LIMIT " . $Start . ", " . $Limit;
+		$Tickets = $this->db->query( $Base . $Query )->result_array();
 		
-		return $this->db->query( $Query )->result_array();
+		$Base = "SELECT COUNT(*) FROM `support_tickets`";
+		$BaseRes = $this->db->query( $Base . $Query )->row_array();
+		
+		return array( $Tickets, $BaseRes[ "COUNT(*)" ] );
 	}
 	
 	function GetTicketByID( $ID ) {

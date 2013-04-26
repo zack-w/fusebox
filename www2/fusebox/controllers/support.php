@@ -13,24 +13,43 @@ class Support extends SF_Controller {
 		$this->load->model("support_model");
 	}
 	
-	public function index(){
-		$Tickets = $this->support_model->GetRecentTickets( $this->user->id, 0, 25 );
+	public function index( $HasNoActive = null ){
+		$ViewAll = ( !empty( $HasNoActive ) ) ? ( $HasNoActive ) : ( $this->input->get("viewall") );
+		$Page = $this->input->get("page");
 		
-		foreach( $Tickets as $TicketID => $Ticket )
+		$ResultsPerPage = 25;
+		$Results = $this->support_model->GetRecentTickets( $this->user->id, (empty($Page) ? (0) : (intval($Page))), $ResultsPerPage, !(empty( $ViewAll )) );
+		
+		$Tickets = $Results[ 0 ];
+		$NumResults = $Results[ 1 ];
+		$NumPages = ceil( $NumResults / $ResultsPerPage );
+		
+		if( $NumResults == 0 && $ViewAll == false ) // They have no open tickets, but may have closed tickets
 		{
-			$TicketReplies = $this->support_model->GetTicketReplies( $Ticket[ "ID" ] );
-			$LastReply = end( $TicketReplies );
+			$this->index( true );
+		} else {
+			foreach( $Tickets as $TicketID => $Ticket )
+			{
+				$TicketReplies = $this->support_model->GetTicketReplies( $Ticket[ "ID" ] );
+				$LastReply = end( $TicketReplies );
+				
+				$Tickets[ $TicketID ][ "NumReplies" ] = count( $TicketReplies );
+				$Tickets[ $TicketID ][ "LastReply" ] = $LastReply[ "Date" ];
+				$Tickets[ $TicketID ][ "LastReplyUser" ] = $this->ion_auth->user( $LastReply[ "UID" ] )->row();
+			}
 			
-			$Tickets[ $TicketID ][ "NumReplies" ] = count( $TicketReplies );
-			$Tickets[ $TicketID ][ "LastReply" ] = $LastReply[ "Date" ];
-			$Tickets[ $TicketID ][ "LastReplyUser" ] = $this->ion_auth->user( $LastReply[ "UID" ] )->row();
+			$this->header( "Support" );
+			$this->load->view( "includes/navbar" );
+			
+			$this->data[ "Tickets" ] = $Tickets;
+			$this->data[ "ViewingAllTickets" ] = $ViewAll;
+			
+			if( !empty( $HasNoActive ) )
+				$this->data[ "HasNoActive" ] = true;
+			
+			$this->view( "v_support" );
+			$this->footer();
 		}
-		
-		$this->header( "Support" );
-		$this->load->view( "includes/navbar" );
-		$this->data[ "Tickets" ] = $Tickets;
-		$this->view( "v_support" );
-		$this->footer();
 	}
 	
 	public function ticket( $ID = null ) {

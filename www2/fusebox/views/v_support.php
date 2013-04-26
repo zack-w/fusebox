@@ -74,8 +74,16 @@
 				<div class="span8">
 					<div class="widget widget-table">
 						<div class="widget-header">
-							<i class="icon-list"></i>
-							<h3>Your Tickets</h3>
+							<table style='width: 100%;'>
+								<tr>
+									<td style='width: 90%;'><i class="icon-list"></i> <h3>Your Tickets</h3></td>
+									
+									<?php 
+										if( $ViewingAllTickets == false )
+											echo '<td><a href="?viewall=&#10003;" class="btn btn-mini">View All</a></td>';
+									?>
+								</tr>
+							</table>
 						</div>
 						
 						<div class="widget-content">
@@ -96,7 +104,7 @@
 										echo "
 											<tr>
 												<td colspan=5 style='text-align: center;padding: 15px;'>
-													<b>You don't have any tickets!</b>
+													<b>You don't have any tickets.</b>
 												</td>
 											</tr>
 										";
@@ -123,36 +131,61 @@
 												</tr>
 											";
 										}
+										
+										if( empty( $HasNoActive ) )
+										{
+											echo "<tr><td colspan=5 style='text-align: center;padding: 15px;'>";
+												
+											echo ( $ViewingAllTickets )?( 
+												"Currently showing all tickets. To only see active ones click <a href='?viewall'>here</a>." 
+											):( "Currently showing only open tickets. To see all tickets click <a href='?viewall=&#10003;'>here</a>." );
+											
+											echo "</td></tr>";
+										}
 									}
 								?>
 							</table>
 						</div>
 						
-						<? if( !empty( $Tickets ) && count( $Tickets ) != 0 ) { ?>
-						<br />
-						
-						<div class="widget-content" style='width: 290px;display: none;' id="mange-tickets-widget">
-							<table style='margin: 10px;' cellspacing=20>
-								<tr>
-									<td style="padding-right: 10px;">
-										<select style="margin: 0px;">
-											<option>Open/Close Ticket(s)</option>
-										</select>
-									</td>
+						<table style='width: 100%;'>
+							<tr>
+								<td style='width: auto;'>
+									<? if( !empty( $Tickets ) && count( $Tickets ) != 0 ) { ?>
 									
-									<td style='text-align: center;'>
-										<a href="#" class="btn" onclick="EditSupportTickets();">Go</a>
-									</td>
-								</tr>
-							</table>
-						</div>
-						
-						<? } ?>
+									<div class="widget-content" style='width: 290px;display: none;' id="mange-tickets-widget">
+										<table style='margin: 10px;' cellspacing=20>
+											<tr>
+												<td style="padding-right: 10px;">
+													<select style="margin: 0px;">
+														<option>Open/Close Ticket(s)</option>
+													</select>
+												</td>
+												
+												<td style='text-align: center;'>
+													<a href="#" class="btn" onclick="EditSupportTickets();">Go</a>
+												</td>
+											</tr>
+										</table>
+									</div>
+									
+									<? } ?>
+								</td>
+								
+								<td style='text-align: right;'>
+									<div class="pagination pagination-large">
+										<ul>
+											<?php
+												// $NumPages
+											?>
+										</ul>
+									</div>
+								</td>
+							</tr>
+						</table>
 					</div>
+					
 				</div>
 			</div>
-			
-			<b>TODO :: Add paging here</b>
 			
 		</div>
 	</div>
