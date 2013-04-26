@@ -76,7 +76,7 @@
 						<div class="widget-header">
 							<table style='width: 100%;'>
 								<tr>
-									<td style='width: 90%;'><i class="icon-list"></i> <h3>Your Tickets</h3></td>
+									<td style='width: 90%;'><i class="icon-list"></i> <h3>Your Tickets - <?php echo $NumTickets; ?> Total</h3></td>
 									
 									<?php 
 										if( $ViewingAllTickets == false )
@@ -173,9 +173,18 @@
 								
 								<td style='text-align: right;'>
 									<div class="pagination pagination-large">
-										<ul>
+										<ul class="pagination">
 											<?php
-												// $NumPages
+												if( $NumPages > 1 )
+												{
+													$PrevClass = ( $CurPage > 1 )?( "" ):( "disabled" );
+													$NextClass = ( $NumPages > $CurPage )?( "" ):( "disabled" );
+													
+													echo "<ul>
+														<li class='{$PrevClass}'><a href='?page=" . ($CurPage - 1) . "'>Prev</a></li>
+														<li class='{$NextClass}'><a href='?page=" . ($CurPage + 1) . "'>Next</a></li>
+													</ul>";
+												}
 											?>
 										</ul>
 									</div>

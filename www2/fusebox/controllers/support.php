@@ -15,14 +15,22 @@ class Support extends SF_Controller {
 	
 	public function index( $HasNoActive = null ){
 		$ViewAll = ( !empty( $HasNoActive ) ) ? ( $HasNoActive ) : ( $this->input->get("viewall") );
+		
 		$Page = $this->input->get("page");
+		$Page = ( empty( $Page ) ) ? ( 1 ) : ( intval( $Page ) );
 		
 		$ResultsPerPage = 25;
-		$Results = $this->support_model->GetRecentTickets( $this->user->id, (empty($Page) ? (0) : (intval($Page))), $ResultsPerPage, !(empty( $ViewAll )) );
+		
+		$Start = (empty($Page) ? (0) : (intval($Page) * $ResultsPerPage - $ResultsPerPage));
+		$Results = $this->support_model->GetRecentTickets( $this->user->id, $Start, $ResultsPerPage, !(empty( $ViewAll )) );
 		
 		$Tickets = $Results[ 0 ];
 		$NumResults = $Results[ 1 ];
-		$NumPages = ceil( $NumResults / $ResultsPerPage );
+		
+		if( $NumResults == 0 )
+			$NumPages = 0;
+		else
+			$NumPages = ceil( $NumResults / $ResultsPerPage );
 		
 		if( $NumResults == 0 && $ViewAll == false ) // They have no open tickets, but may have closed tickets
 		{
@@ -43,6 +51,9 @@ class Support extends SF_Controller {
 			
 			$this->data[ "Tickets" ] = $Tickets;
 			$this->data[ "ViewingAllTickets" ] = $ViewAll;
+			$this->data[ "CurPage" ] = $Page;
+			$this->data[ "NumPages" ] = $NumPages;
+			$this->data[ "NumTickets" ] = $NumResults;
 			
 			if( !empty( $HasNoActive ) )
 				$this->data[ "HasNoActive" ] = true;
