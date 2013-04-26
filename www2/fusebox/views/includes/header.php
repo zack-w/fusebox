@@ -71,7 +71,7 @@
 							<? } else { ?>
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<i class="icon-cog"></i>
-									<? echo $user->username; ?>
+									<? echo $user->first_name." ".$user->last_name; ?>
 									<b class="caret"></b>
 								</a>
 								
