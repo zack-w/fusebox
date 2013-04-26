@@ -80,8 +80,8 @@
 						
 						<div class="widget-content">
 							<table class="table table-bordered" style='font-size: 12px;'>
-								<tr>
-									<th style='background-color: #F5F5F5;'></th>
+								<tr style='background-color: #FAFAFA;'>
+									<th style='background-color: #EEE;'></th>
 									<th>Title</th>
 									<!--<th>Created</th>-->
 									<th>Last Updated</th>
@@ -91,31 +91,63 @@
 								</tr>
 								
 								<?php
-									foreach ( $Tickets as $Ticket )
+									if( empty( $Tickets ) || count( $Tickets ) == 0 )
 									{
-										$TicketID = $Ticket[ "ID" ];
-										$URL = base_url( "support/ticket/" . $Ticket[ "ID" ] );
-										$Title = $Ticket[ "Subject" ];
-										//$Date = timespan( $Ticket[ "Date" ] );
-										$LastReply = timespan( $Ticket[ "LastReply" ]  );
-										//$LastReplyUser = $Ticket[ "LastReplyUser" ]->username;
-										$Status = $this->support_status->GetStatus( $Ticket[ "Status" ] );
-										$Category = $this->support_categories->GetCategory( $Ticket[ "Category" ] );
-										$IsClosed = $this->support_status->IsClosed( $Ticket[ "Status" ] );
-										
 										echo "
-										<tr id='ticket_{$TicketID}'>
-											<td style='text-align: center;'><input type='checkbox' /></td>
-											<td><a href='{$URL}'>{$Title}</a></td>
-											<td>{$LastReply} ago</td>
-											<td>" . $Status[ "Text" ] . "</td>
-											<td>{$Category}</td>
-										</tr>
+											<tr>
+												<td colspan=5 style='text-align: center;padding: 15px;'>
+													<b>You don't have any tickets!</b>
+												</td>
+											</tr>
 										";
+									} else {
+										foreach ( $Tickets as $Ticket )
+										{
+											$TicketID = $Ticket[ "ID" ];
+											$URL = base_url( "support/ticket/" . $Ticket[ "ID" ] );
+											$Title = $Ticket[ "Subject" ];
+											//$Date = timespan( $Ticket[ "Date" ] );
+											$LastReply = timespan( $Ticket[ "LastReply" ]  );
+											//$LastReplyUser = $Ticket[ "LastReplyUser" ]->username;
+											$Status = $this->support_status->GetStatus( $Ticket[ "Status" ] );
+											$Category = $this->support_categories->GetCategory( $Ticket[ "Category" ] );
+											$IsClosed = $this->support_status->IsClosed( $Ticket[ "Status" ] );
+											
+											echo "
+												<tr id='ticket_{$TicketID}'>
+													<td style='text-align: center;'><input onclick=\"SelectSupportTicket({$TicketID});\" type='checkbox' /></td>
+													<td><a href='{$URL}'>{$Title}</a></td>
+													<td>{$LastReply} ago</td>
+													<td>" . $Status[ "Text" ] . "</td>
+													<td>{$Category}</td>
+												</tr>
+											";
+										}
 									}
 								?>
 							</table>
 						</div>
+						
+						<? if( !empty( $Tickets ) && count( $Tickets ) != 0 ) { ?>
+						<br />
+						
+						<div class="widget-content" style='width: 290px;display: none;' id="mange-tickets-widget">
+							<table style='margin: 10px;' cellspacing=20>
+								<tr>
+									<td style="padding-right: 10px;">
+										<select style="margin: 0px;">
+											<option>Open/Close Ticket(s)</option>
+										</select>
+									</td>
+									
+									<td style='text-align: center;'>
+										<a href="#" class="btn" onclick="EditSupportTickets();">Go</a>
+									</td>
+								</tr>
+							</table>
+						</div>
+						
+						<? } ?>
 					</div>
 				</div>
 			</div>

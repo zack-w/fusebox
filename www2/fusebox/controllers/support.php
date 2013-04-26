@@ -87,6 +87,33 @@ class Support extends SF_Controller {
 		$this->ticket( $TicketID );
 	}
 	
+	public function toggletickets()
+	{
+		$ToChangeString = $this->input->get( "tickets" );
+	
+		foreach( explode( ",", $ToChangeString ) as $TicketID )
+		{
+			if( is_numeric( $TicketID ) )
+			{
+				if( $this->support_model->UserCanAccessTicket( $TicketID ) )
+				{
+					$Ticket = $this->support_model->GetTicketByID( $TicketID );
+					
+					if( !empty( $Ticket ) )
+					{
+						if( $Ticket[ "Status" ] == 4 ) {
+							$this->support_model->UpdateTicketStatus( $TicketID, 1 ); // TODO :: SET CORRECT TICKET STATUS
+						} else {
+							$this->support_model->UpdateTicketStatus( $TicketID, 4 );
+						}
+					}
+				}
+			}
+		}
+	
+		$this->index();
+	}
+	
 	public function ticket_respond() {
 		$this->form_validation->set_rules('message', 'Message', 'required|xss_clean|strip_tags|trim');
 		
