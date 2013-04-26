@@ -109,7 +109,7 @@
 											//$Date = timespan( $Ticket[ "Date" ] );
 											$LastReply = timespan( $Ticket[ "LastReply" ]  );
 											//$LastReplyUser = $Ticket[ "LastReplyUser" ]->username;
-											$Status = $this->support_status->GetStatus( $Ticket[ "Status" ] );
+											$Status = $this->support_status->GetButton( $Ticket[ "Status" ] );
 											$Category = $this->support_categories->GetCategory( $Ticket[ "Category" ] );
 											$IsClosed = $this->support_status->IsClosed( $Ticket[ "Status" ] );
 											
@@ -118,8 +118,8 @@
 													<td style='text-align: center;'><input onclick=\"SelectSupportTicket({$TicketID});\" type='checkbox' /></td>
 													<td><a href='{$URL}'>{$Title}</a></td>
 													<td>{$LastReply} ago</td>
-													<td>" . $Status[ "Text" ] . "</td>
-													<td>{$Category}</td>
+													<td>{$Status}</td>
+													<td><span class='label'>{$Category}</span></td>
 												</tr>
 											";
 										}

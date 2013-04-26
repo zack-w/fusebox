@@ -31,6 +31,23 @@
 			return $Item;
 		}
 		
+		public function GetButton( $StatusID )
+		{
+			$Status = $this->GetStatus( $StatusID );
+			$StatusText = $Status [ "Text" ];
+		
+			if( $this->IsNewlyOpened( $StatusID ) )
+				return "<span class='label label-success'>{$StatusText}</span>";
+			elseif( $this->IsClientReply( $StatusID ) )
+				return "<span class='label label-info'>{$StatusText}</span>";
+			elseif( $this->IsStaffReply( $StatusID ) )
+				return "<span class='label label-important'>{$StatusText}</span>";
+			elseif( $this->IsClosed( $StatusID ) )
+				return "<span class='label label-inverse'>{$StatusText}</span>";
+			else
+				return "<span class='label'>{$StatusText}</span>";
+		}
+		
 		public function IsNewlyOpened( $StatusID ) { return $StatusID == 1; }
 		public function IsClientReply( $StatusID ) { return $StatusID == 2; }
 		public function IsStaffReply( $StatusID ) { return $StatusID == 3; }

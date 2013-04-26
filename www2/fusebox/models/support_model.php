@@ -88,6 +88,8 @@ class Support_model extends CI_Model {
 	}
 	
 	function PostTicketReply( $TID, $User, $Body ) {
+		$Body = strip_tags( nl2br( $Body ), "<br>" );
+		
 		$Insert = array(
 			"TID" => intval( $TID ),
 			"UID" => intval( $User ),
