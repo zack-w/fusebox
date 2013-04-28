@@ -62,6 +62,10 @@ class SF_Controller extends CI_Controller
 		}
 	}
 
+	public function navbar() {
+		$this->load->view("user/navbar");
+	}
+
 	public function header($title) {
 		$this->data["title"] = $title . " : ".$this->Settings->get("general_display_name");
 		$this->data["general_display_name"] = $this->Settings->get("general_display_name");

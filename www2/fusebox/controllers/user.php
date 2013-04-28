@@ -10,11 +10,11 @@
 				redirect( "/" );
 		
 			$this->header(" UserCP" );
-			$this->load->view( "includes/navbar" );
+			$this->navbar();
 
 			$this->data['general_allow_nameChanges'] = $this->Settings->get("general_allow_nameChanges");
 
-			$this->load->view( "usercp" , $this->data);
+			$this->load->view( "user/usercp" , $this->data);
 			$this->footer();
 		}
 		

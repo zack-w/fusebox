@@ -8,7 +8,7 @@ class Dashboard extends SF_Controller {
 			redirect( "/" );
 		
 		$this->header( "Dashboard" );
-		$this->load->view( "includes/navbar" );
+		$this->navbar();
 	}
 	
 }

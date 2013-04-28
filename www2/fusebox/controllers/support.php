@@ -47,7 +47,7 @@ class Support extends SF_Controller {
 			}
 			
 			$this->header( "Support" );
-			$this->load->view( "includes/navbar" );
+			$this->navbar();
 			
 			$this->data[ "Tickets" ] = $Tickets;
 			$this->data[ "ViewingAllTickets" ] = $ViewAll;
@@ -58,14 +58,14 @@ class Support extends SF_Controller {
 			if( !empty( $HasNoActive ) )
 				$this->data[ "HasNoActive" ] = true;
 			
-			$this->view( "v_support" );
+			$this->view( "user/support" );
 			$this->footer();
 		}
 	}
 	
 	public function ticket( $ID = null ) {
 		$this->header("FuseBox - View Ticket");
-		$this->load->view( "includes/navbar" );
+		$this->navbar();
 		
 		if( $this->support_model->TicketExists( $ID ) == false )
 			redirect( "support" );
@@ -86,7 +86,7 @@ class Support extends SF_Controller {
 		$this->data[ "Ticket" ] = $Ticket;
 		$this->data[ "Replies" ] = $Replies;
 		
-		$this->view("v_support_ticket");
+		$this->view("user/support_ticket");
 		$this->footer();
 	}
 	
