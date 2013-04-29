@@ -27,14 +27,14 @@
 									<label class="control-label" for="firstname">First Name</label>
 
 									<div class="controls">
-										<input type="text" class="input-medium" id="firstname" value="<?php echo $user->first_name; ?>" <?php if(!$general_allow_nameChanges) echo "disabled"; ?>>
+										<input type="text" class="input-medium" id="firstname" value="<?php echo $user->first_name; ?>" <?php if(!$users_allow_namechange) echo "disabled"; ?>>
 									</div> <!-- /controls -->				
 								</div> <!-- /control-group -->
 								
 								<div class="control-group">											
 									<label class="control-label" for="lastname">Last Name</label>
 									<div class="controls">
-										<input type="text" class="input-medium" id="lastname" value="<?php echo $user->last_name; ?>" <?php if(!$general_allow_nameChanges) echo "disabled"; ?>>
+										<input type="text" class="input-medium" id="lastname" value="<?php echo $user->last_name; ?>" <?php if(!$users_allow_namechange) echo "disabled"; ?>>
 									</div> <!-- /controls -->				
 								</div> <!-- /control-group -->
 								

@@ -1,5 +1,5 @@
 <?php
-
+	
 	/*
 		Setting Types
 		-------------------
@@ -8,7 +8,7 @@
 		3	DROP DOWN
 		4	SELECT
 	*/
-
+	
 	class Setting {
 		
 		public $Key;
@@ -37,7 +37,7 @@
 		
 		public function GetText( $Special ) // eg. title or desc
 		{
-			
+			return lang( "setting_" . $this->Key . "_{$Special}" );
 		}
 		
 	}

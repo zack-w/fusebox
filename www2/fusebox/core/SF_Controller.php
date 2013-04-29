@@ -8,7 +8,7 @@ class SF_Controller extends CI_Controller
 
 		//Setup Database
 		$this->load->database();
-
+		
 		//Load Libraries
 		$this->load->library('ion_auth');
 		$this->load->library('pagination');
@@ -27,6 +27,7 @@ class SF_Controller extends CI_Controller
 		//Load classes
 		$this->lang->load('base');
 		$this->lang->load('auth');
+		$this->lang->load('settings');
 		
 		//Load Models
 		$this->load->model('Settings');
@@ -40,6 +41,7 @@ class SF_Controller extends CI_Controller
 		$this->nav->AddToNav( "dashboard", "icon-home" );
 		$this->nav->AddToNav( "support", "icon-comment" );
 		$this->nav->AddToNav( "user", "icon-user" );
+		$this->nav->AddToNav( "settings", "icon-wrench" );
 	}
 	
 	private function loginUser()

@@ -8,12 +8,12 @@
 		{
 			if( !$this->ion_auth->logged_in() )
 				redirect( "/" );
-		
-			$this->header(" UserCP" );
+			
+			$this->header( "UserCP" );
 			$this->navbar();
 
-			$this->data['general_allow_nameChanges'] = $this->Settings->get("general_allow_nameChanges");
-
+			$this->data['users_allow_namechange'] = $this->Settings->get("users_allow_namechange")->Value;
+			
 			$this->load->view( "user/usercp" , $this->data);
 			$this->footer();
 		}

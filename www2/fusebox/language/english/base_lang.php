@@ -1,12 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 	
-    //Settings
-    $lang['base_setting_display_name_title'] = "Display Name";
-    $lang['base_setting_display_name_desc'] = "What name should be shown on the panel?";
-	
-    $lang['base_setting_lanaguage_title'] = "Language";
-    $lang['base_setting_lanaguage_desc'] = "What lanaguge do you want to use?";
-	
     //Pages
     $lang['base_page_dashboard'] = "Dashboard";
     $lang['base_page_support'] = "Support";
@@ -15,6 +8,7 @@
     $lang['base_page_logout'] = "Logout";
     $lang['base_page_login'] = "Login";
     $lang['base_page_register'] = "Register";
+	$lang['base_page_settings'] = "Settings";
 	
     //Support
     $lang['base_support_tickets'] = "Tickets";
