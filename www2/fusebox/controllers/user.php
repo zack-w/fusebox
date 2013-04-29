@@ -3,7 +3,7 @@
 	if (!defined('BASEPATH')) die();
 	
 	class User extends SF_Controller {
-
+		
 		public function index()
 		{
 			if( !$this->ion_auth->logged_in() )

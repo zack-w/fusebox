@@ -17,17 +17,18 @@ class Main extends SF_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+	 
 	public function index()
 	{
 		$this->header("Main");
+		
 		if($this->ion_auth->logged_in())
 		{
-			//$this->load->view("includes/navbar");
-			redirect("dashboard","refresh");
+			redirect( "dashboard", "refresh" );
 		}
 		else
 		{
-			redirect("user/login", "refresh");
+			redirect_raw("user/login", "refresh");
 		}
 		
 	}

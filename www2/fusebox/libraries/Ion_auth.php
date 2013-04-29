@@ -291,7 +291,7 @@ class Ion_auth
 	public function register($password, $email, $additional_data = array(), $group_ids = array()) //need to test email activation
 	{
 		$this->ion_auth_model->trigger_events('pre_account_creation');
-
+		
 		$email_activation = $this->config->item('email_activation', 'ion_auth');
 
 		if (!$email_activation)
@@ -339,6 +339,7 @@ class Ion_auth
 				'email'		=> $email,
 				'activation' => $activation_code,
 			);
+			
 			if(!$this->config->item('use_ci_email', 'ion_auth'))
 			{
 				$this->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_successful', 'activation_email_successful'));
@@ -348,7 +349,7 @@ class Ion_auth
 			else
 			{
 				$message = $this->load->view($this->config->item('email_templates', 'ion_auth').$this->config->item('email_activate', 'ion_auth'), $data, true);
-
+				
 				$this->email->clear();
 				$this->email->from($this->config->item('admin_email', 'ion_auth'), $this->config->item('site_title', 'ion_auth'));
 				$this->email->to($email);
@@ -439,6 +440,11 @@ class Ion_auth
 	}
 
 
+	public function is_staff()
+	{
+		return true;
+	}
+	
 	/**
 	 * is_admin
 	 *

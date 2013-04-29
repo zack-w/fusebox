@@ -33,15 +33,25 @@ class SF_Controller extends CI_Controller
 		$this->load->model('Settings');
 		
 		$this->loginUser();
+		$this->SecurityCheck();
 		$this->loadNavElements();
 	}
-
+	
+	private function SecurityCheck()
+	{
+		if( $this->uri->segment( 1 ) == "admin" && $this->ion_auth->is_staff() == false )
+		{
+			redirect_raw("user/login", "refresh");
+		}elseif( $this->uri->segment( 1 ) != "user" && $this->ion_auth->logged_in() == false ){
+			redirect_raw("user/login", "refresh");
+		}
+	}
+	
 	private function loadNavElements()
 	{
 		$this->nav->AddToNav( "dashboard", "icon-home" );
 		$this->nav->AddToNav( "support", "icon-comment" );
-		$this->nav->AddToNav( "user", "icon-user" );
-		$this->nav->AddToNav( "settings", "icon-wrench" );
+		$this->nav->AddToNav( "user", "icon-user", true );
 	}
 	
 	private function loginUser()
@@ -65,7 +75,7 @@ class SF_Controller extends CI_Controller
 	}
 
 	public function navbar() {
-		$this->load->view("user/navbar");
+		$this->load->view("navbar");
 	}
 
 	public function header($title) {

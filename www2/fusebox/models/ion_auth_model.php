@@ -26,144 +26,25 @@
 
 class Ion_auth_model extends CI_Model
 {
-	/**
-	 * Holds an array of tables used
-	 *
-	 * @var array
-	 **/
 	public $tables = array();
-
-	/**
-	 * activation code
-	 *
-	 * @var string
-	 **/
 	public $activation_code;
-
-	/**
-	 * forgotten password key
-	 *
-	 * @var string
-	 **/
 	public $forgotten_password_code;
-
-	/**
-	 * new password
-	 *
-	 * @var string
-	 **/
 	public $new_password;
-
-	/**
-	 * Identity
-	 *
-	 * @var string
-	 **/
 	public $identity;
-
-	/**
-	 * Where
-	 *
-	 * @var array
-	 **/
 	public $_ion_where = array();
-
-	/**
-	 * Select
-	 *
-	 * @var array
-	 **/
 	public $_ion_select = array();
-
-	/**
-	 * Like
-	 *
-	 * @var array
-	 **/
 	public $_ion_like = array();
-
-	/**
-	 * Limit
-	 *
-	 * @var string
-	 **/
 	public $_ion_limit = NULL;
-
-	/**
-	 * Offset
-	 *
-	 * @var string
-	 **/
 	public $_ion_offset = NULL;
-
-	/**
-	 * Order By
-	 *
-	 * @var string
-	 **/
 	public $_ion_order_by = NULL;
-
-	/**
-	 * Order
-	 *
-	 * @var string
-	 **/
 	public $_ion_order = NULL;
-
-	/**
-	 * Hooks
-	 *
-	 * @var object
-	 **/
 	protected $_ion_hooks;
-
-	/**
-	 * Response
-	 *
-	 * @var string
-	 **/
 	protected $response = NULL;
-
-	/**
-	 * message (uses lang file)
-	 *
-	 * @var string
-	 **/
 	protected $messages;
-
-	/**
-	 * error message (uses lang file)
-	 *
-	 * @var string
-	 **/
 	protected $errors;
-
-	/**
-	 * error start delimiter
-	 *
-	 * @var string
-	 **/
 	protected $error_start_delimiter;
-
-	/**
-	 * error end delimiter
-	 *
-	 * @var string
-	 **/
 	protected $error_end_delimiter;
-
-	/**
-	 * caching of users and their groups
-	 *
-	 * @var array
-	 **/
 	public $_cache_user_in_group = array();
-
-	/**
-	 * caching of groups
-	 *
-	 * @var array
-	 **/
 	protected $_cache_groups = array();
 
 	public function __construct()
@@ -183,14 +64,12 @@ class Ion_auth_model extends CI_Model
 		$this->salt_length     = $this->config->item('salt_length', 'ion_auth');
 		$this->join			   = $this->config->item('join', 'ion_auth');
 
-
 		//initialize hash method options (Bcrypt)
 		$this->hash_method = $this->config->item('hash_method', 'ion_auth');
 		$this->default_rounds = $this->config->item('default_rounds', 'ion_auth');
 		$this->random_rounds = $this->config->item('random_rounds', 'ion_auth');
 		$this->min_rounds = $this->config->item('min_rounds', 'ion_auth');
 		$this->max_rounds = $this->config->item('max_rounds', 'ion_auth');
-
 
 		//initialize messages and error
 		$this->messages = array();
@@ -354,7 +233,7 @@ class Ion_auth_model extends CI_Model
 	 *
 	 * @author Mathew
 	 */
-
+	
 	/**
 	 * activate
 	 *
@@ -1668,131 +1547,7 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events(array('post_login_remembered_user', 'post_login_remembered_user_unsuccessful'));
 		return FALSE;
 	}
-
-
-	/**
-	 * create_group
-	 *
-	 * @author aditya menon
-	*/
-	public function create_group($group_name = FALSE, $group_description = '', $additional_data = array())
-	{
-		// bail if the group name was not passed
-		if(!$group_name)
-		{
-			$this->set_error('group_name_required');
-			return FALSE;
-		}
-
-		// bail if the group name already exists
-		$existing_group = $this->db->get_where($this->tables['groups'], array('name' => $group_name))->num_rows();
-		if($existing_group !== 0)
-		{
-			$this->set_error('group_already_exists');
-			return FALSE;
-		}
-
-		$data = array('name'=>$group_name,'description'=>$group_description);
-
-		//filter out any data passed that doesnt have a matching column in the groups table
-		//and merge the set group data and the additional data
-		if (!empty($additional_data)) $data = array_merge($this->_filter_data($this->tables['groups'], $additional_data), $data);
-
-		$this->trigger_events('extra_group_set');
-
-		// insert the new group
-		$this->db->insert($this->tables['groups'], $data);
-		$group_id = $this->db->insert_id();
-
-		// report success
-		$this->set_message('group_creation_successful');
-		// return the brand new group id
-		return $group_id;
-	}
-
-	/**
-	 * update_group
-	 *
-	 * @return bool
-	 * @author aditya menon
-	 **/
-	public function update_group($group_id = FALSE, $group_name = FALSE, $additional_data = array())
-	{
-		if (empty($group_id)) return FALSE;
-
-		$data = array();
-
-		if (!empty($group_name))
-		{
-			// we are changing the name, so do some checks
-
-			// bail if the group name already exists
-			$existing_group = $this->db->get_where($this->tables['groups'], array('name' => $group_name))->row();
-			if(isset($existing_group->id) && $existing_group->id != $group_id)
-			{
-				$this->set_error('group_already_exists');
-				return FALSE;
-			}	
-
-			$data['name'] = $group_name;		
-		}
-		
-
-		// IMPORTANT!! Third parameter was string type $description; this following code is to maintain backward compatibility
-		// New projects should work with 3rd param as array
-		if (is_string($additional_data)) $additional_data = array('description' => $additional_data);
-		
-
-		//filter out any data passed that doesnt have a matching column in the groups table
-		//and merge the set group data and the additional data
-		if (!empty($additional_data)) $data = array_merge($this->_filter_data($this->tables['groups'], $additional_data), $data);
-
-
-		$this->db->update($this->tables['groups'], $data, array('id' => $group_id));
-
-		$this->set_message('group_update_successful');
-
-		return TRUE;
-	}
-
-	/**
-	* delete_group
-	*
-	* @return bool
-	* @author aditya menon
-	**/
-	public function delete_group($group_id = FALSE)
-	{
-		// bail if mandatory param not set
-		if(!$group_id || empty($group_id))
-		{
-			return FALSE;
-		}
-
-		$this->trigger_events('pre_delete_group');
-
-		$this->db->trans_begin();
-
-		// remove all users from this group
-		$this->db->delete($this->tables['users_groups'], array($this->join['groups'] => $group_id));
-		// remove the group itself
-		$this->db->delete($this->tables['groups'], array('id' => $group_id));
-
-		if ($this->db->trans_status() === FALSE)
-		{
-			$this->db->trans_rollback();
-			$this->trigger_events(array('post_delete_group', 'post_delete_group_unsuccessful'));
-			$this->set_error('group_delete_unsuccessful');
-			return FALSE;
-		}
-
-		$this->db->trans_commit();
-
-		$this->trigger_events(array('post_delete_group', 'post_delete_group_successful'));
-		$this->set_message('group_delete_successful');
-		return TRUE;
-	}
-
+	
 	public function set_hook($event, $name, $class, $method, $arguments)
 	{
 		$this->_ion_hooks->{$event}[$name] = new stdClass;
