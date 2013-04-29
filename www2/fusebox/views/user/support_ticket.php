@@ -78,6 +78,54 @@
 
 			<? } ?>
 			
+			<div class="widget">
+				<div class="widget-content" style="padding: 12px 25px 7px 25px;">
+					<table style='width: 100%;'>
+						<tr>
+							<td style="width: 100%;">
+								<h5>Posted by Admin Lastname - 1 year ago</h5>
+							</td>
+							
+							<td>
+								<table><tr>
+									<td><a href="" class="btn btn-mini">Quote</a></td>
+								</tr></table>
+							</td>
+						</tr>
+					</table>
+					
+					<table class="table table-bordered" style="margin-top: 10px; margin-bottom: 10px;height: 70px;">
+						<tr>
+							<td valign="top">
+								This is a sample reply with a quote.
+								
+								<br /><br />
+								
+								<div style="width: 92%;margin: 0 4% 0 4%;font-weight: bold;font-size: 11px;">
+									<span style="">Posted by Admin Lastname - 1 year ago</span>
+									
+									<div class="widget" style='font-weight: normal;font-size: 13px;'>
+										<div class="widget-content" style="padding: 12px 25px 7px 25px;background-color: #F5F5F5;">
+											This is a sample quoteed post
+										</div>
+									</div>
+								</div>
+								
+								<div style="width: 92%;margin: 0 4% 0 4%;font-weight: bold;font-size: 11px;">
+									<span style="">Posted by Admin Lastname - 1 year ago</span>
+									
+									<div class="widget" style='font-weight: normal;font-size: 13px;'>
+										<div class="widget-content" style="padding: 12px 25px 7px 25px;background-color: #F5F5F5;">
+											This is a second quote
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			
 			<a name="reply"></a>
 			<div class="row">
 				<div class="span12">
