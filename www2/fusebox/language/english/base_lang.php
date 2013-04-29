@@ -1,14 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+	
     //Settings
     $lang['base_setting_display_name_title'] = "Display Name";
-    $lang['base_setting_display_name_description'] = "Set the name that is shown on the panel.";
-
-    $lang['base_setting_allow_nameChanges_title'] = "Allow Name Changes";
-    $lang['base_setting_allow_nameChanges_description'] = "Allow users to change their first or last name.";
-
-    $lang['base_setting_supportReplyAsc_title'] = "Show Replys Ascending";
-    $lang['base_setting_supportReplyAsc_description'] = "Show ticket replys in ascending order; newest at the bottom.  Unchecked will show descending.";
-
+    $lang['base_setting_display_name_desc'] = "What name should be shown on the panel?";
+	
+    $lang['base_setting_lanaguage_title'] = "Language";
+    $lang['base_setting_lanaguage_desc'] = "What lanaguge do you want to use?";
+	
     //Pages
     $lang['base_page_dashboard'] = "Dashboard";
     $lang['base_page_support'] = "Support";
@@ -17,7 +15,7 @@
     $lang['base_page_logout'] = "Logout";
     $lang['base_page_login'] = "Login";
     $lang['base_page_register'] = "Register";
-
+	
     //Support
     $lang['base_support_tickets'] = "Tickets";
     $lang['base_support_ticketNumber'] = "Ticket #";

@@ -18,7 +18,7 @@ class SF_Controller extends CI_Controller
 		$this->load->library('support_status');
 		$this->load->library('support_categories');
 		
-		//Load helpers
+		//Load helpersr
 		$this->load->helper('url');
 		$this->load->helper('date');
 		$this->load->helper('language');
@@ -67,8 +67,8 @@ class SF_Controller extends CI_Controller
 	}
 
 	public function header($title) {
-		$this->data["title"] = $title . " : ".$this->Settings->get("general_display_name");
-		$this->data["general_display_name"] = $this->Settings->get("general_display_name");
+		$this->data["title"] = $title . " : ".$this->Settings->Get("general_display_name")->Value;
+		$this->data["general_display_name"] = $this->Settings->Get("general_display_name")->Value;
 
 		$this->load->view("includes/header", $this->data);
 	}

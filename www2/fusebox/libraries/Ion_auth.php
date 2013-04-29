@@ -59,7 +59,6 @@ class Ion_auth
 	{
 		$this->load->config('ion_auth', TRUE);
 		$this->load->library('email');
-		$this->lang->load('ion_auth');
 		$this->load->helper('cookie');
 
 		// Load the session, CI2 as a library, CI3 uses it as a driver
@@ -446,73 +445,9 @@ class Ion_auth
 	 * @return bool
 	 * @author Ben Edmunds
 	 **/
-	public function is_admin($id=false)
+	public function is_admin( $id = false )
 	{
-		$this->ion_auth_model->trigger_events('is_admin');
-
-		$admin_group = $this->config->item('admin_group', 'ion_auth');
-
-		return $this->in_group($admin_group, $id);
-	}
-
-	/**
-	 * in_group
-	 *
-	 * @param mixed group(s) to check
-	 * @param bool user id
-	 * @param bool check if all groups is present, or any of the groups
-	 *
-	 * @return bool
-	 * @author Phil Sturgeon
-	 **/
-	public function in_group($check_group, $id=false, $check_all = false)
-	{
-		$this->ion_auth_model->trigger_events('in_group');
-
-		$id || $id = $this->session->userdata('user_id');
-
-		if (!is_array($check_group))
-		{
-			$check_group = array($check_group);
-		}
-
-		if (isset($this->_cache_user_in_group[$id]))
-		{
-			$groups_array = $this->_cache_user_in_group[$id];
-		}
-		else
-		{
-			$users_groups = $this->ion_auth_model->get_users_groups($id)->result();
-			$groups_array = array();
-			foreach ($users_groups as $group)
-			{
-				$groups_array[$group->id] = $group->name;
-			}
-			$this->_cache_user_in_group[$id] = $groups_array;
-		}
-		foreach ($check_group as $key => $value)
-		{
-			$groups = (is_string($value)) ? $groups_array : array_keys($groups_array);
-
-			/**
-			 * if !all (default), in_array
-			 * if all, !in_array
-			 */
-			if (in_array($value, $groups) xor $check_all)
-			{
-				/**
-				 * if !all (default), true
-				 * if all, false
-				 */
-				return !$check_all;
-			}
-		}
-
-		/**
-		 * if !all (default), false
-		 * if all, true
-		 */
-		return $check_all;
+		return true;
 	}
 
 }

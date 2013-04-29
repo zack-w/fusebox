@@ -1,78 +1,70 @@
 <?php
-class Settings extends CI_Model {
 
-	private $cache = Array();
+	/*
+		Setting Types
+		-------------------
+		1	TEXT
+		2	BOOLEAN
+		3	DROP DOWN
+		4	SELECT
+	*/
 
-	function __construct()
-	{
-		// Call the Model constructor
-		parent::__construct();
-	}
-
-	public function get($key, $getArr = false)
-	{
-		$this->load->helper('array');
-
-		$key = $this->db->escape($key);
-
-		//Check cache first to save queries
-		if($data = element($key,$this->cache))
-		{
-			return $this->processReturn($data, $getArr);
-		}
-		else
-		{
-			if ($data = $this->db->query("SELECT * FROM system_settings WHERE `key`=".$key))
-			{
-				$data = $data->result_array();
-				$cache[$key] = $data;
-				return $this->processReturn($data, $getArr);
-			} else {
-				return "error: setting not found";
-			}
-		}
-	}
-
-	private function processReturn($data, $getArr)
-	{
-		if($getArr)
-			return $data[0]['value'];
-		else
-		{
-			if(strpos($data[0]['value'],"true") === false)
-			{
-				//Not Found, try false
-				if(strpos($data[0]['value'],"false") === false)
-					return $data[0]['value'];
-				else
-					return false;
-			}
-			else
-			{
-				return true;
-			}
-				
-		}
-	}
+	class Setting {
 		
-	//TODO: fix this
-	public function set($key, $value)
-	{
-		global $DB;
-		$key = $DB->escape($key);
-		$value = $DB->escape($value);
-		if ($DB->queryRow("SELECT * FROM system_settings WHERE uid='".$this->uid."'' AND okey='".$key."'"))
-		{
-			$DB->query("UPDATE system_settings SET ovalue='".$value."' WHERE uid='".$this->uid."'' AND okey='".$key."'");
+		public $Key;
+		public $Value;
+		public $Type;
+		public $Category;
+		
+		function __construct( $Key, $Value, $Type, $Category ) {
+			$this->Key = $Key;
+			$this->Value = $Value;
+			$this->Type = intval( $Type );
+			$this->Category = intval( $Category );
+			
+			if( $this->Type == 1 )
+				$this->Value = ( $this->Value == "true" )?( true ):( false );
 		}
-		else 
+		
+		public function UpdateValue( $NewValue )
 		{
-			$DB->query("INSERT INTO system_settings (uid, okey, ovalue) VALUES ('".$this->uid."', '".$key."', '".$value."')");
+			if( $this->Type == 1 )
+				$NewValue = ( $NewValue == true )?( "true" ):( "false" );
+				
+			$NewValue = $this->db->escape( $NewValue );
+			$this->db->query( "UPDATE `system_settings` SET `value` = {$NewValue} WHERE `key` = " . ($this->Key) . ";" );
 		}
-	}	
-
-	public function getCache()
-	{
-		return $this->cache;
+		
+		public function GetText( $Special ) // eg. title or desc
+		{
+			
+		}
+		
 	}
-}
+
+	class Settings extends CI_Model {
+		
+		public $Settings = array();
+		
+		function __construct(){
+			parent::__construct();
+			$this->Grab();
+		}
+		
+		private function Grab()
+		{
+			$Query = get_instance()->db->query( "SELECT * FROM `system_settings`;" );
+			
+			foreach( $Query->result() as $Row )
+			{
+				$Setting = new Setting( $Row->key, $Row->value, $Row->type, $Row->category );
+				$this->Settings[ $Row->key ] = $Setting;
+			}
+		}
+		
+		public function Get( $Key )
+		{
+			return $this->Settings[ $Key ];
+		}
+		
+	}
