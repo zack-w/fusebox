@@ -72,8 +72,7 @@ class Support_model extends CI_Model {
 		$Tickets = $this->db->query( $SelectQuery )->result_array();
 		$CountResp = $this->db->query( $CountQuery )->result_array();
 		
-		$NumRows = ( empty( $CountResp[ "COUNT(*)" ] ) ) ? (0) : (intval( $CountResp[ "COUNT(*)" ] ));
-		return array( $Tickets, $NumRows );
+		return array( $Tickets, intval( $CountResp[ 0 ][ "COUNT(*)" ] ) );
 	}
 	
 	function GetTicketByID( $ID ) {
