@@ -78,6 +78,7 @@
 
 			<? } ?>
 			
+			<!--
 			<div class="widget">
 				<div class="widget-content" style="padding: 12px 25px 7px 25px;">
 					<table style='width: 100%;'>
@@ -93,7 +94,6 @@
 							</td>
 						</tr>
 					</table>
-					
 					<table class="table table-bordered" style="margin-top: 10px; margin-bottom: 10px;height: 70px;">
 						<tr>
 							<td valign="top">
@@ -124,7 +124,7 @@
 						</tr>
 					</table>
 				</div>
-			</div>
+			</div>-->
 			
 			<a name="reply"></a>
 			<div class="row">

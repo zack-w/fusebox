@@ -58,7 +58,7 @@
 		{
 			$logout = $this->ion_auth->logout();
 			$this->session->set_flashdata('messageSuccess', $this->ion_auth->messages());
-			redirect('user/login', 'refresh');
+			redirect_raw('user/login', 'refresh');
 		}
 
 		public function update()
