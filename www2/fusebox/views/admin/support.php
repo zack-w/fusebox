@@ -60,7 +60,7 @@
 									<th>Title</th>
 									<!--<th>Created</th>-->
 									<th>Last Updated</th>
-									<th>Last User</th>
+									<!--<th>Last User</th>-->
 									<th>Status</th>
 									<th>Category</th>
 								</tr>
@@ -71,7 +71,7 @@
 										echo "
 											<tr>
 												<td colspan=5 style='text-align: center;padding: 15px;'>
-													<b>You don't have any tickets.</b>
+													<b>No tickets match this query!</b>
 												</td>
 											</tr>
 										";
@@ -83,7 +83,7 @@
 											$Title = $Ticket[ "Subject" ];
 											//$Date = timespan( $Ticket[ "Date" ] );
 											$LastReply = timespan( $Ticket[ "LastReply" ]  );
-											$LastReplyUser = $Ticket[ "LastReplyUser" ]->username;
+											//$LastReplyUser = $Ticket[ "LastReplyUser" ]->username;
 											$Status = $this->support_status->GetButton( $Ticket[ "Status" ] );
 											$Category = $this->support_categories->GetCategory( $Ticket[ "Category" ] );
 											$IsClosed = $this->support_status->IsClosed( $Ticket[ "Status" ] );
@@ -93,7 +93,6 @@
 													<td style='text-align: center;'><input onclick=\"SelectSupportTicket({$TicketID});\" type='checkbox' /></td>
 													<td><a href='{$URL}'>{$Title}</a></td>
 													<td>{$LastReply} ago</td>
-													<td>{$LastReplyUser}</td>
 													<td>{$Status}</td>
 													<td><span class='label'>{$Category}</span></td>
 												</tr>
