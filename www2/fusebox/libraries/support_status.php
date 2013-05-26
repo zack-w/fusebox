@@ -21,7 +21,7 @@
 			
 			foreach( $Query->result() as $Row )
 			{
-				$this->Items[ intval( $Row->ID ) ] = array( "Text" => $Row->Status, "Color" => $Row->Color );
+				$this->Items[ intval( $Row->ID ) ] = array( "Text" => $Row->Status);
 			}
 		}
 		
@@ -65,19 +65,18 @@
 			get_instance()->db->query( "DELETE FROM `support_tickets_status` WHERE `ID` = {$ID};" );
 		}
 		
-		public function AddStatus( $Text, $Color )
+		public function AddStatus( $Text )
 		{
 			$Text = get_instance()->db->escape( $Text );
-			get_instance()->db->query( "INSERT INTO `support_tickets_status` VALUES ( NULL, '{$Text}', '{$Color}' );" );
+			get_instance()->db->query( "INSERT INTO `support_tickets_status` VALUES ( NULL, '{$Text}' );" );
 		}
 		
-		public function EditStatus( $ID, $Text, $Color )
+		public function EditStatus( $ID, $Text )
 		{
 			$ID = get_instance()->db->escape( $ID );
 			$Text = get_instance()->db->escape( $Text );
-			$Color = get_instance()->db->escape( $Color );
 			
-			get_instance()->db->query( "UPDATE `support_tickets_status` SET `Status` = '{$Text}', `Color` = '{$Color}' WHERE `ID` = {$ID};" );
+			get_instance()->db->query( "UPDATE `support_tickets_status` SET `Status` = '{$Text}' WHERE `ID` = {$ID};" );
 		}
 	}
 
