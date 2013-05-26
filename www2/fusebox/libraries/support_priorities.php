@@ -18,11 +18,13 @@
 			{
 				$this->Items[ intval( $Row->ID ) ] = $Row->Text;
 			}
+			
+			print_r( $this->Items );
 		}
 		
 		public function GetPriority( $PriorityID )
 		{
-			return $this->Items[ $PriorityID ] or "Unknown";
+			return $this->Items[ intval( $PriorityID ) ] or "Unknown";
 		}
 		
 		public function DeletePriority( $ID, $NewPriority )
