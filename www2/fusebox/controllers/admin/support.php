@@ -55,7 +55,7 @@ class Support extends SF_Controller {
 			if( !empty( $HasNoActive ) )
 				$this->data[ "HasNoActive" ] = true;
 			
-			$this->view( "user/support" );
+			$this->view( "admin/support" );
 			$this->footer();
 		}
 	}
@@ -83,7 +83,7 @@ class Support extends SF_Controller {
 		$this->data[ "Ticket" ] = $Ticket;
 		$this->data[ "Replies" ] = $Replies;
 		
-		$this->view("user/support_ticket");
+		$this->view("admin/support_ticket");
 		$this->footer();
 	}
 	
