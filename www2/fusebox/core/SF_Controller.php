@@ -41,9 +41,9 @@ class SF_Controller extends CI_Controller
 	{
 		if( $this->uri->segment( 1 ) == "admin" && $this->ion_auth->is_staff() == false )
 		{
-			redirect_raw("user/login", "refresh");
+			redirect_raw("/", "refresh");
 		}elseif( $this->uri->segment( 1 ) != "user" && $this->ion_auth->logged_in() == false ){
-			redirect_raw("user/login", "refresh");
+			redirect_raw("/", "refresh");
 		}
 	}
 	
