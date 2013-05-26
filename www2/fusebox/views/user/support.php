@@ -15,7 +15,7 @@
 							<h3>Post Ticket</h3>
 						</div>
 						<div class="widget-content">
-							<form action="<? echo base_url("support/ticket_create"); ?>" method="post">
+							<form action="<? echo base_url("users/support/ticket_create"); ?>" method="post">
 							
 								<div class="control-group">
 									<label class="control-label">Title</label>
@@ -112,7 +112,7 @@
 										foreach ( $Tickets as $Ticket )
 										{
 											$TicketID = $Ticket[ "ID" ];
-											$URL = base_url( "support/ticket/" . $Ticket[ "ID" ] );
+											$URL = base_url( "users/support/ticket/" . $Ticket[ "ID" ] );
 											$Title = $Ticket[ "Subject" ];
 											//$Date = timespan( $Ticket[ "Date" ] );
 											$LastReply = timespan( $Ticket[ "LastReply" ]  );

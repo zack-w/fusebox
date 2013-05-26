@@ -23,7 +23,7 @@ class Support extends SF_Controller {
 		$ResultsPerPage = 25;
 		
 		$Start = (empty($Page) ? (0) : (intval($Page) * $ResultsPerPage - $ResultsPerPage));
-		$Results = $this->support_model->GetRecentTickets( $Start, $ResultsPerPage, $StatusFilter, $CatFilter );
+		$Results = $this->support_model->GetRecentTickets( null, $Start, $ResultsPerPage, $StatusFilter, $CatFilter );
 		
 		$Tickets = $Results[ 0 ];
 		$NumResults = $Results[ 1 ];

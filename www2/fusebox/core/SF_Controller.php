@@ -39,11 +39,14 @@ class SF_Controller extends CI_Controller
 	
 	private function SecurityCheck()
 	{
-		if( $this->uri->segment( 1 ) == "admin" && $this->ion_auth->is_staff() == false )
-		{
-			redirect_raw("/", "refresh");
-		}elseif( $this->uri->segment( 1 ) != "user" && $this->ion_auth->logged_in() == false ){
-			redirect_raw("/", "refresh");
+		$PageType = $this->uri->segment( 1 );
+	
+		if( $PageType == "admin" && $this->ion_auth->is_staff() == false ) {
+			redirect_raw("users/dashboard", "refresh");
+		}elseif( $PageType == "users" && $this->ion_auth->is_staff() ) {
+			redirect_raw("admin/dashboard", "refresh");
+		}elseif( $PageType != "user" && $this->ion_auth->logged_in() == false ){
+			redirect_raw("user/login", "refresh");
 		}
 	}
 	

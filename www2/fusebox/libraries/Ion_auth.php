@@ -315,7 +315,6 @@ class Ion_auth
 	}
 
 	public function is_staff( $id = false ) {
-		if( !isset( $this->user ) ) return false;
 		return intval( $this->user->staff_acct ) == 1;
 	}
 	

@@ -135,7 +135,7 @@
 							<h3>Post Reply</h3>
 						</div>
 						<div class="widget-content">
-							<form  class="form-horizontal" action="<? echo base_url( "support/ticket_respond" ); ?>" method="post">
+							<form  class="form-horizontal" action="<? echo base_url( "users/support/ticket_respond" ); ?>" method="post">
 								<input type="hidden" name="ticket" value="<? echo $Ticket[ "ID" ]; ?>" />
 								
 								<div class="control-group">

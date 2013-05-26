@@ -38,7 +38,7 @@ class Support_model extends CI_Model {
 		return false;
 	}
 	
-	function GetRecentTickets( $Start, $Limit, $StatusFilter = 0, $CatFilter = 0 ) {
+	function GetRecentTickets( $UserID = 0, $Start, $Limit, $StatusFilter = 0, $CatFilter = 0 ) {
 		$Start = intval( $Start ); $Limit = intval( $Limit );
 		
 		/*
@@ -51,8 +51,11 @@ class Support_model extends CI_Model {
 		
 		$Where = "";
 		
-		if( $StatusFilter != 0 || $CatFilter != 0 ) {
+		if( $UserID != 0 || $StatusFilter != 0 || $CatFilter != 0 ) {
 			$Where .= "WHERE ";
+			
+			if( $UserID != 0 )
+				$Where .= "UID = {$UserID} AND ";
 			
 			if( $StatusFilter != 0 )
 				$Where .= "{$StatusFilter} & POW( 2, `Status` ) = POW( 2, `Status` ) AND ";
