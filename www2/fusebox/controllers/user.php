@@ -14,7 +14,7 @@
 
 			$this->data['users_allow_namechange'] = $this->Settings->get("users_allow_namechange")->Value;
 			
-			$this->load->view( "user/usercp" , $this->data);
+			$this->load->view( "usercp" , $this->data);
 			$this->footer();
 		}
 		
@@ -65,7 +65,7 @@
 		{
 			$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required|xss_clean');
 			$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required|xss_clean');
-
+			
 			if (isset($_POST) && !empty($_POST))
 			{
 				// do we have a valid request?
@@ -81,7 +81,7 @@
 
 				//Update the groups user belongs to
 				$groupData = $this->input->post('groups');
-
+				
 				if (isset($groupData) && !empty($groupData)) {
 
 					$this->ion_auth->remove_from_group('', $id);

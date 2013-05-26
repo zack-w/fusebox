@@ -77,7 +77,7 @@ class SF_Controller extends CI_Controller
 	public function navbar() {
 		$this->load->view("navbar");
 	}
-
+	
 	public function header($title) {
 		$this->data["title"] = $title . " : ".$this->Settings->Get("general_display_name")->Value;
 		$this->data["general_display_name"] = $this->Settings->Get("general_display_name")->Value;

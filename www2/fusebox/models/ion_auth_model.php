@@ -1128,13 +1128,7 @@ class Ion_auth_model extends CI_Model
 						->join($this->tables['groups'], $this->tables['users_groups'].'.'.$this->join['groups'].'='.$this->tables['groups'].'.id')
 						->get($this->tables['users_groups']);
 	}
-
-	/**
-	 * add_to_group
-	 *
-	 * @return bool
-	 * @author Ben Edmunds
-	 **/
+	 
 	public function add_to_group($group_id, $user_id=false)
 	{
 		$this->trigger_events('add_to_group');
