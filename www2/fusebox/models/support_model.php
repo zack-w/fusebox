@@ -38,26 +38,42 @@ class Support_model extends CI_Model {
 		return false;
 	}
 	
-	function GetRecentTickets( $UserID, $Start, $Limit, $ViewAll = false ) {
-		$UserID = intval( $UserID ); $Start = intval( $Start ); $Limit = intval( $Limit );
+	function GetRecentTickets( $Start, $Limit, $StatusFilter = 0, $CatFilter = 0 ) {
+		$Start = intval( $Start ); $Limit = intval( $Limit );
 		
-		$Base = "SELECT COUNT(*) FROM `support_tickets`";
-		$Query = "";
+		/*
+			Two steps, first to check for the number of tickets
+			Then to actually fetch the tickets where we incorporate limits
+		*/
 		
-		if( $UserID != null ) $Query .= "WHERE `UID` = {$UserID} ";
+		$CountQuery = "SELECT COUNT(*) FROM `support_tickets` ";
+		$SelectQuery = "SELECT * FROM `support_tickets` ";
 		
-		if( $ViewAll != true ) {
-			$Query .= ( $UserID == null ) ? ( "WHERE `Status` != 4 " ) : ( " AND `Status` != 4 " );
+		$Where = "";
+		
+		if( $StatusFilter != 0 || $CatFilter != 0 ) {
+			$Where .= "WHERE ";
+			
+			if( $StatusFilter != 0 )
+				$Where .= "{$StatusFilter} & POW( 2, `Status` ) = POW( 2, `Status` ) AND ";
+				
+			if( $CatFilter != 0 )
+				$Where .= "{$CatFilter} & POW( 2, `Category` ) = POW( 2, `Category` ) AND ";
+				
+			$Where .= "TRUE ";
 		}
 		
-		$BaseRes = $this->db->query( $Base . $Query )->row_array();
-		$Query .= "ORDER BY `Date` DESC ";
-		$Query .= "LIMIT " . $Start . ", " . $Limit;
+		$CountQuery .= $Where;
+		$SelectQuery .= $Where;
 		
-		$Base = "SELECT * FROM `support_tickets` ";
-		$Tickets = $this->db->query( $Base . $Query )->result_array();
+		$SelectQuery .= "ORDER BY `Date` DESC ";
+		$SelectQuery .= "LIMIT " . $Start . ", " . $Limit;
 		
-		return array( $Tickets, ( empty( $BaseRes[ "COUNT(*)" ] ) ) ? ( 0 ) : ( intval( $BaseRes[ "COUNT(*)" ] ) ) );
+		$Tickets = $this->db->query( $SelectQuery )->result_array();
+		$CountResp = $this->db->query( $CountQuery )->result_array();
+		
+		$NumRows = ( empty( $CountResp[ "COUNT(*)" ] ) ) ? (0) : (intval( $CountResp[ "COUNT(*)" ] ));
+		return array( $Tickets, $NumRows );
 	}
 	
 	function GetTicketByID( $ID ) {

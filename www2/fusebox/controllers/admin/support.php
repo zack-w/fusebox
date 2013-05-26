@@ -10,8 +10,12 @@ class Support extends SF_Controller {
 		$this->load->model("support_model");
 	}
 	
-	public function index( $HasNoActive = null ){
-		$ViewAll = ( !empty( $HasNoActive ) ) ? ( $HasNoActive ) : ( $this->input->get("viewall") );
+	public function index() {
+		$StatusFilter = $this->input->get("status");
+		$StatusFilter = ( empty( $StatusFilter ) ) ? ( 0 ) : ( intval( $StatusFilter ) );
+		
+		$CatFilter = $this->input->get("cat");
+		$CatFilter = ( empty( $CatFilter ) ) ? ( 0 ) : ( intval( $CatFilter ) );
 		
 		$Page = $this->input->get("page");
 		$Page = ( empty( $Page ) ) ? ( 1 ) : ( intval( $Page ) );
@@ -19,7 +23,7 @@ class Support extends SF_Controller {
 		$ResultsPerPage = 25;
 		
 		$Start = (empty($Page) ? (0) : (intval($Page) * $ResultsPerPage - $ResultsPerPage));
-		$Results = $this->support_model->GetRecentTickets( $this->user->id, $Start, $ResultsPerPage, !(empty( $ViewAll )) );
+		$Results = $this->support_model->GetRecentTickets( $Start, $ResultsPerPage, $StatusFilter, $CatFilter );
 		
 		$Tickets = $Results[ 0 ];
 		$NumResults = $Results[ 1 ];
@@ -29,36 +33,41 @@ class Support extends SF_Controller {
 		else
 			$NumPages = ceil( $NumResults / $ResultsPerPage );
 		
-		if( $NumResults == 0 && $ViewAll == false ) // They have no open tickets, but may have closed tickets
+		foreach( $Tickets as $TicketID => $Ticket )
 		{
-			$this->index( true );
-		} else {
-			foreach( $Tickets as $TicketID => $Ticket )
-			{
-				$TicketReplies = $this->support_model->GetTicketReplies( $Ticket[ "ID" ] );
-				$LastReply = end( $TicketReplies );
-				
-				$Tickets[ $TicketID ][ "NumReplies" ] = count( $TicketReplies );
-				$Tickets[ $TicketID ][ "LastReply" ] = $LastReply[ "Date" ];
-				$Tickets[ $TicketID ][ "LastReplyUser" ] = $this->ion_auth->user( $LastReply[ "UID" ] )->row();
-			}
+			$TicketReplies = $this->support_model->GetTicketReplies( $Ticket[ "ID" ] );
+			$LastReply = end( $TicketReplies );
 			
-			$this->header( "Support" );
-			$this->navbar();
-			
-			$this->data[ "Tickets" ] = $Tickets;
-			$this->data[ "ViewingAllTickets" ] = $ViewAll;
-			$this->data[ "CurPage" ] = $Page;
-			$this->data[ "NumPages" ] = $NumPages;
-			$this->data[ "NumTickets" ] = $NumResults;
-			
-			if( !empty( $HasNoActive ) )
-				$this->data[ "HasNoActive" ] = true;
-			
-			$this->view( "admin/support" );
-			$this->footer();
+			$Tickets[ $TicketID ][ "NumReplies" ] = count( $TicketReplies );
+			$Tickets[ $TicketID ][ "LastReply" ] = $LastReply[ "Date" ];
+			$Tickets[ $TicketID ][ "LastReplyUser" ] = $this->ion_auth->user( $LastReply[ "UID" ] )->row();
 		}
-	}
+		
+		$this->header( "Support" );
+		$this->navbar();
+		
+		if( $StatusFilter == 0 ) {
+			foreach( $this->support_status->Items as $ItemID => $Item ) {
+				$StatusFilter = $StatusFilter | pow( 2, $ItemID );
+			}
+		}
+		
+		if( $CatFilter == 0 ) {
+			foreach( $this->support_categories->Items as $ItemID => $Item ) {
+				$CatFilter = $CatFilter | pow( 2, $ItemID );
+			}
+		}
+		
+		$this->data[ "StatusMesh" ] = $StatusFilter;
+		$this->data[ "CatMesh" ] = $CatFilter;
+		$this->data[ "Tickets" ] = $Tickets;
+		$this->data[ "CurPage" ] = $Page;
+		$this->data[ "NumPages" ] = $NumPages;
+		$this->data[ "NumTickets" ] = $NumResults;
+		
+		$this->view( "admin/support" );
+		$this->footer();
+}
 	
 	public function ticket( $ID = null ) {
 		$this->header("FuseBox - View Ticket");

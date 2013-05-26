@@ -18,8 +18,6 @@
 			{
 				$this->Items[ intval( $Row->ID ) ] = $Row->Text;
 			}
-			
-			print_r( $this->Items );
 		}
 		
 		public function GetPriority( $PriorityID )
