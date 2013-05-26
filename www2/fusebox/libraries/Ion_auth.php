@@ -1,66 +1,16 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
-* Name:  Ion Auth
-*
-* Author: Ben Edmunds
-*		  ben.edmunds@gmail.com
-*			@benedmunds
-*
-* Added Awesomeness: Phil Sturgeon
-*
-* Location: http://github.com/benedmunds/CodeIgniter-Ion-Auth
-*
-* Created:  10.01.2009
-*
-* Description:  Modified auth system based on redux_auth with extensive customization.  This is basically what Redux Auth 2 should be.
-* Original Author name has been kept but that does not mean that the method has not been modified.
-*
-* Requirements: PHP5 or above
-*
-*/
 
 class Ion_auth
 {
-	/**
-	 * account status ('not_activated', etc ...)
-	 *
-	 * @var string
-	 **/
 	protected $status;
-
-	/**
-	 * extra where
-	 *
-	 * @var array
-	 **/
 	public $_extra_where = array();
-
-	/**
-	 * extra set
-	 *
-	 * @var array
-	 **/
 	public $_extra_set = array();
 
-	/**
-	 * caching of users and their groups
-	 *
-	 * @var array
-	 **/
-	public $_cache_user_in_group;
-
-	/**
-	 * __construct
-	 *
-	 * @return void
-	 * @author Ben
-	 **/
-	public function __construct()
-	{
+	public function __construct() {
 		$this->load->config('ion_auth', TRUE);
 		$this->load->library('email');
 		$this->load->helper('cookie');
-
+		
 		// Load the session, CI2 as a library, CI3 uses it as a driver
 		if (substr(CI_VERSION, 0, 1) == '2')
 		{
@@ -76,33 +26,20 @@ class Ion_auth
 		$this->config->item('use_mongodb', 'ion_auth') ?
 			$this->load->model('ion_auth_mongodb_model', 'ion_auth_model') :
 			$this->load->model('ion_auth_model');
-
-		$this->_cache_user_in_group =& $this->ion_auth_model->_cache_user_in_group;
-
+		
 		//auto-login the user if they are remembered
 		if (!$this->logged_in() && get_cookie('identity') && get_cookie('remember_code'))
-		{
 			$this->ion_auth_model->login_remembered_user();
-		}
 
 		$email_config = $this->config->item('email_config', 'ion_auth');
 
 		if ($this->config->item('use_ci_email', 'ion_auth') && isset($email_config) && is_array($email_config))
-		{
 			$this->email->initialize($email_config);
-		}
 
 		$this->ion_auth_model->trigger_events('library_constructor');
 	}
 
-	/**
-	 * __call
-	 *
-	 * Acts as a simple way to call model methods without loads of stupid alias'
-	 *
-	 **/
-	public function __call($method, $arguments)
-	{
+	public function __call($method, $arguments) {
 		if (!method_exists( $this->ion_auth_model, $method) )
 		{
 			throw new Exception('Undefined method Ion_auth::' . $method . '() called');
@@ -110,32 +47,12 @@ class Ion_auth
 
 		return call_user_func_array( array($this->ion_auth_model, $method), $arguments);
 	}
-
-	/**
-	 * __get
-	 *
-	 * Enables the use of CI super-global without having to define an extra variable.
-	 *
-	 * I can't remember where I first saw this, so thank you if you are the original author. -Militis
-	 *
-	 * @access	public
-	 * @param	$var
-	 * @return	mixed
-	 */
-	public function __get($var)
-	{
+	
+	public function __get($var) {
 		return get_instance()->$var;
 	}
 
-
-	/**
-	 * forgotten password feature
-	 *
-	 * @return mixed  boolian / array
-	 * @author Mathew
-	 **/
-	public function forgotten_password($identity)	 //changed $email to $identity
-	{
+	public function forgotten_password($identity) {
 		if ( $this->ion_auth_model->forgotten_password($identity) )	//changed
 		{
 			// Get user information
@@ -187,14 +104,7 @@ class Ion_auth
 		}
 	}
 
-	/**
-	 * forgotten_password_complete
-	 *
-	 * @return void
-	 * @author Mathew
-	 **/
-	public function forgotten_password_complete($code)
-	{
+	public function forgotten_password_complete($code) {
 		$this->ion_auth_model->trigger_events('pre_password_change');
 
 		$identity = $this->config->item('identity', 'ion_auth');
@@ -251,14 +161,7 @@ class Ion_auth
 		return FALSE;
 	}
 
-	/**
-	 * forgotten_password_check
-	 *
-	 * @return void
-	 * @author Michael
-	 **/
-	public function forgotten_password_check($code)
-	{
+	public function forgotten_password_check($code) {
 		$profile = $this->where('forgotten_password_code', $code)->users()->row(); //pass the code to profile
 
 		if (!is_object($profile))
@@ -282,21 +185,14 @@ class Ion_auth
 		}
 	}
 
-	/**
-	 * register
-	 *
-	 * @return void
-	 * @author Mathew
-	 **/
-	public function register($password, $email, $additional_data = array(), $group_ids = array()) //need to test email activation
-	{
+	public function register($password, $email, $additional_data = array()) {
 		$this->ion_auth_model->trigger_events('pre_account_creation');
 		
 		$email_activation = $this->config->item('email_activation', 'ion_auth');
 
 		if (!$email_activation)
 		{
-			$id = $this->ion_auth_model->register($password, $email, $additional_data, $group_ids);
+			$id = $this->ion_auth_model->register($password, $email, $additional_data);
 			if ($id !== FALSE)
 			{
 				$this->set_message('account_creation_successful');
@@ -312,7 +208,7 @@ class Ion_auth
 		}
 		else
 		{
-			$id = $this->ion_auth_model->register($password, $email, $additional_data, $group_ids);
+			$id = $this->ion_auth_model->register($password, $email, $additional_data);
 
 			if (!$id)
 			{
@@ -370,14 +266,7 @@ class Ion_auth
 		}
 	}
 
-	/**
-	 * logout
-	 *
-	 * @return void
-	 * @author Mathew
-	 **/
-	public function logout()
-	{
+	public function logout() {
 		$this->ion_auth_model->trigger_events('logout');
 
 		$identity = $this->config->item('identity', 'ion_auth');
@@ -408,14 +297,7 @@ class Ion_auth
 		return TRUE;
 	}
 
-	/**
-	 * logged_in
-	 *
-	 * @return bool
-	 * @author Mathew
-	 **/
-	public function logged_in()
-	{
+	public function logged_in() {
 		$this->ion_auth_model->trigger_events('logged_in');
 
 		$identity = $this->config->item('identity', 'ion_auth');
@@ -423,14 +305,7 @@ class Ion_auth
 		return (bool) $this->session->userdata($identity);
 	}
 
-	/**
-	 * logged_in
-	 *
-	 * @return integer
-	 * @author jrmadsen67
-	 **/
-	public function get_user_id()
-	{
+	public function get_user_id() {
 		$user_id = $this->session->userdata('user_id');
 		if (!empty($user_id))
 		{
@@ -439,21 +314,14 @@ class Ion_auth
 		return null;
 	}
 
-
-	public function is_staff()
-	{
-		return true;
+	public function is_staff( $id = false ) {
+		if( !isset( $this->user ) ) return false;
+		return intval( $this->user->staff_acct ) == 1;
 	}
 	
-	/**
-	 * is_admin
-	 *
-	 * @return bool
-	 * @author Ben Edmunds
-	 **/
-	public function is_admin( $id = false )
-	{
-		return true;
+	public function is_admin( $id = false ) {
+		if( !isset( $this->user ) ) return false;
+		return intval( $this->user->staff_acct ) == 1;
 	}
 
 }
