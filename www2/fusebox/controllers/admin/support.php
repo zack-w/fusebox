@@ -12,7 +12,7 @@ class Support extends SF_Controller {
 	
 	public function index() {
 		$StatusFilter = $this->input->get("status");
-		$StatusFilter = ( empty( $StatusFilter ) ) ? ( 0 ) : ( intval( $StatusFilter ) );
+		$StatusFilter = ( empty( $StatusFilter ) ) ? ( 6 ) : ( intval( $StatusFilter ) );
 		
 		$CatFilter = $this->input->get("cat");
 		$CatFilter = ( empty( $CatFilter ) ) ? ( 0 ) : ( intval( $CatFilter ) );

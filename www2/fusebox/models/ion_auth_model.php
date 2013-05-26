@@ -679,7 +679,7 @@ class Ion_auth_model extends CI_Model
 		{
 			$this->add_to_group($default_group->id, $id);
 		}
-
+		
 		$this->trigger_events('post_register');
 
 		return (isset($id)) ? $id : FALSE;
