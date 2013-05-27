@@ -41,7 +41,7 @@
 									{
 										$SettingName = $Setting->GetText( "title" );
 										$SettingDesc = $Setting->GetText( "desc" );
-										$HTML = $Setting->HTML_Form( $Setting->Key, $Setting->Type, $Setting->Value, $SettingName );
+										$HTML = $Setting->HTML_Form( $Setting->Key, $Setting->Type, $Setting->Value, $SettingName, $Setting->Options );
 										
 										echo "
 											<tr>

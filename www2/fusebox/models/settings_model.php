@@ -6,6 +6,7 @@
 		1	BOOLEAN
 		2	TEXT
 		3	INT
+		4	DROPDOWN
 	*/
 	
 	class Setting {
@@ -33,7 +34,7 @@
 			return lang( "setting_" . $this->Key . "_{$Special}" );
 		}
 		
-		public function HTML_Form( $Key, $Type, $Value, $Name ) {
+		public function HTML_Form( $Key, $Type, $Value, $Name, $Options = "" ) {
 			if( $Type == 1 ) {
 				$SelectOne = ( $Value ) ? ( "selected=selected" ) : ( "" );
 				$SelectTwo = ( !$Value ) ? ( "selected=selected" ) : ( "" );
@@ -48,6 +49,17 @@
 				return "<input onblur='onSettingUpdated( this, \"{$Key}\", \"{$Name}\" );' type='text' value='{$Value}' />";
 			}elseif( $Type == 3 ) {
 				return "<input onblur='onSettingUpdated( this, \"{$Key}\", \"{$Name}\" );' type='number' value='{$Value}' />";
+			}elseif( $Type == 4 ) {
+				$Return = "<select onblur='onSettingUpdated( this, \"{$Key}\", \"{$Name}\" );'>";
+				
+				foreach( explode( ";", $Options ) as $Option ) {
+					if( isset( $Option ) && !empty( $Option ) ) {
+						$Selected = ( $Value == $Option )?( "selected=selected" ):( "" );
+						$Return .= "<option value='{$Option}' {$Selected}>{$Option}</option>";
+					}
+				}
+				
+				return $Return . "</select>";
 			}
 		}
 	}
