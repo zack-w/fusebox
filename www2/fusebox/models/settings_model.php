@@ -40,7 +40,7 @@
 				$SelectTwo = ( !$Value ) ? ( "selected=selected" ) : ( "" );
 				
 				return "
-					<select onblur='onSettingUpdated( this, \"{$Key}\", \"{$Name}\" );'>
+					<select onchange='onSettingUpdated( this, \"{$Key}\", \"{$Name}\" );'>
 						<option value='true' {$SelectOne}>Yes</option>
 						<option value='false' {$SelectTwo}>No</option>
 					</select>
@@ -50,7 +50,7 @@
 			}elseif( $Type == 3 ) {
 				return "<input onblur='onSettingUpdated( this, \"{$Key}\", \"{$Name}\" );' type='number' value='{$Value}' />";
 			}elseif( $Type == 4 ) {
-				$Return = "<select onblur='onSettingUpdated( this, \"{$Key}\", \"{$Name}\" );'>";
+				$Return = "<select onchange='onSettingUpdated( this, \"{$Key}\", \"{$Name}\" );'>";
 				
 				foreach( explode( ";", $Options ) as $Option ) {
 					if( isset( $Option ) && !empty( $Option ) ) {
