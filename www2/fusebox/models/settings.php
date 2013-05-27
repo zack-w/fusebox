@@ -3,8 +3,8 @@
 	/*
 		Setting Types
 		-------------------
-		1	TEXT
-		2	BOOLEAN
+		1	BOOLEAN
+		2	TEXT
 		3	INT
 	*/
 	
@@ -25,6 +25,8 @@
 			
 			if( $this->Type == 1 )
 				$this->Value = ( $this->Value == "true" )?( true ):( false );
+			elseif( $this->Type == 3 )
+				$this->Value = intval( $this->Value );
 		}
 		
 		public function UpdateValue( $NewValue )

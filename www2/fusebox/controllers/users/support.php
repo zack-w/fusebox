@@ -85,6 +85,8 @@ class Support extends SF_Controller {
 			$Replies[ $ID ][ "Username" ] = $this->ion_auth->user( $Reply[ "UID" ] )->row()->username;
 		}
 
+		$this->data[ "CanClose" ] = $this->Settings->Get("support_users_canclose")->Value;
+		$this->data[ "CanOpen" ] = $this->Settings->Get("support_users_canopen")->Value;
 		$this->data[ "Ticket" ] = $Ticket;
 		$this->data[ "Replies" ] = $Replies;
 		
@@ -170,12 +172,23 @@ class Support extends SF_Controller {
 		$this->ticket( $this->input->post( "ticket" ) );
 	}
 	
-	public function ticket_close( $ID , $redirect = "support" ) {
-		$this->support_model->UpdateTicketStatus( $ID, 4 ); // TODO :: Calculate the correct ticket status
-		redirect( $redirect);
-	}
 	public function ticket_open( $ID , $redirect = "support") {
-		$this->support_model->UpdateTicketStatus( $ID, 1 ); // TODO :: Calculate the correct ticket status
+		$CanOpen = $this->Settings->Get("support_users_canopen")->Value;
+		
+		if( $CanOpen ) {
+			$this->support_model->UpdateTicketStatus( $ID, 1 ); // TODO :: Calculate the correct ticket status
+		}
+		
+		redirect( $redirect );
+	}
+	
+	public function ticket_close( $ID , $redirect = "support" ) {
+		$CanClose = $this->Settings->Get("support_users_canclose")->Value;
+		
+		if( $CanClose ) {
+			$this->support_model->UpdateTicketStatus( $ID, 4 ); // TODO :: Calculate the correct ticket status
+		}
+		
 		redirect( $redirect );
 	}
 	

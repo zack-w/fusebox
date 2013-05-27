@@ -31,17 +31,17 @@
 								
 								<td style='padding: 8px;'>
 									<?
-									if($this->support_status->IsClosed($Ticket[ "Status" ]))
-									{
-										echo "<a href='support/ticket_open/".$Ticket[ 'ID' ]."' class='btn btn-success'>Open</a>";
-									}
-									else
-									{
-										echo "<a href='support/ticket_close/".$Ticket[ 'ID' ]."' class='btn btn-danger'>Close</a>";
-									}
+										if($this->support_status->IsClosed($Ticket[ "Status" ]))
+										{
+											$HREF = base_url( "admin/support/ticket_open/" . $Ticket[ "ID" ] );
+											echo "<a href='{$HREF}' class='btn btn-success'>Open</a>";
+										}
+										else
+										{
+											$HREF = base_url( "admin/support/ticket_close/" . $Ticket[ "ID" ] );
+											echo "<a href='{$HREF}' class='btn btn-danger'>Close</a>";
+										}
 									?>
-									
-									<!--<a href="#" onclick="document.getElementById('message').focus();" class="btn btn-large" style="margin-left: 10px;">Reply</a>-->
 								</td>
 							</tr>
 						</table>

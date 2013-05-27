@@ -29,20 +29,18 @@
 									<div><b>Updated:</b> <? $LastReply = end( $Replies ); echo timespan( $LastReply['Date'] ); ?> ago</div>
 								</td>
 								
-								<td style='padding: 8px;'>
-									<?
-									if($this->support_status->IsClosed($Ticket[ "Status" ]))
+								<?
+									if( $this->support_status->IsClosed($Ticket[ "Status" ]) && $CanOpen )
 									{
-										echo "<a href='support/ticket_open/".$Ticket[ 'ID' ]."' class='btn btn-success'>Open</a>";
+										$HREF = base_url( "users/support/ticket_open/" . $Ticket[ "ID" ] );
+										echo "<td style='padding: 8px;'><a href='{$HREF}' class='btn btn-success'>Open</a></td>";
 									}
-									else
+									elseif( $CanClose )
 									{
-										echo "<a href='support/ticket_close/".$Ticket[ 'ID' ]."' class='btn btn-danger'>Close</a>";
+										$HREF = base_url( "users/support/ticket_close/" . $Ticket[ "ID" ] );
+										echo "<td style='padding: 8px;'><a href='{$HREF}' class='btn btn-danger'>Close</a></td>";
 									}
-									?>
-									
-									<!--<a href="#" onclick="document.getElementById('message').focus();" class="btn btn-large" style="margin-left: 10px;">Reply</a>-->
-								</td>
+								?>
 							</tr>
 						</table>
 						
