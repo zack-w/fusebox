@@ -14,7 +14,7 @@
 			return true;
 		}
 		
-		public function AddToNav( $PageID, $IconClass, $NoPrefix = false, $Permission = "", $SubElements = null )
+		public function AddToNav( $PageID, $IconClass, $NoPrefix = false, $Permission = "", $SubElements = 0 )
 		{
 			array_push( $this->Locations, array(
 				"PageID" => $PageID,
@@ -22,7 +22,7 @@
 				"Icon" => $IconClass,
 				"LangText" => "base_page_" . $PageID,
 				"Permission" => $Permission,
-				"SubElements" => null,
+				"SubElements" => $SubElements,
 			) );
 		}
 	}

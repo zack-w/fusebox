@@ -9,6 +9,10 @@
     $lang['base_page_login'] = "Login";
     $lang['base_page_register'] = "Register";
 	$lang['base_page_settings'] = "Settings";
+	$lang['base_page_configure'] = "Configure";
+		$lang['base_page_configure_support'] = "Support";
+		$lang['base_page_configure_billing'] = "Billing";
+		$lang['base_page_configure_staff'] = "Staff";
 	
     //Support
     $lang['base_support_tickets'] = "Tickets";

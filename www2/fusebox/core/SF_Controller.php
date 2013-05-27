@@ -29,7 +29,7 @@ class SF_Controller extends CI_Controller
 		$this->lang->load('base');
 		$this->lang->load('auth');
 		$this->lang->load('settings');
-		$this->lang->load('permissions';
+		$this->lang->load('permissions');
 		
 		//Load Models
 		$this->load->model('settings_model');
@@ -59,9 +59,9 @@ class SF_Controller extends CI_Controller
 		$this->nav->AddToNav( "settings", "icon-edit" );
 		
 		$this->nav->AddToNav( "configure", "icon-wrench", false, "", array(
-			"Support",
-			"Billing",
-			"Staff",
+			array( "support", "conf_support" ),
+			array( "billing", "conf_support" ),
+			array( "staff", "conf_support" ),
 		) );
 		
 		$this->nav->AddToNav( "user", "icon-user", true );
