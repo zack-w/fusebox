@@ -29,6 +29,7 @@ class SF_Controller extends CI_Controller
 		$this->lang->load('base');
 		$this->lang->load('auth');
 		$this->lang->load('settings');
+		$this->lang->load('permissions';
 		
 		//Load Models
 		$this->load->model('settings_model');
