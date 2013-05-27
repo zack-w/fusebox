@@ -7,9 +7,6 @@ class Support extends SF_Controller {
 	public function __construct() {
 		parent::__construct();
 		
-		if( !$this->ion_auth->logged_in() )
-			redirect( "/" );
-		
 		$this->load->model("support_model");
 	}
 	
@@ -85,8 +82,8 @@ class Support extends SF_Controller {
 			$Replies[ $ID ][ "Username" ] = $this->ion_auth->user( $Reply[ "UID" ] )->row()->username;
 		}
 		
-		$this->data[ "CanClose" ] = $this->Settings->Get("support_users_canclose")->Value;
-		$this->data[ "CanOpen" ] = $this->Settings->Get("support_users_canopen")->Value;
+		$this->data[ "CanClose" ] = $this->settings_model->Get("support_users_canclose")->Value;
+		$this->data[ "CanOpen" ] = $this->settings_model->Get("support_users_canopen")->Value;
 		$this->data[ "Ticket" ] = $Ticket;
 		$this->data[ "Replies" ] = $Replies;
 		
@@ -155,7 +152,7 @@ class Support extends SF_Controller {
 		if (
 			( $this->form_validation->run() == false || $this->support_model->UserCanAccessTicket( $this->input->post( "ticket" ) ) == false ) || // Is the form valid, and can user access ticket
 			( $this->support_model->TicketExists( $this->input->post( "ticket" ) ) == false ) || // Does the ticket exist
-			( $Ticket[ "Status" ] == 4 && $this->Settings->Get("support_users_canopen")->Value == false ) // Can the user open the ticket if its closed?
+			( $Ticket[ "Status" ] == 4 && $this->settings_model->Get("support_users_canopen")->Value == false ) // Can the user open the ticket if its closed?
 		) {
 			$this->ticket( $this->input->post( "ticket" ) ); // There were errors, so load the ticket again
 			return;
@@ -163,7 +160,7 @@ class Support extends SF_Controller {
 		
 		$this->support_model->PostTicketReply( $this->input->post( "ticket" ), $this->user->id, $this->input->post( "message" ) );
 		
-		if( $this->Settings->Get("support_users_canclose")->Value && $this->input->post( "close" ) == "closed" )
+		if( $this->settings_model->Get("support_users_canclose")->Value && $this->input->post( "close" ) == "closed" )
 		{
 			$this->support_model->UpdateTicketStatus( $this->input->post( "ticket" ), 4 );
 		}else{
@@ -174,7 +171,7 @@ class Support extends SF_Controller {
 	}
 	
 	public function ticket_open( $ID , $redirect = "support") {
-		$CanOpen = $this->Settings->Get("support_users_canopen")->Value;
+		$CanOpen = $this->settings_model->Get("support_users_canopen")->Value;
 		
 		if( $CanOpen ) {
 			$this->support_model->UpdateTicketStatus( $ID, 1 ); // TODO :: Calculate the correct ticket status
@@ -184,7 +181,7 @@ class Support extends SF_Controller {
 	}
 	
 	public function ticket_close( $ID , $redirect = "support" ) {
-		$CanClose = $this->Settings->Get("support_users_canclose")->Value;
+		$CanClose = $this->settings_model->Get("support_users_canclose")->Value;
 		
 		if( $CanClose ) {
 			$this->support_model->UpdateTicketStatus( $ID, 4 ); // TODO :: Calculate the correct ticket status

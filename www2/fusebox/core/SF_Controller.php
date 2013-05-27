@@ -30,7 +30,7 @@ class SF_Controller extends CI_Controller
 		$this->lang->load('settings');
 		
 		//Load Models
-		$this->load->model('Settings');
+		$this->load->model('settings_model');
 		
 		$this->loginUser();
 		$this->SecurityCheck();
@@ -54,6 +54,7 @@ class SF_Controller extends CI_Controller
 	{
 		$this->nav->AddToNav( "dashboard", "icon-home" );
 		$this->nav->AddToNav( "support", "icon-comment" );
+		$this->nav->AddToNav( "settings", "icon-edit" );
 		$this->nav->AddToNav( "user", "icon-user", true );
 	}
 	
@@ -82,8 +83,8 @@ class SF_Controller extends CI_Controller
 	}
 	
 	public function header($title) {
-		$this->data["title"] = $title . " : ".$this->Settings->Get("general_display_name")->Value;
-		$this->data["general_display_name"] = $this->Settings->Get("general_display_name")->Value;
+		$this->data["title"] = $title . " : ".$this->settings_model->Get("general_display_name")->Value;
+		$this->data["general_display_name"] = $this->settings_model->Get("general_display_name")->Value;
 
 		$this->load->view("includes/header", $this->data);
 	}

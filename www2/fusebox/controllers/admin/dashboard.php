@@ -1,11 +1,15 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
-class Dashboard extends SF_Controller {
+	if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-	public function index()
-	{
-		$this->header( "Dashboard" );
-		$this->navbar();
+	class Dashboard extends SF_Controller {
+
+		public function index()
+		{
+			$this->header( "Dashboard" );
+			$this->navbar();
+		}
+		
 	}
-	
-}
+
+?>

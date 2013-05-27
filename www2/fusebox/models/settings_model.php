@@ -45,37 +45,42 @@
 		
 	}
 	
-	class Settings extends CI_Model {
+	class Settings_model extends CI_Model {
 		
+		public $Grabbed = false;
 		public $SettingCategories = array();
 		public $Settings = array();
 		
 		function __construct(){
 			parent::__construct();
-			$this->Grab();
 		}
 		
-		private function Grab()
-		{
+		public function Grab() {
 			$Query = get_instance()->db->query( "SELECT * FROM `system_settings`;" );
 			
 			foreach( $Query->result() as $Row )
 			{
 				$Setting = new Setting( $Row->Key, $Row->Value, $Row->Type, $Row->Category, $Row->Options );
-				$this->Settings[ $Row->Key ] = $Setting;
+				$this->settings_model->Settings[ $Row->Key ] = $Setting;
 			}
 			
 			$Query = get_instance()->db->query( "SELECT * FROM `system_settings_categories`;" );
 			
 			foreach( $Query->result() as $Row )
 			{
-				$this->Settings[ intval( $Row->ID ) ] = $Row->Name;
+				$this->settings_model->Settings[ intval( $Row->ID ) ] = $Row->Name;
 			}
+			
+			$this->settings_model->Grabbed = true;
 		}
 		
-		public function Get( $Key )
-		{
-			return $this->Settings[ $Key ];
+		public function Get( $Key ) {
+			if( $this->settings_model->Grabbed == false )
+				$this->settings_model->Grab();
+			
+			return $this->settings_model->Settings[ $Key ];
 		}
 		
 	}
+	
+?>
