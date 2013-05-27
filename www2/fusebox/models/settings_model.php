@@ -29,20 +29,27 @@
 				$this->Value = intval( $this->Value );
 		}
 		
-		public function UpdateValue( $NewValue )
-		{
-			if( $this->Type == 1 )
-				$NewValue = ( $NewValue == true )?( "true" ):( "false" );
-				
-			$NewValue = $this->db->escape( $NewValue );
-			$this->db->query( "UPDATE `system_settings` SET `value` = {$NewValue} WHERE `key` = " . ($this->Key) . ";" );
-		}
-		
-		public function GetText( $Special ) // eg. title or desc
-		{
+		public function GetText( $Special ) { // e.g. title or desc
 			return lang( "setting_" . $this->Key . "_{$Special}" );
 		}
 		
+		public function HTML_Form( $Key, $Type, $Value, $Name ) {
+			if( $Type == 1 ) {
+				$SelectOne = ( $Value ) ? ( "selected=selected" ) : ( "" );
+				$SelectTwo = ( !$Value ) ? ( "selected=selected" ) : ( "" );
+				
+				return "
+					<select onblur='onSettingUpdated( this, \"{$Key}\", \"{$Name}\" );'>
+						<option value='true' {$SelectOne}>Yes</option>
+						<option value='false' {$SelectTwo}>No</option>
+					</select>
+				";
+			}elseif( $Type == 2 ) {
+				return "<input onblur='onSettingUpdated( this, \"{$Key}\", \"{$Name}\" );' type='text' value='{$Value}' />";
+			}elseif( $Type == 3 ) {
+				return "<input onblur='onSettingUpdated( this, \"{$Key}\", \"{$Name}\" );' type='number' value='{$Value}' />";
+			}
+		}
 	}
 	
 	class Settings_model extends CI_Model {
@@ -55,20 +62,32 @@
 			parent::__construct();
 		}
 		
+		public function UpdateSettingValue( $Key, $Value ) {
+			if( $this->settings_model->Get( $Key )->Type == 1 )
+				$Value = ( $Value == true )?( "true" ):( "false" );
+				
+			$Value = $this->db->escape( $Value );
+			$Key = $this->db->escape( $Key );
+			
+			$this->db->query( "UPDATE `system_settings` SET `value` = {$Value} WHERE `Key` = " . ($Key) . ";" );
+		}
+		
 		public function Grab() {
 			$Query = get_instance()->db->query( "SELECT * FROM `system_settings`;" );
 			
+			// Load all settings and their values give them a Setting object then put into Settings
 			foreach( $Query->result() as $Row )
 			{
 				$Setting = new Setting( $Row->Key, $Row->Value, $Row->Type, $Row->Category, $Row->Options );
 				$this->settings_model->Settings[ $Row->Key ] = $Setting;
 			}
 			
+			// Load all categories, and put the name into $SettingCategories
 			$Query = get_instance()->db->query( "SELECT * FROM `system_settings_categories`;" );
 			
 			foreach( $Query->result() as $Row )
 			{
-				$this->settings_model->Settings[ intval( $Row->ID ) ] = $Row->Name;
+				$this->settings_model->SettingCategories[ intval( $Row->ID ) ] = lang( "settingcategory_" . $Row->SysName . "_title" );
 			}
 			
 			$this->settings_model->Grabbed = true;
