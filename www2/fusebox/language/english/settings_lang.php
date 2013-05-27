@@ -19,6 +19,8 @@
 	
     $lang['setting_general_language_title'] = "Language";
     $lang['setting_general_language_desc'] = "What lanaguge do you want to use?";
+	$lang['setting_general_language_option_en'] = "English";
+    $lang['setting_general_language_option_fr'] = "French";
 	
 	$lang['setting_users_allow_namechange_title'] = "Change Name";
 	$lang['setting_users_allow_namechange_desc'] = "Are users allowed to change their first and last names?";

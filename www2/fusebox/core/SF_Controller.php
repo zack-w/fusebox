@@ -56,6 +56,13 @@ class SF_Controller extends CI_Controller
 		$this->nav->AddToNav( "dashboard", "icon-home" );
 		$this->nav->AddToNav( "support", "icon-comment" );
 		$this->nav->AddToNav( "settings", "icon-edit" );
+		
+		$this->nav->AddToNav( "configure", "icon-wrench", false, "", array(
+			"Support",
+			"Billing",
+			"Staff",
+		) );
+		
 		$this->nav->AddToNav( "user", "icon-user", true );
 	}
 	
