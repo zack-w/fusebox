@@ -87,6 +87,8 @@
 						lifetime: 12000,
 						text: 'Successfully saved setting ' + RealName,
 					});
+				}else{
+					alert( Resp );
 				}
 			}
 		};

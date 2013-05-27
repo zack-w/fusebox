@@ -27,6 +27,9 @@
 	$lang['setting_users_allow_namechange_option_neither'] = "Neither";
 	$lang['setting_users_allow_namechange_option_both'] = "Firstname & Lastname";
 	
+	$lang['setting_users_allow_emailchange_title'] = "Can email";
+	$lang['setting_users_allow_emailchange_desc'] = "Are users allowed to change their email address?";
+	
 	$lang['setting_support_users_canclose_title'] = "Can users close?";
 	$lang['setting_support_users_canclose_desc'] = "Are users allowed to close their own support tickets?";
 	

@@ -36,7 +36,7 @@
 			
 			if( !isset( $_GET[ "key" ] ) || !isset( $_GET[ "value" ] ) )
 				die( "error" );
-				
+			
 			$Setting = $this->settings_model->Get( $_GET[ "key" ] );
 			$Value = $_GET[ "value" ];
 			

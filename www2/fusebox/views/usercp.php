@@ -21,28 +21,28 @@
 					
 					<div class="tab-content">
 						<div class="tab-pane active" id="profile">
-						<form id="edit-profile" class="form-horizontal" method="post" action="user/update/">
+						
+						<form class="form-horizontal" method="post" action="<?php echo site_url( "user/update" ); ?>">
 							<fieldset>
 								<div class="control-group">											
 									<label class="control-label" for="firstname">First Name</label>
 
 									<div class="controls">
-										<input type="text" class="input-medium" id="firstname" value="<?php echo $user->first_name; ?>" <?php if(!$CanChangeFirstname) echo "disabled"; ?>>
+										<input type="text" class="input-medium" name="firstname" value="<?php echo $user->first_name; ?>" <?php if(!$CanChangeFirstname) echo "disabled"; ?>>
 									</div> <!-- /controls -->				
 								</div> <!-- /control-group -->
 								
 								<div class="control-group">											
 									<label class="control-label" for="lastname">Last Name</label>
 									<div class="controls">
-										<input type="text" class="input-medium" id="lastname" value="<?php echo $user->last_name; ?>" <?php if(!$CanChangeLastname) echo "disabled"; ?>>
+										<input type="text" class="input-medium" name="lastname" value="<?php echo $user->last_name; ?>" <?php if(!$CanChangeLastname) echo "disabled"; ?>>
 									</div> <!-- /controls -->				
 								</div> <!-- /control-group -->
-								
 								
 								<div class="control-group">											
 									<label class="control-label" for="email">Email Address</label>
 									<div class="controls">
-										<input type="text" class="input-large" id="email" value="<?php echo $user->email; ?>">
+										<input type="text" class="input-large" id="email" value="<?php echo $user->email; ?>" <?php if(!$CanChangeEmail) echo "disabled"; ?>>
 									</div> <!-- /controls -->				
 								</div> <!-- /control-group -->
 								

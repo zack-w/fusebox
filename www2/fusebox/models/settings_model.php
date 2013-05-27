@@ -76,9 +76,13 @@
 		}
 		
 		public function UpdateSettingValue( $Key, $Value ) {
-			if( $this->settings_model->Get( $Key )->Type == 1 )
-				$Value = ( $Value == true )?( "true" ):( "false" );
-				
+			if( $this->settings_model->Get( $Key )->Type == 1 ) {
+				if( $Value == "false" || $Value == false )
+					$Value = "false";
+				else
+					$Value = "true";
+			}
+			
 			$Value = $this->db->escape( $Value );
 			$Key = $this->db->escape( $Key );
 			

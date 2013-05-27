@@ -19,6 +19,7 @@ class SF_Controller extends CI_Controller
 		$this->load->library('support_categories');
 		
 		//Load helpersr
+		$this->load->helper('form');
 		$this->load->helper('url');
 		$this->load->helper('date');
 		$this->load->helper('language');
