@@ -123,8 +123,7 @@ class Support extends SF_Controller {
 		$this->ticket( $TicketID );
 	}
 	
-	public function toggletickets()
-	{
+	public function toggletickets() {
 		$ToChangeString = $this->input->get( "tickets" );
 	
 		foreach( explode( ",", $ToChangeString ) as $TicketID )
@@ -168,7 +167,9 @@ class Support extends SF_Controller {
 		
 		if( $this->input->post( "close" ) == "closed" )
 		{
-				$this->support_model->UpdateTicketStatus( $this->input->post( "ticket" ), 4 );
+			$this->support_model->UpdateTicketStatus( $this->input->post( "ticket" ), 4 );
+		}else{
+			$this->support_model->UpdateTicketStatus( $this->input->post( "ticket" ), 3 );
 		}
 		
 		$this->ticket( $this->input->post( "ticket" ) );

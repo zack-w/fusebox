@@ -155,7 +155,7 @@ class Support extends SF_Controller {
 		if (
 			( $this->form_validation->run() == false || $this->support_model->UserCanAccessTicket( $this->input->post( "ticket" ) ) == false ) || // Is the form valid, and can user access ticket
 			( $this->support_model->TicketExists( $this->input->post( "ticket" ) ) == false ) || // Does the ticket exist
-			( $Ticket[ "Status" ] == 4 && $this->Settings->Get("support_users_canopen")->Value ) // Can the user open the ticket if its closed?
+			( $Ticket[ "Status" ] == 4 && $this->Settings->Get("support_users_canopen")->Value == false ) // Can the user open the ticket if its closed?
 		) {
 			$this->ticket( $this->input->post( "ticket" ) ); // There were errors, so load the ticket again
 			return;
@@ -163,9 +163,11 @@ class Support extends SF_Controller {
 		
 		$this->support_model->PostTicketReply( $this->input->post( "ticket" ), $this->user->id, $this->input->post( "message" ) );
 		
-		if( $this->input->post( "close" ) == "closed" )
+		if( $this->Settings->Get("support_users_canclose")->Value && $this->input->post( "close" ) == "closed" )
 		{
-				$this->support_model->UpdateTicketStatus( $this->input->post( "ticket" ), 4 );
+			$this->support_model->UpdateTicketStatus( $this->input->post( "ticket" ), 4 );
+		}else{
+			$this->support_model->UpdateTicketStatus( $this->input->post( "ticket" ), 2 );
 		}
 		
 		$this->ticket( $this->input->post( "ticket" ) );

@@ -111,18 +111,17 @@ class Support_model extends CI_Model {
 		return $InsertID;
 	}
 	
-	function PostTicketReply( $TID, $User, $Body ) {
+	function PostTicketReply( $TID, $UserID, $Body ) {
 		$Body = strip_tags( nl2br( $Body ), "<br>" );
 		
 		$Insert = array(
 			"TID" => intval( $TID ),
-			"UID" => intval( $User ),
+			"UID" => intval( $UserID ),
 			"Content" => $Body,
 			"Date" => time(),
 		);
 		
 		$this->db->insert( "support_tickets_replies", $Insert );
-		// TODO :: UPDATE TICKET STATUS
 	}
 	
 	function UpdateTicketStatus( $TID, $StatusID ) {
