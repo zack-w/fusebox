@@ -22,6 +22,10 @@
 	
 	$lang['setting_users_allow_namechange_title'] = "Change Name";
 	$lang['setting_users_allow_namechange_desc'] = "Are users allowed to change their first and last names?";
+	$lang['setting_users_allow_namechange_option_firstname'] = "Firstname Only";
+	$lang['setting_users_allow_namechange_option_lastname'] = "Lastname Only";
+	$lang['setting_users_allow_namechange_option_neither'] = "Neither";
+	$lang['setting_users_allow_namechange_option_both'] = "Firstname & Lastname";
 	
 	$lang['setting_support_users_canclose_title'] = "Can users close?";
 	$lang['setting_support_users_canclose_desc'] = "Are users allowed to close their own support tickets?";

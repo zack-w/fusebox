@@ -11,8 +11,11 @@
 			
 			$this->header( "UserCP" );
 			$this->navbar();
-
-			$this->data['users_allow_namechange'] = $this->Settings->get("users_allow_namechange")->Value;
+			
+			
+			$CanChangeName = $this->settings_model->get("users_allow_namechange")->Value;
+			$this->data['CanChangeFirstname'] = ($CanChangeName == "firstname" || $CanChangeName == "both");
+			$this->data['CanChangeLastname'] = ($CanChangeName == "lastname" || $CanChangeName == "both");
 			
 			$this->load->view( "usercp" , $this->data);
 			$this->footer();
@@ -60,7 +63,7 @@
 			$this->session->set_flashdata('messageSuccess', $this->ion_auth->messages());
 			redirect_raw('user/login', 'refresh');
 		}
-
+		
 		public function update()
 		{
 			$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required|xss_clean');

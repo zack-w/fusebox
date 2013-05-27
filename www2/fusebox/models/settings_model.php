@@ -55,7 +55,8 @@
 				foreach( explode( ";", $Options ) as $Option ) {
 					if( isset( $Option ) && !empty( $Option ) ) {
 						$Selected = ( $Value == $Option )?( "selected=selected" ):( "" );
-						$Return .= "<option value='{$Option}' {$Selected}>{$Option}</option>";
+						$OptionLang = lang( "setting_{$Key}_option_{$Option}" );
+						$Return .= "<option value='{$Option}' {$Selected}>{$OptionLang}</option>";
 					}
 				}
 				
