@@ -84,7 +84,7 @@ class Support extends SF_Controller {
 		foreach ( $Replies as $ID => $Reply ) {
 			$Replies[ $ID ][ "Username" ] = $this->ion_auth->user( $Reply[ "UID" ] )->row()->username;
 		}
-
+		
 		$this->data[ "CanClose" ] = $this->Settings->Get("support_users_canclose")->Value;
 		$this->data[ "CanOpen" ] = $this->Settings->Get("support_users_canopen")->Value;
 		$this->data[ "Ticket" ] = $Ticket;
@@ -121,8 +121,7 @@ class Support extends SF_Controller {
 		$this->ticket( $TicketID );
 	}
 	
-	public function toggletickets()
-	{
+	public function toggletickets() {
 		$ToChangeString = $this->input->get( "tickets" );
 	
 		foreach( explode( ",", $ToChangeString ) as $TicketID )
@@ -151,13 +150,13 @@ class Support extends SF_Controller {
 	public function ticket_respond() {
 		$this->form_validation->set_rules('message', 'Message', 'required|xss_clean|strip_tags|trim');
 		
-		if ( $this->form_validation->run() == false || $this->support_model->UserCanAccessTicket( $this->input->post( "ticket" ) ) == false ) {
-			$this->ticket( $this->input->post( "ticket" ) ); // There were errors, so load the ticket again
-			return;
-		}
+		$Ticket = $this->support_model->GetTicketByID( $this->input->post( "ticket" ) );
 		
-		if( $this->support_model->TicketExists( $this->input->post( "ticket" ) ) == false )
-		{
+		if (
+			( $this->form_validation->run() == false || $this->support_model->UserCanAccessTicket( $this->input->post( "ticket" ) ) == false ) || // Is the form valid, and can user access ticket
+			( $this->support_model->TicketExists( $this->input->post( "ticket" ) ) == false ) || // Does the ticket exist
+			( $Ticket[ "Status" ] == 4 && $this->Settings->Get("support_users_canopen")->Value ) // Can the user open the ticket if its closed?
+		) {
 			$this->ticket( $this->input->post( "ticket" ) ); // There were errors, so load the ticket again
 			return;
 		}

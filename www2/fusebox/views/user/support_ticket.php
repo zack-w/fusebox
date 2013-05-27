@@ -140,7 +140,15 @@
 									<label class="control-label">Message</label>
 									
 									<div class="controls">
-										<textarea name="message" id="message" rows="5" class="bigInput" style="resize: vertical;width: 97%;" ></textarea>
+										<?php
+											if( $CanOpen == false && $this->support_status->IsClosed($Ticket[ "Status" ]) )
+											{
+												$Message = "This ticket is closed and you don't have access to unlock it.";
+												echo '<textarea name="message" id="message" rows="5" class="bigInput" style="resize: vertical;width: 97%;" disabled=disabled >This ticket is closed.</textarea>';
+											}else{
+												echo '<textarea name="message" id="message" rows="5" class="bigInput" style="resize: vertical;width: 97%;" ></textarea>';
+											}
+										?>	
 									</div>
 								</div>
 								
