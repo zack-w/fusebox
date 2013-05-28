@@ -25,7 +25,7 @@
 										break;
 									}
 								}
-							
+								
 								echo "
 									<li class='dropdown {$Class}'>
 										<a href='#' class='dropdown-toggle' data-toggle='dropdown'>
@@ -45,7 +45,7 @@
 								echo "</ul></li>";
 							}else{
 								$Class = (is_active($Page["PageID"]))?("active"):("");
-							
+								
 								echo "
 									<li class='{$Class}'>
 										<a href='" . base_url( $Prefix . $Page["PageID"] ) . "' class='dropdown-toggle'>
