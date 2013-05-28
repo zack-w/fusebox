@@ -11,10 +11,10 @@
 		
 		function TicketExists( $TicketID ) {
 			$TicketID = intval( $TicketID );
-		
+			
 			if(empty( $TicketID ) )
 				return false;
-		
+			
 			$Query = $this->db->query( "SELECT COUNT(*) FROM `support_tickets` WHERE `ID` = " . $TicketID . ";" );
 			$Row = $Query->row_array();
 			
@@ -22,7 +22,7 @@
 		}
 		
 		function UserCanAccessTicket( $TicketID ) {
-			if( $this->ion_auth->is_admin() ) return true; // TODO :: Add permissions here
+			if( $this->ion_auth->is_admin() || $this->ion_auth->is_staff() ) return true; // TODO :: Add permissions here
 			
 			$Ticket = $this->GetTicketByID( $TicketID );
 			
