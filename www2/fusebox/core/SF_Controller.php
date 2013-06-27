@@ -61,7 +61,7 @@ class SF_Controller extends CI_Controller
 		$this->nav->AddToNav( "configure", "icon-wrench", false, "", array(
 			array( "support", "conf_support" ),
 			array( "billing", "conf_support" ),
-			array( "staff", "conf_support" ),
+			array( "usergroups", "conf_usergroups" ),
 		) );
 		
 		$this->nav->AddToNav( "user", "icon-user", true );

@@ -1,0 +1,6 @@
+- Allow staff/users to have signatures
+- Add a setting to enable signatures [one for users/staff]
+- Finish permissions
+- Finish contact page
+- [Support, Billing, Usergroups] configure page
+- Billing Related stuff
