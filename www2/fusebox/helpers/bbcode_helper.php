@@ -32,26 +32,7 @@
 		'<a href="\1">\2</a>',
 	  );
 
-<<<<<<< HEAD
 	  return str_replace( "\r\n", "<br />", preg_replace($find, $replace, $str) );
-=======
-  $str = str_replace(array("\r\n", "\r", "\n"), "<br>", $str);
-
-
-  $str = str_replace(array("\r\n", "\r", "\n"), "<br>", $str);
-
-
-  $find = array(
-    "'\[b\](.*?)\[/b\]'is",
-    "'\[i\](.*?)\[/i\]'is",
-    "'\[u\](.*?)\[/u\]'is",
-    "'\[s\](.*?)\[/s\]'is",
-    "'\[img\](.*?)\[/img\]'i",
-    "'\[url\](.*?)\[/url\]'i",
-    "'\[url=(.*?)\](.*?)\[/url\]'i"
-  );
->>>>>>> c8febc10eb0d09566b028326537f1e7861519b7b
-
 	}
 
 ?>
