@@ -57,6 +57,9 @@
     $lang['base_usercp_phoneNumber'] = "Phone Number";
 
     $lang['base_usercp_signature'] = "Signature";
+    $lang['base_usercp_signature_current'] = "Your current signature:";
+    $lang['base_usercp_signature_bbcode'] = "You may user BBCode in your signature.  Allowed codes are [b], [i], [u], [s], [img], and [url].";
+    $lang['base_usercp_signature_disabled'] = "Signatures are disabled.";
 
     $lang['base_usercp_save'] = "Save";
     $lang['base_usercp_cancel'] = "Cancel";

@@ -28,6 +28,9 @@ function parse_bbcode($str = '', $max_images = 0)
      $str_max = "style=685fdf61c833dc53d197f0a2d1a04148f90f0d4aquot;max-width:".$max_images."px; width: [removed]this.width > ".$max_images." ? ".$max_images.": true);685fdf61c833dc53d197f0a2d1a04148f90f0d4aquot;";
   endif;
 
+  $str = str_replace(array("\r\n", "\r", "\n"), "<br>", $str);
+
+
   $find = array(
     "'\[b\](.*?)\[/b\]'is",
     "'\[i\](.*?)\[/i\]'is",
@@ -35,9 +38,7 @@ function parse_bbcode($str = '', $max_images = 0)
     "'\[s\](.*?)\[/s\]'is",
     "'\[img\](.*?)\[/img\]'i",
     "'\[url\](.*?)\[/url\]'i",
-    "'\[url=(.*?)\](.*?)\[/url\]'i",
-    "'\[link\](.*?)\[/link\]'i",
-    "'\[link=(.*?)\](.*?)\[/link\]'i"
+    "'\[url=(.*?)\](.*?)\[/url\]'i"
   );
 
   $replace = array(
