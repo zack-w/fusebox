@@ -12,7 +12,7 @@
 			$this->header( "Configure Usergroups" );
 			$this->navbar();
 			
-			
+			$this->data[ "Usergroups" ] = $this->usergroup_model->GetAll();
 			
 			$this->view( "admin/configure/usergroups" );
 			$this->footer();

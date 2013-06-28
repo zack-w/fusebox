@@ -6,8 +6,6 @@
 		
 		public function __construct() {
 			parent::__construct();
-			
-			$this->load->model("support_model");
 		}
 		
 		public function index( $HasNoActive = null ){

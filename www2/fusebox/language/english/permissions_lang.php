@@ -1,5 +1,7 @@
 <?php
 
+	// This is the file for permissions- WHICH ARE USED FOR USERGROUPS ONLY
+
 	if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 	
 	/*
@@ -15,5 +17,5 @@
 	*/
 	
 	$lang['permission_general_isadmin_title'] = "Is Full Admin?";
-    $lang['permission_general_isadmin_desc'] = "Does this user get full unrestricted access?";
+    $lang['permission_general_isadmin_desc'] = "Does this usergroup get full unrestricted access?";
 	

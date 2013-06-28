@@ -14,9 +14,9 @@ class SF_Controller extends CI_Controller
 		$this->load->library('pagination');
 		$this->load->library('form_validation');
 		$this->load->library('nav');
-		$this->load->library('support_priorities');
-		$this->load->library('support_status');
-		$this->load->library('support_categories');
+		$this->load->library('support_priorities'); // Turn into model?
+		$this->load->library('support_status'); // Turn into model? 
+		$this->load->library('support_categories'); // Turn into model?
 		$this->load->library('states');
 		
 		//Load Helpers
@@ -35,6 +35,8 @@ class SF_Controller extends CI_Controller
 		
 		//Load Models
 		$this->load->model('settings_model');
+		$this->load->model('usergroup_model');
+		$this->load->model("support_model");
 		
 		$this->loginUser();
 		$this->SecurityCheck();
