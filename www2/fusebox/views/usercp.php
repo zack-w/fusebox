@@ -183,7 +183,8 @@
 												<select name="country"> 
 													<?php
 														$countries = array(   
-																	'United States'=>"United States");
+																	'United States'=>"United States",
+																	'Other'=>"Other");
 														if(!isset($user->country))
 															echo '<option value="" selected="selected">'.lang("base_usercp_selectACountry").'</option>';
 														else
