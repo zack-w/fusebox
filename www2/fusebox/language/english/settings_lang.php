@@ -37,5 +37,9 @@
 	
 	$lang['setting_support_users_canopen_title'] = "Can users open?";
 	$lang['setting_support_users_canopen_desc'] = "Are users allowed to open their own support tickets?";
-	
-?>
+
+	$lang['setting_users_allow_signature_bb_title'] = "Allow Signatures";
+	$lang['setting_users_allow_signature_bb_desc'] = "Are users allowed to have signatures?";
+	$lang['setting_users_allow_signature_bb_option_enabled'] = "Enabled";
+	$lang['setting_users_allow_signature_bb_option_staff'] = "Staff Only";
+	$lang['setting_users_allow_signature_bb_option_disabled'] = "Disabled";

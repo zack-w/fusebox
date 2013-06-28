@@ -167,16 +167,24 @@
 
 							<div class="tab-pane" id="signature">
 								<fieldset>
-									<h3>Your current signature:</h3>
-									<div class="signature" style="padding: 8px; background-color: #eaeaea">
-										<? echo parse_bbcode($user->signature); ?>
-									</div>
-									<br />
-									<p>
-										You may user BBCode in your signature.  Allowed codes are [b], [i], [u], [s], [url], and [link].
-									</p>
-									<textarea name="signature" style="margin: 0px; width: 600px; height: 150px;"><? echo $user->signature; ?></textarea>
-								</fieldset>
+									<?php
+										if($SignatureEnabled)
+										{
+									?>
+										<h3><? echo lang("base_usercp_signature_current"); ?></h3>
+										<div class="signature" style="padding: 8px; background-color: #eaeaea">
+											<? echo parse_bbcode($user->signature); ?>
+										</div>
+										<br />
+										<p>
+											<? echo lang("base_usercp_signature_bbcode"); ?>
+										</p>
+										<textarea name="signature" style="margin: 0px; width: 600px; height: 150px;"><? echo $user->signature; ?></textarea>
+									<?php
+										}
+										else
+										echo "<h3>".lang("base_usercp_signature_disabled")."</h3>";
+									?>
 							</div>
 						</div><!-- /tab-content -->
 						

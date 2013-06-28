@@ -15,6 +15,9 @@ class User extends SF_Controller {
 		$this->data['CanChangeLastname'] = ($CanChangeName == "lastname" || $CanChangeName == "both");
 		
 		$this->data['CanChangeEmail'] = $this->settings_model->get("users_allow_emailchange")->Value;
+
+		$SignatureEnabled = $this->settings_model->get("users_allow_signature_bb")->Value;
+		$this->data['SignatureEnabled'] = ($SignatureEnabled == "enabled" || ($this->ion_auth->is_staff($this->user->id) && $SignatureEnabled == "staff"));
 		
 		$this->data['state_array'] = $this->states->states;
 
@@ -97,7 +100,9 @@ class User extends SF_Controller {
 		$data[ 'phone' ] = $this->input->post('phone');
 
 		//Update signature TODO: strip html and clean this
-		$data[ 'signature' ] = $this->input->post('signature');
+		$SignatureEnabled = $this->settings_model->get("users_allow_signature_bb")->Value;
+		if ($SignatureEnabled == "enabled" || ($this->ion_auth->is_staff($this->user->id) && $SignatureEnabled == "staff"));
+			$data[ 'signature' ] = $this->input->post('signature');
 
 
 		//update the password if it was posted
