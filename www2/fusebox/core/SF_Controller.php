@@ -17,15 +17,17 @@ class SF_Controller extends CI_Controller
 		$this->load->library('support_priorities');
 		$this->load->library('support_status');
 		$this->load->library('support_categories');
+		$this->load->library('states');
 		
-		//Load helpersr
+		//Load Helpers
 		$this->load->helper('form');
 		$this->load->helper('url');
 		$this->load->helper('date');
 		$this->load->helper('language');
-		$this->load->helper('bootstrap_helper');
+		$this->load->helper('bootstrap');
+		$this->load->helper('bbcode');
 		
-		//Load classes
+		//Load Language Files
 		$this->lang->load('base');
 		$this->lang->load('auth');
 		$this->lang->load('settings');

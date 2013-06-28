@@ -79,5 +79,3 @@
 			get_instance()->db->query( "UPDATE `support_tickets_status` SET `Status` = '{$Text}' WHERE `ID` = {$ID};" );
 		}
 	}
-
-?>

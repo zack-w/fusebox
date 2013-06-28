@@ -46,5 +46,3 @@
 			get_instance()->db->query( "UPDATE `support_priorities` SET `Text` = '{$Text}' WHERE `ID` = {$ID};" );
 		}
 	}
-
-?>

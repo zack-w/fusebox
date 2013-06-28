@@ -56,6 +56,8 @@
     $lang['base_usercp_selectACountry'] = "Select a Country";
     $lang['base_usercp_phoneNumber'] = "Phone Number";
 
+    $lang['base_usercp_signature'] = "Signature";
+
     $lang['base_usercp_save'] = "Save";
     $lang['base_usercp_cancel'] = "Cancel";
 	

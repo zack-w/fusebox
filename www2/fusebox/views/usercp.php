@@ -18,6 +18,9 @@
 						<li>
 							<a href="#contact" data-toggle="tab"><? echo lang("base_usercp_contactInfo"); ?></a>
 						</li>
+						<li>
+							<a href="#signature" data-toggle="tab"><? echo lang("base_usercp_signature"); ?></a>
+						</li>
 					</ul>
 					
 					<br />
@@ -66,153 +69,115 @@
 								</fieldset>
 							</div><!-- /tab-pane active -->
 
-								<div class="tab-pane" id="contact">
-									<fieldset>
-										<div class="control-group">
-											<label class="control-label" for="company"><? echo lang("base_usercp_companyName"); ?></label>
-											<div class="controls">
-												<input type="text" class="input-medium" name="company" value="<?php echo $user->company; ?>">
-											</div> <!-- /controls -->	
-										</div> <!-- /control-group -->	
+							<div class="tab-pane" id="contact">
+								<fieldset>
+									<div class="control-group">
+										<label class="control-label" for="company"><? echo lang("base_usercp_companyName"); ?></label>
+										<div class="controls">
+											<input type="text" class="input-medium" name="company" value="<?php echo $user->company; ?>">
+										</div> <!-- /controls -->	
+									</div> <!-- /control-group -->	
 
-										<div class="control-group">
-											<label class="control-label" for="address1"><? echo lang("base_usercp_address1"); ?></label>
-											<div class="controls">
-												<input type="text" class="input-medium" name="address1" value="<?php echo $user->address1; ?>">
-											</div> <!-- /controls -->	
-										</div> <!-- /control-group -->	
-										<div class="control-group">
-											<label class="control-label" for="address2"><? echo lang("base_usercp_address2"); ?></label>
-											<div class="controls">
-												<input type="text" class="input-medium" name="address2" value="<?php echo $user->address2; ?>">
-											</div> <!-- /controls -->	
-										</div> <!-- /control-group -->
+									<div class="control-group">
+										<label class="control-label" for="address1"><? echo lang("base_usercp_address1"); ?></label>
+										<div class="controls">
+											<input type="text" class="input-medium" name="address1" value="<?php echo $user->address1; ?>">
+										</div> <!-- /controls -->	
+									</div> <!-- /control-group -->	
+									<div class="control-group">
+										<label class="control-label" for="address2"><? echo lang("base_usercp_address2"); ?></label>
+										<div class="controls">
+											<input type="text" class="input-medium" name="address2" value="<?php echo $user->address2; ?>">
+										</div> <!-- /controls -->	
+									</div> <!-- /control-group -->
 
-										<div class="control-group">
-											<label class="control-label" for="city"><? echo lang("base_usercp_city"); ?></label>
-											<div class="controls">
-												<input type="text" class="input-medium" name="city" value="<?php echo $user->city; ?>">
-											</div> <!-- /controls -->	
-										</div> <!-- /control-group -->	
+									<div class="control-group">
+										<label class="control-label" for="city"><? echo lang("base_usercp_city"); ?></label>
+										<div class="controls">
+											<input type="text" class="input-medium" name="city" value="<?php echo $user->city; ?>">
+										</div> <!-- /controls -->	
+									</div> <!-- /control-group -->	
 
-										<div class="control-group">											
-											<label class="control-label" for="state"><? echo lang("base_usercp_state"); ?></label>
-											<div class="controls">
-												<select name="state"> 
-													<?php
-														$states = array('AL'=>"Alabama",  
-																	'AK'=>"Alaska",  
-																	'AZ'=>"Arizona",  
-																	'AR'=>"Arkansas",  
-																	'CA'=>"California",  
-																	'CO'=>"Colorado",  
-																	'CT'=>"Connecticut",  
-																	'DE'=>"Delaware",  
-																	'DC'=>"District Of Columbia",  
-																	'FL'=>"Florida",  
-																	'GA'=>"Georgia",  
-																	'HI'=>"Hawaii",  
-																	'ID'=>"Idaho",  
-																	'IL'=>"Illinois",  
-																	'IN'=>"Indiana",  
-																	'IA'=>"Iowa",  
-																	'KS'=>"Kansas",  
-																	'KY'=>"Kentucky",  
-																	'LA'=>"Louisiana",  
-																	'ME'=>"Maine",  
-																	'MD'=>"Maryland",  
-																	'MA'=>"Massachusetts",  
-																	'MI'=>"Michigan",  
-																	'MN'=>"Minnesota",  
-																	'MS'=>"Mississippi",  
-																	'MO'=>"Missouri",  
-																	'MT'=>"Montana",
-																	'NE'=>"Nebraska",
-																	'NV'=>"Nevada",
-																	'NH'=>"New Hampshire",
-																	'NJ'=>"New Jersey",
-																	'NM'=>"New Mexico",
-																	'NY'=>"New York",
-																	'NC'=>"North Carolina",
-																	'ND'=>"North Dakota",
-																	'OH'=>"Ohio",  
-																	'OK'=>"Oklahoma",  
-																	'OR'=>"Oregon",  
-																	'PA'=>"Pennsylvania",  
-																	'RI'=>"Rhode Island",  
-																	'SC'=>"South Carolina",  
-																	'SD'=>"South Dakota",
-																	'TN'=>"Tennessee",  
-																	'TX'=>"Texas",  
-																	'UT'=>"Utah",  
-																	'VT'=>"Vermont",  
-																	'VA'=>"Virginia",  
-																	'WA'=>"Washington",  
-																	'WV'=>"West Virginia",  
-																	'WI'=>"Wisconsin",  
-																	'WY'=>"Wyoming");
-														if(!isset($user->state))
-															echo '<option value="" selected="selected">'.lang("base_usercp_selectAState").'</option>';
+									<div class="control-group">											
+										<label class="control-label" for="state"><? echo lang("base_usercp_state"); ?></label>
+										<div class="controls">
+											<select name="state"> 
+												<?php
+													if(!isset($user->state))
+														echo '<option value="" selected="selected">'.lang("base_usercp_selectAState").'</option>';
+													else
+														echo '<option value="">'.lang("base_usercp_selectAState").'</option>';
+
+													foreach($state_array as $code => $state)
+													{
+														echo '<option value="'.$code.'"';
+														if($code == $user->state)
+															echo ' selected="selected">';
 														else
-															echo '<option value="">'.lang("base_usercp_selectAState").'</option>';
+															echo '>';
+														echo $state.'</option>';
+													}
+												?>
+											</select>
+										</div> <!-- /controls -->				
+									</div> <!-- /control-group -->
 
-														foreach($states as $code => $state)
-														{
-															echo '<option value="'.$code.'"';
-															if($code == $user->state)
-																echo ' selected="selected">';
-															else
-																echo '>';
-															echo $state.'</option>';
-														}
-													?>
-												</select>
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
+									<div class="control-group">
+										<label class="control-label" for="zip"><? echo lang("base_usercp_zip"); ?></label>
+										<div class="controls">
+											<input type="text" class="input-medium" name="zip" value="<?php echo $user->zip; ?>">
+										</div> <!-- /controls -->	
+									</div> <!-- /control-group -->	
 
-										<div class="control-group">
-											<label class="control-label" for="zip"><? echo lang("base_usercp_zip"); ?></label>
-											<div class="controls">
-												<input type="text" class="input-medium" name="zip" value="<?php echo $user->zip; ?>">
-											</div> <!-- /controls -->	
-										</div> <!-- /control-group -->	
+									<div class="control-group">
+										<label class="control-label" for="country"><? echo lang("base_usercp_country"); ?></label>
+										<div class="controls">
+											<select name="country"> 
+												<?php
+													$countries = array(   
+																'United States'=>"United States",
+																'Other'=>"Other");
+													if(!isset($user->country))
+														echo '<option value="" selected="selected">'.lang("base_usercp_selectACountry").'</option>';
+													else
+														echo '<option value="">'.lang("base_usercp_selectACountry").'</option>';
 
-										<div class="control-group">
-											<label class="control-label" for="country"><? echo lang("base_usercp_country"); ?></label>
-											<div class="controls">
-												<select name="country"> 
-													<?php
-														$countries = array(   
-																	'United States'=>"United States",
-																	'Other'=>"Other");
-														if(!isset($user->country))
-															echo '<option value="" selected="selected">'.lang("base_usercp_selectACountry").'</option>';
+													foreach($countries as $code => $country)
+													{
+														echo '<option value="'.$code.'"';
+														if($country == $user->country)
+															echo ' selected="selected">';
 														else
-															echo '<option value="">'.lang("base_usercp_selectACountry").'</option>';
-
-														foreach($countries as $code => $country)
-														{
-															echo '<option value="'.$code.'"';
-															if($country == $user->country)
-																echo ' selected="selected">';
-															else
 																echo '>';
-															echo $country.'</option>';
-														}
-													?>
-												</select>
-											</div> <!-- /controls -->	
-										</div> <!-- /control-group -->	
+														echo $country.'</option>';
+													}
+												?>
+											</select>
+										</div> <!-- /controls -->	
+									</div> <!-- /control-group -->	
 
-										<div class="control-group">
-											<label class="control-label" for="phone"><? echo lang("base_usercp_phoneNumber"); ?></label>
-											<div class="controls">
-												<input type="text" class="input-medium" name="phone" value="<?php echo $user->phone; ?>">
-											</div> <!-- /controls -->	
-										</div> <!-- /control-group -->	
-									</fieldset>
-								</div><!-- /tab-pane -->
+									<div class="control-group">
+										<label class="control-label" for="phone"><? echo lang("base_usercp_phoneNumber"); ?></label>
+										<div class="controls">
+											<input type="text" class="input-medium" name="phone" value="<?php echo $user->phone; ?>">
+										</div> <!-- /controls -->	
+									</div> <!-- /control-group -->	
+								</fieldset>
+							</div><!-- /tab-pane -->
 
+							<div class="tab-pane" id="signature">
+								<fieldset>
+									<h3>Your current signature:</h3>
+									<div class="signature" style="padding: 8px; background-color: #eaeaea">
+										<? echo parse_bbcode($user->signature); ?>
+									</div>
+									<br />
+									<p>
+										You may user BBCode in your signature.  Allowed codes are [b], [i], [u], [s], [url], and [link].
+									</p>
+									<textarea name="signature" style="margin: 0px; width: 600px; height: 150px;"><? echo $user->signature; ?></textarea>
+								</fieldset>
+							</div>
 						</div><!-- /tab-content -->
 						
 						<div class="form-actions">

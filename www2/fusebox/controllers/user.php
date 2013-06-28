@@ -16,6 +16,8 @@ class User extends SF_Controller {
 		
 		$this->data['CanChangeEmail'] = $this->settings_model->get("users_allow_emailchange")->Value;
 		
+		$this->data['state_array'] = $this->states->states;
+
 		$this->load->view( "usercp" , $this->data);
 		$this->footer();
 	}
@@ -72,6 +74,8 @@ class User extends SF_Controller {
 		
 	public function update()
 	{
+		$this->load->helper("bbcode");
+
 		$CanChangeName = $this->settings_model->get("users_allow_namechange")->Value;
 			
 		$data = array();
@@ -82,7 +86,7 @@ class User extends SF_Controller {
 		if( $CanChangeName == "lastname" || $CanChangeName == "both" )
 			$data[ 'last_name' ] = $this->input->post('lastname');
 
-		//Update profile info
+		//Update profile info TODO: strip html and clean this
 		$data[ 'company' ] = $this->input->post('company');
 		$data[ 'address1' ] = $this->input->post('address1');
 		$data[ 'address2' ] = $this->input->post('address2');
@@ -91,7 +95,11 @@ class User extends SF_Controller {
 		$data[ 'zip' ] = $this->input->post('zip');
 		$data[ 'country' ] = $this->input->post('country');
 		$data[ 'phone' ] = $this->input->post('phone');
-		
+
+		//Update signature TODO: strip html and clean this
+		$data[ 'signature' ] = $this->input->post('signature');
+
+
 		//update the password if it was posted
 		if ($this->input->post('password'))
 		{
