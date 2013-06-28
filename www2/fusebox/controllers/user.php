@@ -81,6 +81,16 @@ class User extends SF_Controller {
 		
 		if( $CanChangeName == "lastname" || $CanChangeName == "both" )
 			$data[ 'last_name' ] = $this->input->post('lastname');
+
+		//Update profile info
+		$data[ 'company' ] = $this->input->post('company');
+		$data[ 'address1' ] = $this->input->post('address1');
+		$data[ 'address2' ] = $this->input->post('address2');
+		$data[ 'city' ] = $this->input->post('city');
+		$data[ 'state' ] = $this->input->post('state');
+		$data[ 'zip' ] = $this->input->post('zip');
+		$data[ 'country' ] = $this->input->post('country');
+		$data[ 'phone' ] = $this->input->post('phone');
 		
 		//update the password if it was posted
 		if ($this->input->post('password'))
@@ -93,6 +103,8 @@ class User extends SF_Controller {
 			
 		$this->ion_auth->update( $this->user->id, $data );
 		$this->session->set_flashdata('message', "User Saved");
+
+
 		redirect_raw( "user" );
 	}
 	  

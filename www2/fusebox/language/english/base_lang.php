@@ -35,4 +35,27 @@
     $lang['base_support_ticketStatus_open'] = "Open";
     $lang['base_support_ticketStatus_closed'] = "Closed";
     $lang['base_support_ticketStatus_onHold'] = "On Hold";
+
+    //UserCP
+    $lang['base_usercp_profile'] = "Profile";
+    $lang['base_usercp_contactInfo'] = "Contact Info";
+
+    $lang['base_usercp_firstName'] = "First Name";
+    $lang['base_usercp_lastName'] = "Last Name";
+    $lang['base_usercp_emailAddress'] = "Email Address";
+    $lang['base_usercp_password'] = "Password";
+    $lang['base_usercp_confirm'] = "Confirm";
+    $lang['base_usercp_companyName'] = "Company Name";
+    $lang['base_usercp_address1'] = "Address 1";
+    $lang['base_usercp_address2'] = "Address 2";
+    $lang['base_usercp_city'] = "City";
+    $lang['base_usercp_state'] = "State";
+    $lang['base_usercp_selectAState'] = "Select a State";
+    $lang['base_usercp_zip'] = "Zip Code";
+    $lang['base_usercp_country'] = "Country";
+    $lang['base_usercp_selectACountry'] = "Select a Country";
+    $lang['base_usercp_phoneNumber'] = "Phone Number";
+
+    $lang['base_usercp_save'] = "Save";
+    $lang['base_usercp_cancel'] = "Cancel";
 	
