@@ -730,8 +730,6 @@ class Ion_auth_model extends CI_Model
 
 		$row = $this->response->row();
 		$this->response->free_result();
-
-		$row->username = $row->first_name . " " . $row->last_name;
 		
 		return $row;
 	}

@@ -90,7 +90,7 @@
 		}
 		
 		public function ticket_create() {
-			$this->form_validation->set_rules('title', 'Title', 'xss_clean|strip_tags|trim|max_length[30]');
+			$this->form_validation->set_rules('title', 'Title', 'xss_clean|strip_tags|trim|max_length[30]|ctype_alnum');
 			$this->form_validation->set_rules('message', 'Message', 'required|xss_clean|trim');
 			$this->form_validation->set_rules('priority', 'Priority', 'required|numeric');
 			$this->form_validation->set_rules('category', 'Category', 'required|numeric');
