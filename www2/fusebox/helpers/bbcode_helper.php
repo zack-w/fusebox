@@ -38,6 +38,9 @@
   $str = str_replace(array("\r\n", "\r", "\n"), "<br>", $str);
 
 
+  $str = str_replace(array("\r\n", "\r", "\n"), "<br>", $str);
+
+
   $find = array(
     "'\[b\](.*?)\[/b\]'is",
     "'\[i\](.*?)\[/i\]'is",
