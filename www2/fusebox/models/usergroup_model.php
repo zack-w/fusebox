@@ -8,6 +8,17 @@
 		public $Flags = "";
 		public $NumUsers = 0;
 		public $Deleteable = true;
+		
+		// TODO :: Revoke Permission
+		
+		public function GivePermission( $PermID ) {
+			$this->Flags = get_instance()->better_bitwise->AddFlag( $this->Flags, $PermID );
+			get_instance()->db->query( "UPDATE `usergroups` SET `Flags` = '{$this->Flags}' WHERE `ID` = {$this->ID};" );
+		}
+		
+		public function HasPermission( $PermID ) {
+			return get_instance()->better_bitwise->HasFlag( $this->Flags, $PermID );
+		}
 	}
 
 	class Permission {
@@ -38,6 +49,16 @@
 		public static $Grabbed = false;
 		public static $Categories = array();
 		public static $Permissions = array();
+		
+		static function GetByKey( $Key ) {
+			if( Permissions::$Grabbed == false ) Permissions::Grab();
+			
+			foreach( Permissions::$Permissions as $Perm ) {
+				if( $Perm->Key == $Key ) return $Perm;
+			}
+			
+			return false;
+		}
 		
 		static function GetAll() {
 			if( Permissions::$Grabbed == false ) Permissions::Grab();
@@ -84,6 +105,18 @@
 		function GetAll() {
 			if( $this->Grabbed == false ) $this->GrabAll();
 			return $this->Objects;
+		}
+		
+		function GetByID( $ID ) {
+			if( $this->Grabbed == false ) $this->GrabAll();
+		
+			foreach( $this->Objects as $Obj ) {
+				if( $Obj->ID == $ID ) {
+					return $Obj;
+				}
+			}
+			
+			return false;
 		}
 		
 		function GrabAll() {

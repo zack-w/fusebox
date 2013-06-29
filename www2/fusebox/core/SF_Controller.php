@@ -10,6 +10,7 @@ class SF_Controller extends CI_Controller
 		$this->load->database();
 		
 		//Load Libraries
+		$this->load->library('better_bitwise');
 		$this->load->library('ion_auth');
 		$this->load->library('pagination');
 		$this->load->library('form_validation');

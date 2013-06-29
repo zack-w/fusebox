@@ -41,7 +41,7 @@
 											<tr>
 												<td>Usergroup Name</td>
 												<td>This is the name of the usergroup</td>
-												<td><input type='text' value='' /></td>
+												<td><input type='text' value='{$UsergroupObj->Name}' /></td>
 											</tr>
 										";
 									}elseif( $CurCat == 2 ) {
@@ -66,9 +66,9 @@
 													<td>{$Permission->GetDesc()}</td>
 													
 													<td>
-														<select>
-															<option>Allow</option>
-															<option>Disallow</option>
+														<select onchange='onSettingUpdated(self, \"{$Permission->Key}\", \"{$Permission->GetName()}\");'>
+															<option value='1'>Allow</option>
+															<option value='0'>Disallow</option>
 														</select>
 													</td>
 												</tr>
@@ -84,3 +84,39 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	var Loc = location.protocol + '//' + location.host + location.pathname + "/ajax_updateperm";
+	
+	function onSettingUpdated( Ele, Key, RealName )
+	{
+		var HTTP = new XMLHttpRequest();
+		
+		HTTP.onreadystatechange = function() {
+			if( HTTP.readyState == 4 && HTTP.status == 200 ) {
+				var Resp = HTTP.responseText;
+				
+				if( Resp == "error" ) {
+					$.msgGrowl ({
+						type: "error",
+						title: 'Save Failure',
+						lifetime: 12000,
+						text: 'Unable to save permission ' + RealName,
+					});
+				}else if( Resp == "success" ) {
+					$.msgGrowl ({
+						type: "success",
+						title: 'Save Success',
+						lifetime: 12000,
+						text: 'Successfully saved permission ' + RealName,
+					});
+				}else{
+					alert( Resp );
+				}
+			}
+		};
+		
+		HTTP.open( "GET", Loc + "?key=" + Key + "&value=" + Ele.value + "&usergroup=" + <?php echo $CurUsergroup; ?>, true );
+		HTTP.send();
+	}
+</script>
