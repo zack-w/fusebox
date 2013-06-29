@@ -16,6 +16,22 @@
 			}
 		}
 		
+		public function RemoveFlag( $CurBit, $Flag, $CharAt = 0 ) {
+			if( $this->HasFlag( $CurBit, $Flag ) == false ) return $CurBit;
+			
+			if( $Flag > 7 ) {
+				return RemoveFlag( $CurBit, $Flag - 8, $CharAt + 1 );
+			}
+			
+			$Byte = ord( substr( $CurBit, $CharAt, 1 ) ) + 1;
+			
+			$Front = substr( $CurBit, 0, $CharAt );
+			$NewByte = chr( ($Byte & ~(pow( 2, $Flag ))) - 1 );
+			$End = substr( $CurBit, $CharAt + 1, strlen( $CurBit ) - ($CharAt + 1) );
+			
+			return ($Front . $NewByte . $End);
+		}
+		
 		public function AddFlag( $CurBit, $Flag, $CharAt = 0 ) {
 			$NumBytes = strlen( $CurBit );
 			$Byte = substr( $CurBit, $CharAt, 1 );
