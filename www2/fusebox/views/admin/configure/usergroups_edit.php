@@ -14,8 +14,7 @@
 							<?php
 								foreach( Permissions::GetCategories() as $Cat )
 								{
-									$CatName = lang( "permissioncategory_{$Cat->Key}_title" );
-									echo "<a href='?id={$CurUsergroup}&cat={$Cat->ID}'><strong>{$CatName}</strong></a><br />";
+									echo "<a href='?id={$CurUsergroup}&cat={$Cat->ID}'><strong>{$Cat->GetName()}</strong></a><br />";
 								}
 							?>
 						</div>
@@ -37,13 +36,45 @@
 								</tr>
 								
 								<?php
-									echo "
-										<tr>
-											<td>Usergroup Name</td>
-											<td>This is the name of the usergroup</td>
-											<td><input type='text' value='' /></td>
-										</tr>
-									";
+									if( $CurCat == 1 ) {
+										echo "
+											<tr>
+												<td>Usergroup Name</td>
+												<td>This is the name of the usergroup</td>
+												<td><input type='text' value='' /></td>
+											</tr>
+										";
+									}elseif( $CurCat == 2 ) {
+										echo "
+											<tr>
+												<td>Support Departments</td>
+												<td>What support departments is this user apart of?</td><td>
+										";
+										
+										foreach( $this->support_categories->Items as $CatID => $CatName ) {
+											echo "<input type='checkbox' name='department_{$CatID}' style='margin: 0 5px 3px 0;' /> {$CatName}<br />";
+										}
+										
+										echo "</td></tr>";
+									}
+									
+									foreach( Permissions::GetAll() as $Permission ) {
+										if( $Permission->Category == $CurCat ) {
+											echo "
+												<tr>
+													<td>{$Permission->GetName()}</td>
+													<td>{$Permission->GetDesc()}</td>
+													
+													<td>
+														<select>
+															<option>Allow</option>
+															<option>Disallow</option>
+														</select>
+													</td>
+												</tr>
+											";
+										}
+									}
 								?>
 							</table>
 						</div>

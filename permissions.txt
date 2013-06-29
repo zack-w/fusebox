@@ -1,0 +1,11 @@
+- Usergroup Name (*)
+- Support Departments Accessable (*)
+- Is full admin (allows editing settings, configurations, and adding staff members)
+- Can close support tickets
+- Can view client profile
+- Can edit client profiles
+- Can open new tickets
+- Can change ticket department
+- Can change ticket status
+- Can view all tickets
+- Can suspend users

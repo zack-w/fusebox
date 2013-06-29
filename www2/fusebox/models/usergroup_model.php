@@ -1,7 +1,6 @@
 <?php
 
 	class Usergroup {
-		
 		public $ID = -1;
 		public $Name = "";
 		public $Description = "";
@@ -9,16 +8,29 @@
 		public $Flags = "";
 		public $NumUsers = 0;
 		public $Deleteable = true;
-		
 	}
 
 	class Permission {
+		public $ID = -1;
+		public $Key = "";
+		public $Category = 0;
 		
+		public function GetName() {
+			return lang( "permission_{$this->Key}_title" );
+		}
+		
+		public function GetDesc() {
+			return lang( "permission_{$this->Key}_desc" );
+		}
 	}
 	
 	class PermissionCat {
-		public $ID;
-		public $Key;
+		public $ID = -1;
+		public $Key = "";
+		
+		public function GetName() {
+			return lang( "permissioncategory_" . $this->Key . "_title" );
+		}
 	}
 	
 	class Permissions {
@@ -26,6 +38,11 @@
 		public static $Grabbed = false;
 		public static $Categories = array();
 		public static $Permissions = array();
+		
+		static function GetAll() {
+			if( Permissions::$Grabbed == false ) Permissions::Grab();
+			return Permissions::$Permissions;
+		}
 		
 		static function Grab() {
 			Permissions::$Grabbed = true;
@@ -41,6 +58,15 @@
 				$PermCat->ID = $Row->ID;
 				$PermCat->Key = $Row->Key;
 				array_push( Permissions::$Categories, $PermCat );
+			}
+			
+			foreach( $Permissions->result() as $Row )
+			{
+				$Perm = new Permission();
+				$Perm->ID = $Row->ID;
+				$Perm->Key = $Row->Key;
+				$Perm->Category = $Row->Category;
+				array_push( Permissions::$Permissions, $Perm );
 			}
 		}
 		

@@ -26,8 +26,8 @@
 			$this->header( "Configure Usergroups" );
 			$this->navbar();
 			
-			$CurCat = $this->input->get( 'cid' );
-			if( $CurCat ) $this->data[ "CurCat" ] = 1;
+			$CurCat = $this->input->get( 'cat' );
+			if( empty( $CurCat ) ) $CurCat = 1;
 			
 			$this->data[ "CurUsergroup" ] = $CurUsergroup;
 			$this->data[ "CurCat" ] = $CurCat;
