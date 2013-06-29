@@ -50,7 +50,6 @@
 				die( "error" );
 			
 			$this->settings_model->UpdateSettingValue( $_GET[ "key" ], $Value );
-			die( "success" );
 		}
 		
 	}

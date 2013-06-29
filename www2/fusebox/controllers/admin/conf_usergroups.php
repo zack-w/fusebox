@@ -51,15 +51,11 @@
 			
 			if( intval( $_GET['value'] ) == 1 ) {
 				$Usergroup->GivePermission( $Permission->ID );
+			}else{
+				$Usergroup->RemovePermission( $Permission->ID );
 			}
 			
-			echo $Usergroup->HasPermission( 1 )?( "y" ):( "n" );
-			echo $Usergroup->HasPermission( 2 )?( "y" ):( "n" );
-			echo $Usergroup->HasPermission( 3 )?( "y" ):( "n" );
-			echo $Usergroup->HasPermission( 4 )?( "y" ):( "n" );
-			echo $Usergroup->HasPermission( 5 )?( "y" ):( "n" );
-			echo $Usergroup->HasPermission( 6 )?( "y" ):( "n" );
-			echo $Usergroup->HasPermission( 7 )?( "y" ):( "n" );
+			die( "success" );
 		}
 		
 	}

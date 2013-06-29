@@ -60,15 +60,17 @@
 									
 									foreach( Permissions::GetAll() as $Permission ) {
 										if( $Permission->Category == $CurCat ) {
+											$SelectDisallow = ( $UsergroupObj->HasPermission( $Permission->ID ) == false )?( "selected" ):( "" );
+											
 											echo "
 												<tr>
 													<td>{$Permission->GetName()}</td>
 													<td>{$Permission->GetDesc()}</td>
 													
 													<td>
-														<select onchange='onSettingUpdated(self, \"{$Permission->Key}\", \"{$Permission->GetName()}\");'>
+														<select onfocus='this.selectedInfex = -1;' onchange='onSettingUpdated(this, \"{$Permission->Key}\", \"{$Permission->GetName()}\");'>
 															<option value='1'>Allow</option>
-															<option value='0'>Disallow</option>
+															<option value='0' {$SelectDisallow}>Disallow</option>
 														</select>
 													</td>
 												</tr>
@@ -86,7 +88,7 @@
 </div>
 
 <script>
-	var Loc = location.protocol + '//' + location.host + location.pathname + "/ajax_updateperm";
+	var Loc = "<?php echo base_url( "/admin/conf_usergroups/ajax_updateperm" ); ?>";
 	
 	function onSettingUpdated( Ele, Key, RealName )
 	{
@@ -116,7 +118,7 @@
 			}
 		};
 		
-		HTTP.open( "GET", Loc + "?key=" + Key + "&value=" + Ele.value + "&usergroup=" + <?php echo $CurUsergroup; ?>, true );
+		HTTP.open( "GET", Loc + "?key=" + Key + "&value=" + Ele.value + "&usergroup=<?php echo $CurUsergroup; ?>", true );
 		HTTP.send();
 	}
 </script>

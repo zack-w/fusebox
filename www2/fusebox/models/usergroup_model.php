@@ -9,7 +9,10 @@
 		public $NumUsers = 0;
 		public $Deleteable = true;
 		
-		// TODO :: Revoke Permission
+		public function RemovePermission( $PermID ) {
+			$this->Flags = get_instance()->better_bitwise->RemoveFlag( $this->Flags, $PermID );
+			get_instance()->db->query( "UPDATE `usergroups` SET `Flags` = '{$this->Flags}' WHERE `ID` = {$this->ID};" );
+		}
 		
 		public function GivePermission( $PermID ) {
 			$this->Flags = get_instance()->better_bitwise->AddFlag( $this->Flags, $PermID );
