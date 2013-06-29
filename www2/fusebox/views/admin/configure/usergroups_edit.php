@@ -41,7 +41,7 @@
 											<tr>
 												<td>Usergroup Name</td>
 												<td>This is the name of the usergroup</td>
-												<td><input type='text' value='{$UsergroupObj->Name}' /></td>
+												<td><input onblur='onSettingUpdated(this, \"name\", \"Usergroup Name\");' type='text' value='{$UsergroupObj->Name}' /></td>
 											</tr>
 										";
 									}elseif( $CurCat == 2 ) {
@@ -52,7 +52,8 @@
 										";
 										
 										foreach( $this->support_categories->Items as $CatID => $CatName ) {
-											echo "<input type='checkbox' name='department_{$CatID}' style='margin: 0 5px 3px 0;' /> {$CatName}<br />";
+											$Checked = ( $UsergroupObj->HasTicketCat( $CatID ) )?( "checked" ):( "" );
+											echo "<input {$Checked} onchange='onSettingUpdated(this, \"{$CatID}\", \"Support Departments\");' type='checkbox' name='department_{$CatID}' style='margin: 0 5px 3px 0;' /> {$CatName}<br />";
 										}
 										
 										echo "</td></tr>";
@@ -118,7 +119,13 @@
 			}
 		};
 		
-		HTTP.open( "GET", Loc + "?key=" + Key + "&value=" + Ele.value + "&usergroup=<?php echo $CurUsergroup; ?>", true );
+		var Val = Ele.value;
+		
+		if( Ele.type == "checkbox" ) {
+			Val = ( Ele.checked )?( "enable_cat" ):( "disable_cat" );
+		}
+		
+		HTTP.open( "GET", Loc + "?key=" + Key + "&value=" + Val + "&usergroup=<?php echo $CurUsergroup; ?>", true );
 		HTTP.send();
 	}
 </script>

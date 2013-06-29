@@ -46,6 +46,24 @@
 			$Usergroup = $this->usergroup_model->GetByID( intval( $this->input->get('usergroup') ) );
 			if( $Usergroup == false ) die( "error" );
 			
+			if( $_GET[ "key" ] == "name" ) {
+				$NewName = $this->db->escape( $_GET[ "value" ] );
+				get_instance()->db->query( "UPDATE `usergroups` SET `Name` = {$NewName} WHERE `ID` = {$Usergroup->ID};" );
+				die( "success" );
+			}
+			
+			if( $_GET[ "value" ] == "enable_cat" || $_GET[ "value" ] == "disable_cat" ) {
+				$CatID = intval( $_GET['key'] );
+				
+				if( $_GET[ "value" ] == "enable_cat" ) {
+					$Usergroup->AddTicketCat( $CatID );
+				}else{
+					$Usergroup->RemoveTicketCat( $CatID );
+				}
+				
+				die( "success" );
+			}
+			
 			$Permission = Permissions::GetByKey( $this->input->get('key') );
 			if( $Permission == false ) die( "error" );
 			

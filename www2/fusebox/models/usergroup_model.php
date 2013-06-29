@@ -4,10 +4,24 @@
 		public $ID = -1;
 		public $Name = "";
 		public $Description = "";
-		public $TicketCats = -1;
+		public $TicketCats = 0;
 		public $Flags = "";
 		public $NumUsers = 0;
 		public $Deleteable = true;
+		
+		public function AddTicketCat( $CatID ) {
+			$this->TicketCats = $this->TicketCats | pow( 2, $CatID );
+			get_instance()->db->query( "UPDATE `usergroups` SET `TicketCats` = {$this->TicketCats} WHERE `ID` = {$this->ID};" );
+		}
+		
+		public function HasTicketCat( $CatID ) {
+			return ( $this->TicketCats & pow( 2, $CatID ) );
+		}
+		
+		public function RemoveTicketCat( $CatID ) {
+			$this->TicketCats = $this->TicketCats & ~(pow( 2, $CatID ));
+			get_instance()->db->query( "UPDATE `usergroups` SET `TicketCats` = {$this->TicketCats} WHERE `ID` = {$this->ID};" );
+		}
 		
 		public function RemovePermission( $PermID ) {
 			$this->Flags = get_instance()->better_bitwise->RemoveFlag( $this->Flags, $PermID );
