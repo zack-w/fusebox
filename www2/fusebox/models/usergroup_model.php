@@ -10,12 +10,46 @@
 		public $NumUsers = 0;
 		public $Deleteable = true;
 		
-		public function CanAccessTicket( $TicketID ) {
-			
-		}
-		
 	}
 
+	class Permission {
+		
+	}
+	
+	class PermissionCat {
+		public $ID;
+		public $Key;
+	}
+	
+	class Permissions {
+		
+		public static $Grabbed = false;
+		public static $Categories = array();
+		public static $Permissions = array();
+		
+		static function Grab() {
+			Permissions::$Grabbed = true;
+			Permissions::$Categories = array();
+			Permissions::$Permissions = array();
+			
+			$PermissionCats = get_instance()->db->query( "SELECT * FROM `permissions_categories`;" );
+			$Permissions = get_instance()->db->query( "SELECT * FROM `permissions`;" );
+			
+			foreach( $PermissionCats->result() as $Row )
+			{
+				$PermCat = new PermissionCat();
+				$PermCat->ID = $Row->ID;
+				$PermCat->Key = $Row->Key;
+				array_push( Permissions::$Categories, $PermCat );
+			}
+		}
+		
+		static function GetCategories() {
+			if( Permissions::$Grabbed == false ) Permissions::Grab();
+			return Permissions::$Categories;
+		}
+	}
+	
 	class Usergroup_model extends CI_Model {
 		
 		public $Grabbed = false;

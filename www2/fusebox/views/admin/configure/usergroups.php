@@ -25,7 +25,7 @@
 								<?php
 									foreach( $Usergroups as $Usergroup ) {
 										$Desc = empty( $Usergroup->Description )?( "<i>No description entered..</i>" ):( $Usergroup->Description );
-										$EditButton = "<a><button class='btn btn-mini'>Edit</button></a>";
+										$EditButton = "<a href='".(base_url("admin/conf_usergroups/edit"))."?id={$Usergroup->ID}'><button class='btn btn-mini'>Edit</button></a>";
 										$DelButton = ($Usergroup->Deleteable)?( "<a><button class='btn btn-mini btn-danger'>Delete</button></a>" ):("");
 										
 										echo "
